@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <header class="bg-white shadow-sm">
+        <div class="flex items-center justify-between p-3">
+          <img
+            src="assets/menu.png"
+            id="menu-toggle"
+            class="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 menu-icon"
+            alt="Menu icon"
+          />
+          <a href="index.html"
+            ><h1 class="text-xl font-semibold md:text-3xl">WiseCart</h1></a
+          >
+          <a href="profile.html"
+            ><img
+              src="assets/profile.png"
+              class="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12"
+              alt="Profile icon"
+          /></a>
+        </div>
+      </header>
+
+    <!-- Sidebar -->
+    <!-- <nav id="sidebar" class="sidebar">
+        <ul class="mb-4">
+            <li class="py-1"><a href="#">Sign in</a></li>
+            <li class="py-1"><a href="#">Sign up</a></li>
+        </ul>
+        <hr class="border-b-1 border-gray-300 mb-2">
+        <ul class="mb-4">
+            <li class="py-1"><a href="#" class="flex justify-between items-center">Featured shop 1 <span
+                        class="px-2 py-1 border-2 border-red-600 text-red-600 text-xs rounded-md bg-red-100 font-semibold">featured</span></a>
+            </li>
+            <li class="py-1"><a href="#" class="flex justify-between items-center">Featured shop 2 <span
+                        class="px-2 py-1 border-2 border-red-600 text-red-600 text-xs rounded-md bg-red-100 font-semibold">featured</span></a>
+            </li>
+            <li class="py-1"><a href="#" class="flex justify-between items-center">Featured shop 3 <span
+                        class="px-2 py-1 border-2 border-red-600 text-red-600 text-xs rounded-md bg-red-100 font-semibold">featured</span></a>
+            </li>
+            <li class="py-1"><a href="#">Shop 1</a></li>
+            <li class="py-1"><a href="#">Shop 2</a></li>
+            <li class="py-1"><a href="#">Shop 3</a></li>
+            <li class="py-1"><a href="#" class="font-semibold">All shops ></a></li>
+        </ul>
+        <hr class="border-b-1 border-gray-300 mb-2">
+        <ul>
+            <li class="py-1"><a href="#">Pricing</a></li>
+            <li class="py-1"><a href="#">About</a></li>
+            <li class="py-1"><a href="#">Contact</a></li>
+            <li class="py-1"><a href="#">FAQs</a></li>
+        </ul>
+        <p class="text-center text-gray-500">--- ---</p>
+    </nav> -->
+
+    <!-- Header section -->
+    <!-- <header>
+        <nav>
+            <h1 class="text-center font-bold text-red-600">Header</h1>
+        </nav>
+    </header> -->
+
+<!-- Modal Window  -->
+<div id="modalOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
+    <div id="loginModal" class="bg-white shadow-md page_content py-3 flex flex-col items-center relative w-[90%] md:w-[40%]">
+      <!-- Close button -->
+      <div id="closeModal" class="close_btn absolute right-0 cursor-pointer mr-3">
+        <i class="fa-solid fa-xmark text-2xl text-customBlue-100"></i>
+      </div>
+      
+      <!-- Welcome text -->
+      <h1 class="mt-8 mb-3 text-xl text-customBlue-100 font-semibold">Welcome back</h1>
+  
+      <!-- Social login -->
+      <div class="social_login flex justify-center items-center gap-6 mb-5">
+          <i class="fa-brands fa-google bg-customBlue-100 text-white p-2 rounded-[50%] cursor-pointer"></i>
+          <i class="fa-brands fa-square-facebook bg-customBlue-100 text-white p-2 rounded-[50%] cursor-pointer"></i>
+      </div>
+  
+      <!-- Email prompt text -->
+      <div class="email_prompt flex items-center justify-center w-[80%]">
+          <hr class="flex-grow border-customBlue-100">
+          <span class="mx-4 text-gray-600">or use email</span>
+          <hr class="flex-grow border-customBlue-100">
+      </div>
+      
+      <!-- Input fields -->
+      <div class="input_fields flex flex-col w-[80%] my-5">
+          <label class="text-gray-600 mb-3" for="email">Email</label>
+          <input class="border-b-2 border-customBlue-100 mb-3" type="email" name="email" id="email" placeholder="Enter your email">
+          <label class="text-gray-600 mb-3" for="password">Password</label>
+          <input class="border-b-2 border-customBlue-100 mb-3" type="password" name="password" id="password" placeholder="Enter your password">
+      </div>
+  
+      <!-- Forget prompt -->
+      <p class="text-gray-600 my-2">Forget Password?</p>
+      <button id="loginBtn" class="font-semibold self-center rounded-lg my-3 w-[60%] bg-customBlue-100 text-white p-3 hover:bg-customBlue-200 hover:transition-all hover:ease-in-out" type="submit">Login</button>
+      <p class="text-gray-600 my-2">Don't have an account? <a class="text-customBlue-100" href="registration_form.html">Sign Up</a></p>
+    </div>
+  </div>
+
+    <!-- Main Section -->
+    <div class="bg-gray-100 main_container flex flex-col justify-center min-h-screen items-center py-5 px-3">
+
+        <!-- Form container -->
+        <div class="bg-white shadow-md form_container flex flex-col items-center">
+            <h1 class="mt-5 font-semibold text-xl text-customBlue-100 mb-5">Create an account</h1>
+            <i class="text-2xl mb-5 text-customBlue-100 fa-regular fa-address-card ml-3"></i>
+            <div class="form_content p-5 flex flex-col relative">
+                <!-- form -->
+                <form class="flex flex-col" action="">
+                    <!-- name field -->
+                    <label class="text-gray-600 mb-3" for="full_name">Full Name </label>
+                    <input class="border-b-2 border-customBlue-100 mb-5" type="text" name="full_name" id="full_name" placeholder="Enter your name">
+                    <label class="text-gray-600 mb-3" for="gender">Gender</label>
+                    <!-- radio fields -->
+                    <div class="radio-section mb-5 flex justify-start">
+                        <div class="male mr-5">
+                            <input type="radio" name="male" id="male">
+                            <label class="text-gray-600 for="male">
+                                Male    
+                            </label>
+                        </div>
+                        <div class="female mr-5">
+                            <input type="radio" name="female" id="female">
+                            <label class="text-gray-600 for="female">
+                                Female    
+                            </label>
+                        </div>
+                        <div class="pnts">
+                            <input type="radio" name="pnts" id="pnts">
+                            <label class="text-gray-600 for="pnts">
+                                Prefer not to say    
+                            </label>
+                        </div>
+                    </div>
+                    <!-- others field -->
+                    <label class="text-gray-600 mb-3" for="email">Email </label>
+                    <input class="border-b-2 border-customBlue-100 mb-3" type="email" name="email" id="email" placeholder="Enter your email">
+                    <label class="text-gray-600 my-3" for="password">Password</label>
+                    <input class="border-b-2 border-customBlue-100 mb-3" type="password" name="password" id="password" placeholder="Enter your password">
+                    <label class="text-gray-600 my-3" for="confirm_password"> Confirm Password </label>
+                    <input class="border-b-2 border-customBlue-100 mb-3" type="password" name="confirm_password" id="confirm_password" placeholder="Confirm your password">
+                </form>
+                <!-- terms and services -->
+                <p class="text-gray-600 my-5">by creating this account you accept <a class="text-customBlue-100" href="#">terms</a> of <a class="text-customBlue-100" href="#">services</a></p>
+                <!-- buttons -->
+                <div class="buttons flex flex-col">
+                    <button class="mb-3 font-semibold self-center w-[100%] rounded-lg bg-customBlue-100 text-white p-3 hover:bg-customBlue-200 hover:transition-all hover:ease-in-out" type="submit">Create an account</button>
+                    <hr class="border-[5%] w-[100%] self-center border-blue-400 mb-3">
+                    <button class="w-[100%] font-semibold mb-3 self-center rounded-lg border-2 border-customBlue-100 text-gray-600 p-3 hover:bg-customBlue-100 hover:text-white hover:transition-all hover:ease-in-out"><i class="fa-brands fa-google mr-3 text-lg"></i> Register with Google</button>
+                    <button class="w-[100%] font-semibold mb-3 self-center rounded-lg border-2 border-customBlue-100 text-gray-600 p-3 hover:bg-customBlue-100 hover:text-white hover:transition-all hover:ease-in-out"><i class="fa-brands fa-square-facebook mr-3 text-lg"></i> Register with Facebook</button>
+                </div>
+                <p class="text-gray-600 mb-5 self-center mt-5">Already have an account? <a id="loginLink" class="text-customBlue-100" href="#">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+      <div style="background-color: #0a174e;" class="shadow-sm pt-2">
+        <a href="#top">
+          <div class="text-center text-white border-2 p-2 mx-2 mb-2">Go to Top ^</div>
+        </a>
+
+        <div style="background-color: #0a174e;" class="flex justify-between p-4">
+          <div class="flex flex-col space-y-2 text-left pl-32">
+            <a href="#" class="text-white">Home</a>
+            <a href="#" class="text-white">Pricing</a>
+            <a href="#" class="text-white">F.A.Q.s</a>
+            <a href="#" class="text-white">About</a>
+          </div>
+
+          <div class="h-24 border-l-2 border-gray-500 mx-4"></div>
+
+          <div class="flex flex-col space-y-2 text-left pr-32">
+            <a href="#" class="text-white">Contact</a>
+            <a href="#" class="text-white">Promote your <b class="text-corange-100">Shop</b></a>
+            <a href="#" class="text-white">Promote your <b class="text-corange-100">Product</b></a>
+          </div>
+        </div>
+
+        <div style="background-color: #0a174e;" class="flex justify-between items-center py-2 px-4">
+          <p class="text-center mx-auto">
+            © <a href="/about" class="font-semibold text-cblue-100">WiseCart Team</a>
+          </p>
+          <div class="flex space-x-2 md:space-x-4">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <img src="assets/github.png" alt="GitHub" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10">
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+              <img src="assets/facebook.png" alt="Facebook" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10">
+            </a>
+            <a href="https://discord.com" target="_blank" rel="noopener noreferrer">
+              <img src="assets/discord.png" alt="Discord" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10">
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+    
+    <!-- JavaScript -->
+    <script src="./scripts.js"></script>
+     <script src="./scripts2.js"></script>
+
+    <!-- Footer Section -->
+    <!-- <footer>
+        <h1 class="text-center font-bold text-red-600">Footer</h1>
+    </footer> -->
+</body>
+</html>
