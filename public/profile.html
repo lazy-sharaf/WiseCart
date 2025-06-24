@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Page</title>
+    <script type="module" src="main.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css" />
+ 
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="text-base">
+   <!------------------------------------------------------------------------>
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm">
+    <div class="flex items-center justify-between p-3">
+      <img src="assets/menu.png" id="menu-toggle" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 menu-icon"
+        alt="Menu icon" />
+      <a href="index.html">
+        <h1 class="text-xl font-semibold md:text-3xl">WiseCart</h1>
+      </a>
+      <a href="profile.html"><img src="assets/profile.png" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12"
+          alt="Profile icon" /></a>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <nav id="sidebar" class="sidebar">
+    <ul class="mb-4">
+      <li class="py-1"><a href="./login_form.html">Sign in</a></li>
+      <li class="py-1"><a href="./registration_form.html">Sign up</a></li>
+    </ul>
+    <hr class="border-b-1 border-gray-300 mb-2" />
+    <ul class="mb-4">
+      <li class="py-1">
+        <a href="shop_info.html" class="flex justify-between items-center">Featured shop 1
+          <span
+            class="px-2 py-1 border-2 border-red-600 text-red-600 text-xs rounded-md bg-red-100 font-semibold">featured</span></a>
+      </li>
+      <li class="py-1">
+        <a href="shop_info.html" class="flex justify-between items-center">Featured shop 2
+          <span
+            class="px-2 py-1 border-2 border-red-600 text-red-600 text-xs rounded-md bg-red-100 font-semibold">featured</span></a>
+      </li>
+      <li class="py-1">
+        <a href="shop_info.html" class="flex justify-between items-center">Featured shop 3
+          <span
+            class="px-2 py-1 border-2 border-red-600 text-red-600 text-xs rounded-md bg-red-100 font-semibold">featured</span></a>
+      </li>
+      <li class="py-1"><a href="shop_info.html">Shop 1</a></li>
+      <li class="py-1"><a href="shop_info.html">Shop 2</a></li>
+      <li class="py-1"><a href="shop_info.html">Shop 3</a></li>
+      <li class="py-1">
+        <a href="" class="font-semibold">All shops ></a>
+      </li>
+    </ul>
+    <hr class="border-b-1 border-gray-300 mb-2" />
+    <ul>
+      <li class="py-1"><a href="#">Pricing</a></li>
+      <li class="py-1"><a href="#">About</a></li>
+      <li class="py-1"><a href="#">Contact</a></li>
+      <li class="py-1"><a href="#">FAQs</a></li>
+    </ul>
+    <p class="text-center text-gray-500">--- ---</p>
+  </nav>
+
+
+    <!-- Profile Info Section -->
+    <section class="my-4 p-6 bg-white shadow-lg">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Left Side: Personal Info -->
+        <div class="space-y-4">
+          <h2 class="text-2xl font-bold text-gray-800">Personal Info</h2>
+          <p class="text-gray-600">
+            Name: <span class="font-medium">John Sina</span>
+          </p>
+          <p class="text-gray-600">
+            Email: <span class="font-medium">johnsina@email.com</span>
+          </p>
+          <p class="text-gray-600">
+            Subscription Type: <span class="font-medium">Free</span>
+          </p>
+          <div
+            class="bg-yellow-100 border-l-4 border-yellow-500 p-4 rounded-lg shadow-lg"
+          >
+            <p class="font-bold text-lg text-yellow-700">
+              Daily Search limit Used (11/25)
+            </p>
+            <p class="text-yellow-600">
+              Your free subscription limits your experience.<br />Upgrade now to
+              continue using premium features.
+            </p>
+          </div>
+        </div>
+        <!-- Right Side: Settings Button -->
+        <div class="flex justify-end items-start">
+          <button
+            class="bg-customBlue-100 hover:bg-blue-700 transition duration-300 text-white px-6 py-3 rounded-lg shadow-lg"
+          >
+            Settings
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upgrade Plan Section with Options -->
+    <section
+      class=" mx-8 my-4 p-6 bg-gradient-to-r from-green-400 to-green-600 rounded-lg shadow-lg text-white"
+    >
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-semibold">Upgrade Your Plan</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Plan 1: Basic -->
+        <div
+          class="bg-white text-gray-800 rounded-lg p-6 shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <h3 class="text-xl font-semibold mb-4">Basic</h3>
+          <p class="text-gray-700 mb-4">
+            Ideal for individual use with basic features.<ul class=""><li>Daily 50 Searches</li>
+              <li>15 Alerts</li></ul>
+          </p>
+          <p class="text-2xl font-bold my-6">TK 99/month</p>
+          <button
+            class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg w-full"
+          >
+            Choose Plan
+          </button>
+        </div>
+        <!-- Plan 2: Premium -->
+        <div
+          class="bg-white text-gray-800 rounded-lg p-6 shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <h3 class="text-xl font-semibold mb-4">Premium</h3>
+          <p class="text-gray-700 mb-4">
+            Access to advanced features and priority support.
+          </p>
+          <ul class=""><li>Daily 75 Searches</li>
+            <li>30 Alerts</li></ul>
+
+          <p class="text-2xl font-bold my-6">TK 149/month</p>
+          <button
+            class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg w-full"
+          >
+            Choose Plan
+          </button>
+        </div>
+        <!-- Plan 3: Pro -->
+        <div
+          class="bg-white text-gray-800 rounded-lg p-6 shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <h3 class="text-xl font-semibold mb-4">Pro</h3>
+          <p class="text-gray-700 mb-4">
+            For Heavy Users with all premium features.
+          </p>
+          <ul class=""><li>Daily 100 Searches</li>
+            <li>50 Alerts</li></ul>
+          <p class="text-2xl font-bold my-6">TK 199/month</p>
+          <button
+            class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg w-full"
+          >
+            Choose Plan
+          </button>
+        </div>
+      </div>
+    </section>
+
+  
+    <section class="bg-white p-2 my-2">
+      <div class="text-md font-semibold">Your Recent Searches</div>
+      <div class="flex max-w-full space-x-2 overflow-x-auto py-2 hide-scrollbar">
+        <div
+          class="card border-4 border-cblue-100 bg-cblue-100 shadow-md h-auto text-black flex flex-col justify-between">
+          <div class="flex-grow flex flex-col justify-center items-center">
+            <div class="text-center p-2">Corsair Vengeance 8 GB RAM</div>
+          </div>
+          <a href="search_result.html">
+            <div class="w-full rounded bg-cblue-200 text-white font-semibold text-center py-2 px-4">
+              Search again
+            </div>
+          </a>
+        </div>
+  
+        <div
+          class="card border-4 border-corange-100 bg-corange-100 shadow-md h-auto text-black flex flex-col justify-between">
+          <div class="flex-grow flex flex-col justify-center items-center">
+            <div class="text-center p-2">Amazfit T-Rex 2</div>
+          </div>
+          <a href="search_result.html">
+            <div class="w-full rounded bg-corange-200 text-white font-semibold text-center py-2 px-4">
+              Search again
+            </div>
+          </a>
+        </div>
+  
+        <div
+          class="card border-4 border-cgreen-100 bg-cgreen-100 shadow-md h-auto text-black flex flex-col justify-between">
+          <div class="flex-grow flex flex-col justify-center items-center">
+            <div class="text-center p-2">Amazfit T-Rex 2</div>
+          </div>
+          <a href="search_result.html">
+            <div class="w-full rounded bg-cgreen-200 text-white font-semibold text-center py-2 px-4">
+              Search again
+            </div>
+          </a>
+        </div>
+  
+        <div
+          class="card border-4 border-cblue-100 bg-cblue-100 shadow-md h-auto text-black flex flex-col justify-between">
+          <div class="flex-grow flex flex-col justify-center items-center">
+            <div class="text-center p-2">Corsair Vengeance 8 GB RAM</div>
+          </div>
+          <a href="search_result.html">
+            <div class="w-full rounded bg-cblue-200 text-white font-semibold text-center py-2 px-4">
+              Search again
+            </div>
+          </a>
+        </div>
+  
+        <div
+          class="card border-4 border-corange-100 bg-corange-100 shadow-md h-auto text-black flex flex-col justify-between">
+          <div class="flex-grow flex flex-col justify-center items-center">
+            <div class="text-center p-2">Amazfit T-Rex 2</div>
+          </div>
+          <a href="search_result.html">
+            <div class="w-full rounded bg-corange-200 text-white font-semibold text-center py-2 px-4">
+              Search again
+            </div>
+          </a>
+        </div>
+  
+        <div
+          class="card border-4 border-cgreen-100 bg-cgreen-100 shadow-md h-auto text-black flex flex-col justify-between">
+          <div class="flex-grow flex flex-col justify-center items-center">
+            <div class="text-center p-2">Amazfit T-Rex 2</div>
+          </div>
+          <a href="search_result.html">
+            <div class="w-full rounded bg-cgreen-200 text-white font-semibold text-center py-2 px-4">
+              Search again
+            </div>
+          </a>
+        </div>
+        <div
+          class="card border-4 border-cblue-100 bg-cblue-100 shadow-md h-auto text-black flex flex-col justify-between">
+          <div class="flex-grow flex flex-col justify-center items-center">
+            <div class="text-center p-2">Corsair Vengeance 8 GB RAM</div>
+          </div>
+          <a href="search_result.html">
+            <div class="w-full rounded bg-cblue-200 text-white font-semibold text-center py-2 px-4">
+              Search again
+            </div>
+          </a>
+        </div>
+  
+        <div
+          class="card border-4 border-corange-100 bg-corange-100 shadow-md h-auto text-black flex flex-col justify-between">
+          <div class="flex-grow flex flex-col justify-center items-center">
+            <div class="text-center p-2">Amazfit T-Rex 2</div>
+          </div>
+          <a href="search_result.html">
+            <div class="w-full rounded bg-corange-200 text-white font-semibold text-center py-2 px-4">
+              Search again
+            </div>
+          </a>
+        </div>
+  
+        <div
+          class="card border-4 border-cgreen-100 bg-cgreen-100 shadow-md h-auto text-black flex flex-col justify-between">
+          <div class="flex-grow flex flex-col justify-center items-center">
+            <div class="text-center p-2">Amazfit T-Rex 2</div>
+          </div>
+          <a href="search_result.html">
+            <div class="w-full rounded bg-cgreen-200 text-white font-semibold text-center py-2 px-4">
+              Search again
+            </div>
+          </a>
+        </div>
+  
+        <div
+          class="card border-4 border-cblue-100 bg-cblue-100 shadow-md h-auto text-black flex flex-col justify-between">
+          <div class="flex-grow flex flex-col justify-center items-center">
+            <div class="text-center p-2">Corsair Vengeance 8 GB RAM</div>
+          </div>
+          <a href="search_result.html">
+            <div class="w-full rounded bg-cblue-200 text-white font-semibold text-center py-2 px-4">
+              Search again
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- Alert Section -->
+    <section class=" mx-auto my-4 p-6 bg-white">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6">User Alerts</h2>
+      <div
+        class="bg-green-100 border-l-4 border-green-500 p-4 rounded-lg shadow-lg"
+      >
+        <p class="font-bold text-gray-800">Future Work</p>
+        <p class="text-yellow-600">
+          User Can Add Alerts For Specific Product .
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div style="background-color: #0a174e;" class="shadow-sm pt-2">
+        <a href="#top">
+          <div class="text-center text-white border-2 p-2 mx-2 mb-2">Go to Top ^</div>
+        </a>
+
+        <div style="background-color: #0a174e;" class="flex justify-between p-4">
+          <div class="flex flex-col space-y-2 text-left pl-32">
+            <a href="#" class="text-white">Home</a>
+            <a href="#" class="text-white">Pricing</a>
+            <a href="#" class="text-white">F.A.Q.s</a>
+            <a href="#" class="text-white">About</a>
+          </div>
+
+          <div class="h-24 border-l-2 border-gray-500 mx-4"></div>
+
+          <div class="flex flex-col space-y-2 text-left pr-32">
+            <a href="#" class="text-white">Contact</a>
+            <a href="#" class="text-white">Promote your <b class="text-corange-100">Shop</b></a>
+            <a href="#" class="text-white">Promote your <b class="text-corange-100">Product</b></a>
+          </div>
+        </div>
+
+        <div style="background-color: #0a174e;" class="flex justify-between items-center py-2 px-4">
+          <p class="text-center mx-auto">
+            © <a href="/about" class="font-semibold text-cblue-100">WiseCart Team</a>
+          </p>
+          <div class="flex space-x-2 md:space-x-4">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <img src="assets/github.png" alt="GitHub" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10">
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+              <img src="assets/facebook.png" alt="Facebook" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10">
+            </a>
+            <a href="https://discord.com" target="_blank" rel="noopener noreferrer">
+              <img src="assets/discord.png" alt="Discord" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10">
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+  <script src="./scripts.js"></script>
+  </body>
+</html>

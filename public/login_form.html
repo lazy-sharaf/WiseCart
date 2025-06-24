@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+ <!------------------------------------------------------------------------>
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm">
+    <div class="flex items-center justify-between p-3">
+      <img src="assets/menu.png" id="menu-toggle" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 menu-icon"
+        alt="Menu icon" />
+      <a href="index.html">
+        <h1 class="text-xl font-semibold md:text-3xl">WiseCart</h1>
+      </a>
+      <a href="profile.html"><img src="assets/profile.png" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12"
+          alt="Profile icon" /></a>
+    </div>
+  </header>
+
+
+
+    <!-- Sidebar -->
+    <!-- <nav id="sidebar" class="sidebar">
+        <ul class="mb-4">
+            <li class="py-1"><a href="#">Sign in</a></li>
+            <li class="py-1"><a href="#">Sign up</a></li>
+        </ul>
+        <hr class="border-b-1 border-gray-300 mb-2">
+        <ul class="mb-4">
+            <li class="py-1"><a href="#" class="flex justify-between items-center">Featured shop 1 <span
+                        class="px-2 py-1 border-2 border-red-600 text-red-600 text-xs rounded-md bg-red-100 font-semibold">featured</span></a>
+            </li>
+            <li class="py-1"><a href="#" class="flex justify-between items-center">Featured shop 2 <span
+                        class="px-2 py-1 border-2 border-red-600 text-red-600 text-xs rounded-md bg-red-100 font-semibold">featured</span></a>
+            </li>
+            <li class="py-1"><a href="#" class="flex justify-between items-center">Featured shop 3 <span
+                        class="px-2 py-1 border-2 border-red-600 text-red-600 text-xs rounded-md bg-red-100 font-semibold">featured</span></a>
+            </li>
+            <li class="py-1"><a href="#">Shop 1</a></li>
+            <li class="py-1"><a href="#">Shop 2</a></li>
+            <li class="py-1"><a href="#">Shop 3</a></li>
+            <li class="py-1"><a href="#" class="font-semibold">All shops ></a></li>
+        </ul>
+        <hr class="border-b-1 border-gray-300 mb-2">
+        <ul>
+            <li class="py-1"><a href="#">Pricing</a></li>
+            <li class="py-1"><a href="#">About</a></li>
+            <li class="py-1"><a href="#">Contact</a></li>
+            <li class="py-1"><a href="#">FAQs</a></li>
+        </ul>
+        <p class="text-center text-gray-500">--- ---</p>
+    </nav> -->
+
+    <div class="bg-gray-100 main_container flex flex-col min-h-screen items-center justify-center relative">
+        <div id="loginModal" class="bg-white z-50 shadow-md page_content py-3 flex flex-col items-center relative w-[90%] md:w-[40%]">
+            <!-- Close button -->
+            <!-- <div id="closeModal" class="close_btn absolute right-0 cursor-pointer mr-3">
+                <i class="fa-solid fa-xmark text-2xl text-customBlue-100"></i>
+            </div> -->
+
+            <!-- Welcome text -->
+            <h1 class="mt-8 mb-3 text-xl text-customBlue-100 font-semibold">Welcome back</h1>
+
+            <!-- Social login -->
+            <div class="social_login flex justify-center items-center gap-6 mb-5">
+                    <i class="fa-brands fa-google bg-customBlue-100 text-white p-2 rounded-[50%] cursor-pointer"></i>
+                    <i class="fa-brands fa-square-facebook bg-customBlue-100 text-white p-2 rounded-[50%] cursor-pointer"></i>
+            </div>
+
+            <!-- Email prompt text -->
+            <div class="email_prompt flex items-center justify-center w-[80%]">
+                <hr class="flex-grow border-customBlue-100">
+                <span class="mx-4 text-gray-600">or use email</span>
+                <hr class="flex-grow border-customBlue-100">
+              </div>
+            
+            <!-- input fields -->
+            <div class="input_fields flex flex-col w-[80%] my-5">
+                <label class="text-gray-600 mb-3" for="email">Email</label>
+                <input class="border-b-2 border-customBlue-100 mb-3" type="email" name="email" id="email" placeholder="Enter your email">
+                <label class="text-gray-600 mb-3" for="password">Password</label>
+                <input class="border-b-2 border-customBlue-100 mb-3" type="password" name="password" id="password" placeholder="Enter your password">
+            </div>
+
+            <!-- Forget prompt -->
+            <p  class="text-gray-600 my-2">Forget Password?</p>
+            <button class="font-semibold self-center rounded-lg my-3 w-[60%] bg-customBlue-100 text-white p-3 hover:bg-customBlue-200 hover:transition-all hover:ease-in-out" type="submit">Login</button>
+            <p class="text-gray-600 my-2">Don't have an account? <a class="text-customBlue-100" href="registration_form.html">Sign Up</a></p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="bg-neutral-900 shadow-sm pt-2">
+
+            <a href="#top">
+                <div class="text-center text-white border-2 p-2 mx-2 mb-2">Go to Top ^</div>
+            </a>
+
+            <div class="flex justify-between bg-zinc-800 p-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="#" class="text-white">Home</a>
+                    <a href="#" class="text-white">Pricing</a>
+                    <a href="#" class="text-white">F.A.Q.s</a>
+                    <a href="#" class="text-white">About</a>
+                </div>
+
+                <div class="h-24 border-l-2 border-gray-500 mx-4"></div>
+
+                <div class="flex flex-col space-y-2">
+                    <a href="#" class="text-white">Contact</a>
+                    <a href="#" class="text-white">Promote your <b class="text-corange-100">Shop</b></a>
+                    <a href="#" class="text-white">Promote your <b class="text-corange-100">Product</b></a>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center py-2 px-4">
+                <p class="text-center mx-auto">
+                    © <a href="/about" class="font-semibold text-cblue-100">WiseCart Team</a>
+                </p>
+                <div class="flex space-x-2 md:space-x-4">
+                    <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/github.png" alt="GitHub" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10">
+                    </a>
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/facebook.png" alt="Facebook" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10">
+                    </a>
+                    <a href="https://discord.com" target="_blank" rel="noopener noreferrer">
+                        <img src="assets/discord.png" alt="Discord" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- JavaScript -->
+    <script src="./scripts.js"></script>
+     <script src="./scripts2.js"></script>
+</body>
+</html>
