@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details</title>
+    <script type="module" src="main.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles.css">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  </head>
+
+  <body class="bg-gray-100">
+   <!------------------------------------------------------------------------>
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm">
+    <div class="flex items-center justify-between p-3">
+      <img src="assets/menu.png" id="menu-toggle" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 menu-icon"
+        alt="Menu icon" />
+      <a href="index.html">
+        <h1 class="text-xl font-semibold md:text-3xl">WiseCart</h1>
+      </a>
+      <a href="profile.html"><img src="assets/profile.png" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12"
+          alt="Profile icon" /></a>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <nav id="sidebar" class="sidebar">
+    <ul class="mb-4">
+      <li class="py-1"><a href="./login_form.html">Sign in</a></li>
+      <li class="py-1"><a href="./registration_form.html">Sign up</a></li>
+    </ul>
+    <hr class="border-b-1 border-gray-300 mb-2" />
+    <ul class="mb-4">
+      <li class="py-1">
+        <a href="shop_info.html" class="flex justify-between items-center">Featured shop 1
+          <span
+            class="px-2 py-1 border-2 border-red-600 text-red-600 text-xs rounded-md bg-red-100 font-semibold">featured</span></a>
+      </li>
+      <li class="py-1">
+        <a href="shop_info.html" class="flex justify-between items-center">Featured shop 2
+          <span
+            class="px-2 py-1 border-2 border-red-600 text-red-600 text-xs rounded-md bg-red-100 font-semibold">featured</span></a>
+      </li>
+      <li class="py-1">
+        <a href="shop_info.html" class="flex justify-between items-center">Featured shop 3
+          <span
+            class="px-2 py-1 border-2 border-red-600 text-red-600 text-xs rounded-md bg-red-100 font-semibold">featured</span></a>
+      </li>
+      <li class="py-1"><a href="shop_info.html">Shop 1</a></li>
+      <li class="py-1"><a href="shop_info.html">Shop 2</a></li>
+      <li class="py-1"><a href="shop_info.html">Shop 3</a></li>
+      <li class="py-1">
+        <a href="" class="font-semibold">All shops ></a>
+      </li>
+    </ul>
+    <hr class="border-b-1 border-gray-300 mb-2" />
+    <ul>
+      <li class="py-1"><a href="#">Pricing</a></li>
+      <li class="py-1"><a href="#">About</a></li>
+      <li class="py-1"><a href="#">Contact</a></li>
+      <li class="py-1"><a href="#">FAQs</a></li>
+    </ul>
+    <p class="text-center text-gray-500">--- ---</p>
+  </nav>
+
+    <!-- Main Product Section -->
+    <section class="container mx-auto p-6 bg-white mt-6 shadow-lg rounded-lg">
+      <!-- Row 1: Product name & price / Shop info -->
+      <div
+        class="md:flex justify-between items-center mb-6 space-y-4 md:space-y-0"
+      >
+        <!-- Product name & price -->
+        <div class="text-left">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-800">
+            Product Name
+          </h2>
+          <p class="text-lg md:text-xl text-gray-600 mt-2">TK 1999.99</p>
+        </div>
+        <!-- Shop info -->
+        <div class="text-center md:text-right">
+          <img
+            src="./assets/daraz.png"
+            alt="Shop Logo"
+            class="h-14 w-auto inline-block object-cover mx-auto md:mx-0"
+          />
+          <p class="text-gray-600 mt-2">Mod Rating: ⭐⭐⭐⭐</p>
+          <p class="text-gray-600 mt-2">User Rating: ⭐⭐⭐⭐</p>
+          <a href="shop_info.html"><button
+            class="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Shop Review
+          </button>
+        </a>
+        </div>
+      </div>
+
+      <!-- Row 2: Product Image & Rating / Quick Overview -->
+      <div
+        class="md:flex justify-between items-start mb-6 space-y-4 md:space-y-0"
+      >
+        <!-- Product Image & Rating -->
+        <div class="text-center md:text-left md:w-1/2">
+          <img
+            src="./assets/headphone.png"
+            alt="Product Image"
+            class="h-64 w-auto object-cover mb-4 md:mb-0"
+          />
+          <p class="text-lg text-gray-600">Rating: ⭐⭐⭐⭐⭐</p>
+          <span class="text-lg bg-cgreen-100 text-white px-4 rounded-md">In stock</span>
+
+        </div>
+        <!-- Quick Overview -->
+        <div
+          class="bg-gray-white p-6 rounded-md shadow-sm border text-left md:w-1/2 md:ml-6"
+        >
+          <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2">
+            Quick Overview
+          </h3>
+          <div class="text-gray-600 space-y-2">
+            <p class="border-b border-gray-100 pb-1">
+              Model: MPG 491CQP QD-OLED
+            </p>
+            <p class="border-b border-gray-100 pb-1">
+              Resolution: DQHD (5120 x 1440)
+            </p>
+            <p class="border-b border-gray-100 pb-1">
+              Display: QD-OLED, 144Hz, 0.03ms (GTG)
+            </p>
+            <p class="border-b border-gray-100 pb-1">
+              Ports: 2 x HDMI2.1, 1 x Display Port1.4a, 1 x Type-C
+            </p>
+            <p class="border-b border-gray-100 pb-1">
+              Features: Anti-Reflection
+            </p>
+            <ul class="ml-4 list-disc space-y-1">
+              <li class="border-b border-gray-100 pb-1">Adaptive-Sync</li>
+              <li class="border-b border-gray-100 pb-1">DisplayHDR</li>
+              <li class="pb-1">True Black 400</li>
+            </ul>
+          </div>
+          
+          
+        </div>
+      </div>
+
+      <!-- Row 3: Product Link -->
+      <div class="mb-6 text-center">
+        <button
+          class="mt-2 bg-blue-500 text-white px-8 py-3 rounded"
+        >
+          <a href="https://google.com" class="hover:underline font-semibold text-lg text-white">Product Link</a>
+        </button>
+      </div>
+
+      <!-- Row 4: Detailed Description -->
+      <div class="bg-gray-50 p-6 rounded-lg shadow-md mb-6">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-2">
+          Detailed Description
+        </h3>
+        <p class="text-gray-600">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          varius enim in eros elementum tristique. Duis cursus, mi quis viverra
+          ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          varius enim in eros elementum tristique. Duis cursus, mi quis viverra
+          ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          varius enim in eros elementum tristique. Duis cursus, mi quis viverra
+          ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          varius enim in eros elementum tristique. Duis cursus, mi quis viverra
+          ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          varius enim in eros elementum tristique. Duis cursus, mi quis viverra
+          ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          varius enim in eros elementum tristique. Duis cursus, mi quis viverra
+          ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          varius enim in eros elementum tristique. Duis cursus, mi quis viverra
+          ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.
+        </p>
+      </div>
+
+    </section>
+    <!------------------------------------------------------------------------>
+
+   <!------------------------------------------------------------------------>
+
+   <section class="bg-white mt-4 p-2">
+    <div class="text-md font-semibold">Featured Products</div>
+    <a href="product.html">
+    <div class="flex max-w-full space-x-2 overflow-x-scroll py-2 hide-scrollbar">
+      <div class="card bg-cgreen-200 rounded-md shadow-md h-55 relative text-green-100">
+        <div class="absolute top-0 rounded-tr rounded-bl right-0 bg-black bg-opacity-50 p-1">
+          <img src="assets/startech.png" alt="Shop Logo" class="h-6 w-8" />
+        </div>
+        <div class="h-1/2 flex justify-center bg-green-100 rounded-md overflow-hidden items-center">
+          <img src="assets/amazfit.jpg" alt="Product Image" class="object-cover" />
+        </div>
+        <div class="h-1/2 px-2 flex flex-col justify-center">
+          <h2 class="text-xs">Amazfit T-Rex 2</h2>
+          <div class="flex justify-between items-center">
+            <p class="font-semibold text-sm">99tk</p>
+            <div class="text-xs text-right">
+              <p class="text-xs sm:text-base text-yellow-300">★★★★☆</p>
+              <p>In stock</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-cgreen-100 rounded-md shadow-md h-55 relative text-black">
+        <div class="absolute top-0 rounded-tr rounded-bl right-0 bg-black bg-opacity-50 p-1">
+          <img src="assets/startech.png" alt="Shop Logo" class="h-6 w-8" />
+        </div>
+        <div class="h-1/2 flex justify-center bg-green-100 rounded-md overflow-hidden items-center">
+          <img src="assets/amazfit.jpg" alt="Product Image" class="object-cover" />
+        </div>
+        <div class="h-1/2 px-2 flex flex-col justify-center">
+          <h2 class="text-xs">Amazfit T-Rex 2</h2>
+          <div class="flex justify-between items-center">
+            <p class="font-semibold text-sm">99tk</p>
+            <div class="text-xs text-right">
+              <p class="text-xs sm:text-base text-yellow-300">★★★★☆</p>
+              <p>In stock</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-cgreen-200 rounded-md shadow-md h-55 relative text-green-100">
+        <div class="absolute top-0 rounded-tr rounded-bl right-0 bg-black bg-opacity-50 p-1">
+          <img src="assets/startech.png" alt="Shop Logo" class="h-6 w-8" />
+        </div>
+        <div class="h-1/2 flex justify-center bg-green-100 rounded-md overflow-hidden items-center">
+          <img src="assets/amazfit.jpg" alt="Product Image" class="object-cover" />
+        </div>
+        <div class="h-1/2 px-2 flex flex-col justify-center">
+          <h2 class="text-xs">Amazfit T-Rex 2</h2>
+          <div class="flex justify-between items-center">
+            <p class="font-semibold text-sm">99tk</p>
+            <div class="text-xs text-right">
+              <p class="text-xs sm:text-base text-yellow-300">★★★★☆</p>
+              <p>In stock</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-cgreen-100 rounded-md shadow-md h-55 relative text-black">
+        <div class="absolute top-0 rounded-tr rounded-bl right-0 bg-black bg-opacity-50 p-1">
+          <img src="assets/startech.png" alt="Shop Logo" class="h-6 w-8" />
+        </div>
+        <div class="h-1/2 flex justify-center bg-green-100 rounded-md overflow-hidden items-center">
+          <img src="assets/amazfit.jpg" alt="Product Image" class="object-cover" />
+        </div>
+        <div class="h-1/2 px-2 flex flex-col justify-center">
+          <h2 class="text-xs">Amazfit T-Rex 2</h2>
+          <div class="flex justify-between items-center">
+            <p class="font-semibold text-sm">99tk</p>
+            <div class="text-xs text-right">
+              <p class="text-xs sm:text-base text-yellow-300">★★★★☆</p>
+              <p>In stock</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-cgreen-200 rounded-md shadow-md h-55 relative text-green-100">
+        <div class="absolute top-0 rounded-tr rounded-bl right-0 bg-black bg-opacity-50 p-1">
+          <img src="assets/startech.png" alt="Shop Logo" class="h-6 w-8" />
+        </div>
+        <div class="h-1/2 flex justify-center bg-green-100 rounded-md overflow-hidden items-center">
+          <img src="assets/amazfit.jpg" alt="Product Image" class="object-cover" />
+        </div>
+        <div class="h-1/2 px-2 flex flex-col justify-center">
+          <h2 class="text-xs">Amazfit T-Rex 2</h2>
+          <div class="flex justify-between items-center">
+            <p class="font-semibold text-sm">99tk</p>
+            <div class="text-xs text-right">
+              <p class="text-xs sm:text-base text-yellow-300">★★★★☆</p>
+              <p>In stock</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-cgreen-100 rounded-md shadow-md h-55 relative text-black">
+        <div class="absolute top-0 rounded-tr rounded-bl right-0 bg-black bg-opacity-50 p-1">
+          <img src="assets/startech.png" alt="Shop Logo" class="h-6 w-8" />
+        </div>
+        <div class="h-1/2 flex justify-center bg-green-100 rounded-md overflow-hidden items-center">
+          <img src="assets/amazfit.jpg" alt="Product Image" class="object-cover" />
+        </div>
+        <div class="h-1/2 px-2 flex flex-col justify-center">
+          <h2 class="text-xs">Amazfit T-Rex 2</h2>
+          <div class="flex justify-between items-center">
+            <p class="font-semibold text-sm">99tk</p>
+            <div class="text-xs text-right">
+              <p class="text-xs sm:text-base text-yellow-300">★★★★☆</p>
+              <p>In stock</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-cgreen-200 rounded-md shadow-md h-55 relative text-green-100">
+        <div class="absolute top-0 rounded-tr rounded-bl right-0 bg-black bg-opacity-50 p-1">
+          <img src="assets/startech.png" alt="Shop Logo" class="h-6 w-8" />
+        </div>
+        <div class="h-1/2 flex justify-center bg-green-100 rounded-md overflow-hidden items-center">
+          <img src="assets/amazfit.jpg" alt="Product Image" class="object-cover" />
+        </div>
+        <div class="h-1/2 px-2 flex flex-col justify-center">
+          <h2 class="text-xs">Amazfit T-Rex 2</h2>
+          <div class="flex justify-between items-center">
+            <p class="font-semibold text-sm">99tk</p>
+            <div class="text-xs text-right">
+              <p class="text-xs sm:text-base text-yellow-300">★★★★☆</p>
+              <p>In stock</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-cgreen-100 rounded-md shadow-md h-55 relative text-black">
+        <div class="absolute top-0 rounded-tr rounded-bl right-0 bg-black bg-opacity-50 p-1">
+          <img src="assets/startech.png" alt="Shop Logo" class="h-6 w-8" />
+        </div>
+        <div class="h-1/2 flex justify-center bg-green-100 rounded-md overflow-hidden items-center">
+          <img src="assets/amazfit.jpg" alt="Product Image" class="object-cover" />
+        </div>
+        <div class="h-1/2 px-2 flex flex-col justify-center">
+          <h2 class="text-xs">Amazfit T-Rex 2</h2>
+          <div class="flex justify-between items-center">
+            <p class="font-semibold text-sm">99tk</p>
+            <div class="text-xs text-right">
+              <p class="text-xs sm:text-base text-yellow-300">★★★★☆</p>
+              <p>In stock</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></a>
+  </section>
+    <!-- Footer Section -->
+    <footer>
+      <div style="background-color: #0a174e;" class="shadow-sm pt-2">
+        <a href="#top">
+          <div class="text-center text-white border-2 p-2 mx-2 mb-2">
+            Go to Top ^
+          </div>
+        </a>
+
+        <div style="background-color: #0a174e;" class="flex justify-between p-4">
+          <div class="flex flex-col space-y-2 text-left pl-32">
+            <a href="#" class="text-white">Home</a>
+            <a href="#" class="text-white">Pricing</a>
+            <a href="#" class="text-white">F.A.Q.s</a>
+            <a href="#" class="text-white">About</a>
+          </div>
+
+          <div class="h-24 border-l-2 border-gray-500 mx-4"></div>
+
+          <div class="flex flex-col space-y-2 text-left pr-32">
+            <a href="#" class="text-white">Contact</a>
+            <a href="#" class="text-white">Promote your <b class="text-corange-100">Shop</b></a>
+            <a href="#" class="text-white">Promote your <b class="text-corange-100">Product</b></a>
+          </div>
+        </div>
+
+        <div style="background-color: #0a174e;" class="flex justify-between items-center py-2 px-4">
+          <p class="text-center mx-auto">
+            ©
+            <a href="/about" class="font-semibold text-cblue-100">WiseCart Team</a>
+          </p>
+          <div class="flex space-x-2 md:space-x-4">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <img src="assets/github.png" alt="GitHub" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10" />
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+              <img src="assets/facebook.png" alt="Facebook" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10" />
+            </a>
+            <a href="https://discord.com" target="_blank" rel="noopener noreferrer">
+              <img src="assets/discord.png" alt="Discord" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./scripts.js"></script>
+  </body>
+</html>
