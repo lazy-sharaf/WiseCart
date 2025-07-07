@@ -2,7 +2,7 @@
 
 <div align="center">
 
-# 🚀 WiseCart 🚀
+#  WiseCart 
 
 ### A smart price comparison and shopping platform that empowers users to find the best deals across multiple online stores.
 
