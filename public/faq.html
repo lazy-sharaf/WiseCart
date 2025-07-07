@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frequently Asked Questions - WiseCart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="text-base">
+  <!------------------------------------------------------------------------>
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm">
+    <div class="flex items-center justify-between p-3">
+      <img src="assets/menu.png" id="menu-toggle" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 menu-icon"
+        alt="Menu icon" />
+      <a href="index.html">
+        <h1 class="text-xl font-semibold md:text-3xl">WiseCart</h1>
+      </a>
+      <a href="profile.html"><img src="assets/profile.png" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12"
+          alt="Profile icon" /></a>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <nav id="sidebar" class="sidebar">
+    <ul class="mb-4">
+      <li class="py-1"><a href="./login_form.html">Sign in</a></li>
+      <li class="py-1"><a href="./registration_form.html">Sign up</a></li>
+    </ul>
+    <hr class="border-b-1 border-gray-300 mb-2" />
+    <ul class="mb-4">
+      <li class="py-1">
+        <a href="shop_info.html" class="flex justify-between items-center">Featured shop 1
+          <span
+            class="px-2 py-1 border-2 border-red-600 text-red-600 text-xs rounded-md bg-red-100 font-semibold">featured</span></a>
+      </li>
+      <li class="py-1">
+        <a href="shop_info.html" class="flex justify-between items-center">Featured shop 2
+          <span
+            class="px-2 py-1 border-2 border-red-600 text-red-600 text-xs rounded-md bg-red-100 font-semibold">featured</span></a>
+      </li>
+      <li class="py-1">
+        <a href="shop_info.html" class="flex justify-between items-center">Featured shop 3
+          <span
+            class="px-2 py-1 border-2 border-red-600 text-red-600 text-xs rounded-md bg-red-100 font-semibold">featured</span></a>
+      </li>
+      <li class="py-1"><a href="shop_info.html">Shop 1</a></li>
+      <li class="py-1"><a href="shop_info.html">Shop 2</a></li>
+      <li class="py-1"><a href="shop_info.html">Shop 3</a></li>
+      <li class="py-1">
+        <a href="" class="font-semibold">All shops ></a>
+      </li>
+    </ul>
+    <hr class="border-b-1 border-gray-300 mb-2" />
+    <ul>
+      <li class="py-1"><a href="#">Pricing</a></li>
+      <li class="py-1"><a href="about.html">About</a></li>
+      <li class="py-1"><a href="contact.html">Contact</a></li>
+      <li class="py-1"><a href="faq.html" class="text-customBlue-100 font-semibold">FAQs</a></li>
+      <li class="py-1"><a href="support.html">Support</a></li>
+    </ul>
+    <p class="text-center text-gray-500">--- ---</p>
+  </nav>
+
+  <!------------------------------------------------------------------------>
+
+  <!-- Main Content -->
+  <main class="py-6 px-4">
+    <div class="max-w-4xl mx-auto">
+      <!-- Page Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h1>
+        <p class="text-gray-600 text-lg">Find answers to common questions about WiseCart</p>
+      </div>
+
+      <!-- Search FAQ -->
+      <div class="mb-8">
+        <div class="relative max-w-lg mx-auto">
+          <input type="text" id="faqSearch" placeholder="Search FAQs..."
+            class="w-full p-4 pr-12 rounded-full shadow-lg text-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-customBlue-100">
+          <svg class="absolute right-4 top-4 w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </div>
+      </div>
+
+      <!-- FAQ Categories -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <button class="faq-category-btn active bg-customBlue-100 text-white px-4 py-2 rounded-md font-semibold" data-category="general">
+          General
+        </button>
+        <button class="faq-category-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-md font-semibold hover:bg-gray-300" data-category="search">
+          Search & Compare
+        </button>
+        <button class="faq-category-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-md font-semibold hover:bg-gray-300" data-category="account">
+          Account & Billing
+        </button>
+      </div>
+
+      <!-- FAQ Items -->
+      <div class="space-y-4">
+        <!-- General FAQs -->
+        <div class="faq-item" data-category="general">
+          <div class="bg-white rounded-lg shadow-md">
+            <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors">
+              <span class="font-semibold text-gray-800">What is WiseCart?</span>
+              <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="faq-answer hidden px-6 pb-4">
+              <p class="text-gray-600">WiseCart is a comprehensive product comparison platform that helps you find the best prices and deals across multiple online stores. We aggregate product information from various retailers to help you make informed purchasing decisions.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-category="general">
+          <div class="bg-white rounded-lg shadow-md">
+            <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors">
+              <span class="font-semibold text-gray-800">Is WiseCart free to use?</span>
+              <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="faq-answer hidden px-6 pb-4">
+              <p class="text-gray-600">Yes! WiseCart is completely free for users. You can search, compare products, and access all our features without any cost. We may earn a small commission when you make purchases through our affiliate links, but this doesn't affect the prices you pay.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-category="general">
+          <div class="bg-white rounded-lg shadow-md">
+            <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors">
+              <span class="font-semibold text-gray-800">Which stores do you compare?</span>
+              <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="faq-answer hidden px-6 pb-4">
+              <p class="text-gray-600">We compare products from major online retailers including Daraz, Startech, and many other popular e-commerce platforms. Our database is constantly expanding to include more stores and provide you with comprehensive price comparisons.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search & Compare FAQs -->
+        <div class="faq-item" data-category="search">
+          <div class="bg-white rounded-lg shadow-md">
+            <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors">
+              <span class="font-semibold text-gray-800">How do I search for products?</span>
+              <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="faq-answer hidden px-6 pb-4">
+              <p class="text-gray-600">Simply use the search bar on our homepage. Type in the product name, brand, or model number you're looking for. Our search engine will find matching products across all our partner stores and display them with prices and availability.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-category="search">
+          <div class="bg-white rounded-lg shadow-md">
+            <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors">
+              <span class="font-semibold text-gray-800">How accurate are the prices?</span>
+              <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="faq-answer hidden px-6 pb-4">
+              <p class="text-gray-600">We update our prices regularly throughout the day to ensure accuracy. However, prices can change quickly, so we recommend checking the retailer's website for the most current price before making a purchase.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-category="search">
+          <div class="bg-white rounded-lg shadow-md">
+            <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors">
+              <span class="font-semibold text-gray-800">Can I compare products side by side?</span>
+              <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="faq-answer hidden px-6 pb-4">
+              <p class="text-gray-600">Yes! You can add products to your comparison list and view them side by side. This feature helps you compare specifications, prices, and features to make the best decision for your needs.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Account & Billing FAQs -->
+        <div class="faq-item" data-category="account">
+          <div class="bg-white rounded-lg shadow-md">
+            <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors">
+              <span class="font-semibold text-gray-800">Do I need an account to use WiseCart?</span>
+              <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="faq-answer hidden px-6 pb-4">
+              <p class="text-gray-600">No, you don't need an account to search and compare products. However, creating an account allows you to save favorite products, track price history, and receive notifications about price drops.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-category="account">
+          <div class="bg-white rounded-lg shadow-md">
+            <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors">
+              <span class="font-semibold text-gray-800">How do I reset my password?</span>
+              <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="faq-answer hidden px-6 pb-4">
+              <p class="text-gray-600">Go to the login page and click on "Forgot Password?" Enter your email address, and we'll send you a link to reset your password. Make sure to check your spam folder if you don't receive the email.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" data-category="account">
+          <div class="bg-white rounded-lg shadow-md">
+            <button class="faq-question w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors">
+              <span class="font-semibold text-gray-800">Can I delete my account?</span>
+              <svg class="faq-icon w-5 h-5 text-gray-500 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="faq-answer hidden px-6 pb-4">
+              <p class="text-gray-600">Yes, you can delete your account at any time. Go to your profile settings and look for the "Delete Account" option. Please note that this action is permanent and will remove all your saved data.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Still Need Help Section -->
+      <div class="mt-12 bg-gray-50 rounded-lg p-8 text-center">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Still Need Help?</h2>
+        <p class="text-gray-600 mb-6">Can't find the answer you're looking for? Our support team is here to help!</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="contact.html" class="bg-customBlue-100 text-white px-6 py-3 rounded-md font-semibold hover:bg-customBlue-200 transition-colors">
+            Contact Support
+          </a>
+          <a href="support.html" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-md font-semibold hover:bg-gray-300 transition-colors">
+            Visit Support Center
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="scripts.js"></script>
+  <script>
+    // FAQ functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // FAQ accordion functionality
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+          const answer = this.nextElementSibling;
+          const icon = this.querySelector('.faq-icon');
+          
+          // Close other open answers
+          document.querySelectorAll('.faq-answer').forEach(ans => {
+            if (ans !== answer) {
+              ans.classList.add('hidden');
+              ans.previousElementSibling.querySelector('.faq-icon').classList.remove('rotate-180');
+            }
+          });
+          
+          // Toggle current answer
+          answer.classList.toggle('hidden');
+          icon.classList.toggle('rotate-180');
+        });
+      });
+
+      // Category filtering
+      const categoryButtons = document.querySelectorAll('.faq-category-btn');
+      const faqItems = document.querySelectorAll('.faq-item');
+      
+      categoryButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const category = this.dataset.category;
+          
+          // Update active button
+          categoryButtons.forEach(btn => {
+            btn.classList.remove('active', 'bg-customBlue-100', 'text-white');
+            btn.classList.add('bg-gray-200', 'text-gray-700');
+          });
+          this.classList.add('active', 'bg-customBlue-100', 'text-white');
+          this.classList.remove('bg-gray-200', 'text-gray-700');
+          
+          // Filter FAQ items
+          faqItems.forEach(item => {
+            if (category === 'all' || item.dataset.category === category) {
+              item.style.display = 'block';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // Search functionality
+      const searchInput = document.getElementById('faqSearch');
+      searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        faqItems.forEach(item => {
+          const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+          const answer = item.querySelector('.faq-answer p').textContent.toLowerCase();
+          
+          if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html> 
