@@ -1,31 +1,31 @@
-# WiseCart
+# 🚀 WiseCart
 
-A smart price comparison and shopping platform that helps users find the best deals across multiple online stores.
+**A smart price comparison and shopping platform that helps users find the best deals across multiple online stores.**
 
-## Features
+---
 
-- Product search and comparison
-- Price tracking across different shops
-- User profiles and preferences
-- Shop information and ratings
-- Responsive design with Tailwind CSS
+## 👥 Team Members
 
-## Getting Started
+- **Nazmul Haque Jowel**  
+- **Ashik Ullah**  
+- **Mahbubur Rahman Sharaf**
 
-To start the project:
+---
 
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Build the CSS: `npm run build`
-4. Open `public/index.html` in your browser
+## ✨ Features
 
-## Customization
+- 🔍 Product search and comparison  
+- 📉 Price tracking across different shops  
+- 👤 User profiles and preferences  
+- 🛍️ Shop information and ratings  
+- 📱 Responsive design with Tailwind CSS  
 
-Don't forget to change the given colors in "tailwind.config.js" file. Modify the settings according to your preference.
+---
 
-## Technologies Used
+## ⚡ Getting Started
 
-- HTML5
-- Tailwind CSS
-- JavaScript
-- PostCSS
+To get started with the project:
+
+1. Clone the repository  
+   ```bash
+   git clone <repository-url>
