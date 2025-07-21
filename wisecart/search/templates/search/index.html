@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+<div class="search-container">
+    <h1>Price Comparison Search</h1>
+    <form action="{% url 'search:index' %}" method="POST" class="search-form">
+        {% csrf_token %}
+        <input type="text" name="search_term" placeholder="Search for products...">
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+{% if trending_searches %}
+<div class="trending-section">
+    <h2>Popular Searches This Week</h2>
+    <div class="trending-grid">
+        {% for trend in trending_searches %}
+        <div class="trend-card">
+            <div class="trend-info">
+                <h3>{{ trend.search_term }}</h3>
+                <div class="trend-details">
+                    <span class="price">Starting at ৳{{ trend.min_price|floatformat:0 }}</span>
+                </div>
+            </div>
+            <form action="{% url 'index' %}" method="POST" class="trend-search-form">
+                {% csrf_token %}
+                <input type="hidden" name="search_term" value="{{ trend.search_term }}">
+                <button type="submit" class="search-again-btn">Search Again</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}All Shops - wisecart{% endblock %}
+
+{% block content %}
+
+{% include 'search/compact_search_form.html' %}
+
+{% include 'shops/featured_shops.html' %}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">All Shops</h1>
+    
+    <!-- Dropdown for selecting the number of items per page -->
+    <form method="GET" action="" class="mb-6">
+        <label for="items_per_page" class="text-gray-700 mr-2">Shops per page:</label>
+        <select name="items_per_page" id="items_per_page" onchange="this.form.submit()"
+                class="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            <option value="10" {% if items_per_page == 10 %}selected{% endif %}>10</option>
+            <option value="20" {% if items_per_page == 20 %}selected{% endif %}>20</option>
+            <option value="50" {% if items_per_page == 50 %}selected{% endif %}>50</option>
+            <option value="all" {% if items_per_page == 'all' %}selected{% endif %}>All</option>
+        </select>
+    </form>
+
+    <!-- Shop Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for shop in page_obj %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <img src="{{ shop.image.url }}" alt="{{ shop.name }}" 
+                     class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-2">{{ shop.name }}</h2>
+                    <div class="flex items-center mb-2">
+                        <span class="text-yellow-400 mr-1">★</span>
+                        <span class="text-gray-700">{{ shop.mod_rating }}</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">{{ shop.description|truncatewords:33 }}</p>
+                    <a href="{% url 'shops:shop_detail' shop_slug=shop.slug %}"
+                       class="inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-200">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if items_per_page != 'all' %}
+        <!-- Pagination controls -->
+        <div class="flex justify-center mt-8">
+            <div class="flex items-center space-x-2">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1&items_per_page={{ items_per_page }}"
+                       class="px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200">
+                        &laquo; First
+                    </a>
+                    <a href="?page={{ page_obj.previous_page_number }}&items_per_page={{ items_per_page }}"
+                       class="px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200">
+                        Previous
+                    </a>
+                {% endif %}
+
+                <span class="px-3 py-2 text-gray-700">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}&items_per_page={{ items_per_page }}"
+                       class="px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200">
+                        Next
+                    </a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}&items_per_page={{ items_per_page }}"
+                       class="px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200">
+                        Last &raquo;
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% include 'products/featured_products.html' %}
+{% endblock %}

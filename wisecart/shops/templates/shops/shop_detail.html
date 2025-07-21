@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'search/compact_search_form.html' %}
+
+<div class="container mx-auto px-4 py-8">
+    <!-- Shop Details Section -->
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+        <img class="w-full h-64 object-cover" src="{{ shop.image.url }}" alt="{{ shop.name }}">
+        
+        <div class="p-6">
+            <h1 class="text-3xl font-bold mb-4">{{ shop.name }}</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="space-y-2">
+                    <p><span class="font-semibold">Description:</span> {{ shop.description }}</p>
+                    <p><span class="font-semibold">Category:</span> {{ shop.category|default:'Not specified' }}</p>
+                    <p><span class="font-semibold">Store Type:</span> {{ shop.get_store_type_display }}</p>
+                    <p><span class="font-semibold">Organization:</span> {{ shop.organization|default:'Not specified' }}</p>
+                    <p><span class="font-semibold">Payment Methods:</span> {{ shop.payment_methods|default:'Not specified' }}</p>
+                    <p><span class="font-semibold">Has App:</span> {{ shop.have_app|yesno:'Yes,No' }}</p>
+                    <p><span class="font-semibold">Moderator Rating:</span> {{ shop.mod_rating|default:'Not specified' }}</p>
+                    <p><span class="font-semibold">Moderator Comment:</span> {{ shop.mod_comment|default:'Not specified' }}</p>
+                    <p><span class="font-semibold">All Domains:</span> {{ shop.all_domains|default:'Not specified' }}</p>
+                </div>
+                
+                <div class="space-y-2">
+                    <p><span class="font-semibold">Address:</span> {{ shop.address }}</p>
+                    <p><span class="font-semibold">Opening Hours:</span> {{ shop.opening_hours|default:'Not specified' }}</p>
+                    <p><span class="font-semibold">Contact:</span> {{ shop.contact_number|default:'Not specified' }}</p>
+                    <p><span class="font-semibold">Email:</span> {{ shop.email|default:'Not specified' }}</p>
+                    <p><span class="font-semibold">Social Media:</span> {{ shop.social_media|default:'Not specified' }}</p>
+                    <p><span class="font-semibold">Website:</span> {{ shop.url|default:'Not specified' }}</p>
+                    <p><span class="font-semibold">Slug:</span> {{ shop.slug }}</p>
+                    <p><span class="font-semibold">User Rating:</span> {{ shop.user_rating|default:'Not specified' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="max-w-4xl mx-auto mt-8 bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-bold mb-4">Reviews</h2>
+        
+        <!-- Reviews per page selector -->
+        <form method="GET" action="" class="mb-4">
+            <label class="font-medium" for="reviews_per_page">Reviews per page:</label>
+            <select name="reviews_per_page" id="reviews_per_page" onchange="this.form.submit()" 
+                    class="ml-2 border rounded-md px-2 py-1">
+                <option value="10" {% if reviews_per_page == 10 %}selected{% endif %}>10</option>
+                <option value="20" {% if reviews_per_page == 20 %}selected{% endif %}>20</option>
+                <option value="50" {% if reviews_per_page == 50 %}selected{% endif %}>50</option>
+                <option value="all" {% if reviews_per_page == 'all' %}selected{% endif %}>All</option>
+            </select>
+        </form>
+
+        <!-- Reviews List -->
+        <div class="space-y-4">
+            {% for review in reviews %}
+                <div class="border-b pb-4">
+                    <div class="flex justify-between items-center">
+                        <p class="font-semibold">{{ review.user.username }}</p>
+                        <p class="text-yellow-500">Rating: {{ review.rating }}</p>
+                    </div>
+                    <p class="mt-2">{{ review.comment }}</p>
+                    {% if review.user == user %}
+                        <div class="mt-2">
+                            <form method="post" class="inline">
+                                {% csrf_token %}
+                                <button type="submit" name="delete_review" 
+                                        class="text-red-500 hover:text-red-700">Delete</button>
+                            </form>
+                            <a href="#edit-review" class="ml-4 text-blue-500 hover:text-blue-700">Edit</a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Review Form -->
+        {% if user.is_authenticated and not user_review %}
+            <div class="mt-6">
+                <h2 class="text-xl font-bold mb-4">Add a Review</h2>
+                <form method="post" class="space-y-4">
+                    {% csrf_token %}
+                    {{ review_form.as_p }}
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        Submit Review
+                    </button>
+                </form>
+            </div>
+        {% elif user_review %}
+            <div class="mt-6" id="edit-review">
+                <h2 class="text-xl font-bold mb-4">Edit Your Review</h2>
+                <form method="post" class="space-y-4">
+                    {% csrf_token %}
+                    {{ review_form.as_p }}
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        Update Review
+                    </button>
+                </form>
+            </div>
+        {% else %}
+            <p class="mt-6">
+                <a href="{% url 'users:login' %}" class="text-blue-500 hover:text-blue-700">Log in</a> 
+                to add a review.
+            </p>
+        {% endif %}
+
+        <!-- Pagination -->
+        {% if reviews_per_page != 'all' %}
+            <div class="mt-6 flex justify-center space-x-4">
+                {% if reviews.has_previous %}
+                    <a href="?page=1&reviews_per_page={{ reviews_per_page }}" 
+                       class="text-blue-500 hover:text-blue-700">First</a>
+                    <a href="?page={{ reviews.previous_page_number }}&reviews_per_page={{ reviews_per_page }}" 
+                       class="text-blue-500 hover:text-blue-700">Previous</a>
+                {% endif %}
+
+                <span class="text-gray-600">
+                    Page {{ reviews.number }} of {{ reviews.paginator.num_pages }}
+                </span>
+
+                {% if reviews.has_next %}
+                    <a href="?page={{ reviews.next_page_number }}&reviews_per_page={{ reviews_per_page }}" 
+                       class="text-blue-500 hover:text-blue-700">Next</a>
+                    <a href="?page={{ reviews.paginator.num_pages }}&reviews_per_page={{ reviews_per_page }}" 
+                       class="text-blue-500 hover:text-blue-700">Last</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% include 'products/featured_products.html' %}
+
+{% endblock %}

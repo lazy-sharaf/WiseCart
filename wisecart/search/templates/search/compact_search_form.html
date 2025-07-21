@@ -1,0 +1,19 @@
+<div class="bg-gradient-to-r from-blue-500 to-purple-600 py-6 px-4 shadow-lg">
+    <form action="{% url 'search:results' %}" method="GET" class="search-form max-w-3xl mx-auto">
+        <div class="relative flex items-center">
+            <input 
+                type="text" 
+                name="q" 
+                placeholder="Search for products..." 
+                value="{{ search_term }}"
+                class="w-full px-6 py-3.5 text-lg rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-sm focus:ring-3 focus:ring-white/30 focus:border-white/30 outline-none transition-all duration-200 shadow-lg text-white placeholder-white/70"
+            >
+            <button 
+                type="submit"
+                class="absolute right-2.5 px-7 py-2.5 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:ring-3 focus:ring-white/30 shadow-lg hover:shadow-xl"
+            >
+                Search
+            </button>
+        </div>
+    </form>
+</div> 

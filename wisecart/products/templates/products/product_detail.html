@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }} | wisecart{% endblock %}
+
+{% block content %}
+
+{% include 'search/compact_search_form.html' %}
+
+<div class="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4 space-y-3 sm:space-y-4">
+    <!-- Main Product Info and Shop Info Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
+        <!-- Product Main Info Block -->
+        <div class="bg-white rounded-md shadow-sm p-4 sm:p-5">
+            <h1 class="text-lg sm:text-xl font-semibold text-gray-800 mb-4">{{ product.name }}</h1>
+            
+            <!-- Image -->
+            <div class="bg-gray-50 p-2 sm:p-3 rounded mb-4">
+                <img src="{{ product.image_src }}" 
+                     alt="{{ product.name }}" 
+                     class="w-full h-auto object-contain max-h-[250px] sm:max-h-[300px]"
+                >
+            </div>
+
+            <!-- Price, Stock, Rating -->
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start border-t pt-4 gap-4 sm:gap-0">
+                <div class="space-y-2">
+                    <!-- Product Rating -->
+                    <div class="flex items-center bg-yellow-50 px-3 py-1.5 rounded">
+                        <span class="text-sm text-gray-600 mr-2">Rating:</span>
+                        <span class="text-base font-semibold text-yellow-700">{{ product.rating }}</span>
+                        <svg class="w-4 h-4 ml-0.5 text-yellow-500" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                    </div>
+
+                    <!-- Stock Status -->
+                    <div class="flex items-center text-{{ product.stock|yesno:'green-600,red-600' }}">
+                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="{{ product.stock|yesno:'M5 13l4 4L19 7,M6 18L18 6M6 6l12 12' }}"/>
+                        </svg>
+                        <span class="text-sm font-medium">{{ product.stock|yesno:"In Stock,Out of Stock" }}</span>
+                    </div>
+                </div>
+
+                <!-- Price -->
+                <div class="text-2xl font-bold text-blue-600 sm:text-right">
+                    ৳{{ product.price }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="grid grid-rows-[auto_1fr] gap-3 sm:gap-4">
+            <!-- Shop Info Block -->
+            <div class="bg-white rounded-md shadow-sm p-4 sm:p-5">
+                <div class="flex flex-col sm:flex-row justify-between items-start gap-4 sm:items-start">
+                    <div class="space-y-3 w-full sm:w-auto">
+                        <span class="text-lg font-medium text-gray-800">{{ product.store.name }}</span>
+                        <div>
+                            <a href="{% url 'shops:shop_detail' product.store.slug %}" 
+                               class="inline-flex items-center px-4 py-2 bg-blue-600 text-sm text-white rounded-md hover:bg-blue-700 transition-all duration-200">
+                                View Shop Info
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="space-y-2 w-full sm:w-auto">
+                        <div class="flex items-center bg-yellow-50 px-3 py-1.5 rounded">
+                            <span class="text-sm text-gray-600 mr-2">Mod:</span>
+                            <span class="text-base font-semibold text-yellow-700">{{ product.store.mod_rating }}</span>
+                            <svg class="w-4 h-4 ml-0.5 text-yellow-500" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                            </svg>
+                        </div>
+                        <div class="flex items-center bg-yellow-50 px-3 py-1.5 rounded">
+                            <span class="text-sm text-gray-600 mr-2">User:</span>
+                            <span class="text-base font-semibold text-yellow-700">
+                                {% if product.store.user_rating %}
+                                    {{ product.store.user_rating }}
+                                {% else %}
+                                    No ratings
+                                {% endif %}
+                            </span>
+                            <svg class="w-4 h-4 ml-0.5 text-yellow-500" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overview Block -->
+            <div class="bg-white rounded-md shadow-sm p-4 sm:p-5 h-full">
+                <h2 class="text-lg font-semibold text-gray-800 mb-3">Overview</h2>
+                <div class="text-gray-600 leading-relaxed">{{ product.overview }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Go to Product Button -->
+    <div class="flex justify-center py-2 sm:py-3">
+        <a href="{{ product.url }}" target="_blank" 
+           class="inline-flex items-center px-5 sm:px-6 py-2.5 sm:py-3 bg-blue-600 text font-medium text-white rounded-md hover:bg-blue-700 transition-all duration-200 w-full sm:w-auto justify-center">
+            Go to Product
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+        </a>
+    </div>
+
+    <!-- Description Block -->
+    <div class="bg-white rounded-md shadow-sm p-4 sm:p-5">
+        <h2 class="text-lg font-semibold text-gray-800 mb-3">Description</h2>
+        <div class="text-gray-600 leading-relaxed">{{ product.description }}</div>
+    </div>
+</div>
+
+{% include 'products/featured_products.html' %}
+
+{% endblock %}

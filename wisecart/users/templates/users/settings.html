@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto p-6">
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Account Settings</h1>
+        
+        {% if messages %}
+        <div class="mb-6">
+            {% for message in messages %}
+                <div class="{% if message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %} p-4 rounded-lg">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <div class="space-y-8">
+            <!-- Email Change Section -->
+            <div class="border-b pb-6">
+                <h2 class="text-xl font-semibold mb-4">Change Email</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="change_email">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">
+                                Current Email
+                            </label>
+                            <input type="email" readonly value="{{ user.email }}" 
+                                class="w-full px-3 py-2 border rounded-lg bg-gray-100" disabled>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">
+                                New Email
+                            </label>
+                            <input type="email" name="new_email" required 
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="Enter new email">
+                        </div>
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                            Update Email
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Password Change Section -->
+            <div class="pt-6">
+                <h2 class="text-xl font-semibold mb-4">Change Password</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="change_password">
+                    <div class="space-y-4">
+                        <!-- Old Password -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">
+                                Current Password
+                            </label>
+                            <input type="password" name="old_password" required 
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="Enter current password">
+                            {% if password_form.old_password.errors %}
+                                {% for error in password_form.old_password.errors %}
+                                    <p class="text-red-500 text-xs italic mt-1">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <!-- New Password -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">
+                                New Password
+                            </label>
+                            <input type="password" name="new_password1" required 
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="Enter new password">
+                            {% if password_form.new_password1.errors %}
+                                {% for error in password_form.new_password1.errors %}
+                                    <p class="text-red-500 text-xs italic mt-1">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <!-- Confirm New Password -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">
+                                Confirm New Password
+                            </label>
+                            <input type="password" name="new_password2" required 
+                                class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="Confirm new password">
+                            {% if password_form.new_password2.errors %}
+                                {% for error in password_form.new_password2.errors %}
+                                    <p class="text-red-500 text-xs italic mt-1">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                            Change Password
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Back to Profile -->
+            <div class="pt-4">
+                <a href="{% url 'users:profile' %}" class="text-blue-500 hover:text-blue-600">
+                    ← Back to Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

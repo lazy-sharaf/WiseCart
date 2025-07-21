@@ -1,0 +1,1694 @@
+﻿[
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2024-12-01T04:20:34.393Z",
+    "user": 1,
+    "content_type": 6,
+    "object_id": "1",
+    "object_repr": "shrek",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Full name\", \"Gender\", \"User type\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2024-12-01T09:14:06.474Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "1",
+    "object_repr": "Startech",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2024-12-01T09:14:47.594Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "Featured Product: Canon EOS 850D DSLR Camera (Body Only)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2024-12-01T09:15:25.436Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "Featured Product: Canon EOS 850D DSLR Camera (Body Only)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Expiry date\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2024-12-01T09:51:03.677Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "1",
+    "object_repr": "Startech",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2024-12-01T09:51:09.393Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "1",
+    "object_repr": "Startech",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Url\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2024-12-01T09:51:14.881Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "1",
+    "object_repr": "Startech",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2024-12-01T13:00:47.667Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "2",
+    "object_repr": "Featured Product: ViewSonic EP5542T 55\" 4K Multi-Touch Digital ePoster Kiosk",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2024-12-01T13:01:46.564Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "3",
+    "object_repr": "Featured Product: Cisco Firepower 1140 Next-Generation 8 Port Enterprise Firewall",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2024-12-01T13:09:01.280Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "Cisco Firepower 1140 Next-Generation 8 Port Enterprise Firewall",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Price\", \"Description\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2024-12-01T13:09:02.489Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "3",
+    "object_repr": "Featured Product: Cisco Firepower 1140 Next-Generation 8 Port Enterprise Firewall",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2024-12-01T13:09:23.343Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "Canon EOS 850D DSLR Camera (Body Only)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Price\", \"Description\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2024-12-01T14:19:19.072Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "Canon EOS 850D DSLR Camera (Body Only)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Overview\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2024-12-01T14:19:48.351Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "Canon EOS 850D DSLR Camera (Body Only)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\", \"Overview\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2024-12-01T14:25:48.817Z",
+    "user": 1,
+    "content_type": 13,
+    "object_id": "1",
+    "object_repr": "Review by shrek for Startech",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2024-12-01T16:11:39.524Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "1",
+    "object_repr": "Featured Shops (2024-12-01)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": 1,
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 2,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 2,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 2,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": 2,
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 3,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 3,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 3,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": 3,
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 4,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 4,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 4,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": 4,
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 5,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 5,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 5,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view session",
+    "content_type": 5,
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add user",
+    "content_type": 6,
+    "codename": "add_customuser"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change user",
+    "content_type": 6,
+    "codename": "change_customuser"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete user",
+    "content_type": 6,
+    "codename": "delete_customuser"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view user",
+    "content_type": 6,
+    "codename": "view_customuser"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add product",
+    "content_type": 7,
+    "codename": "add_product"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change product",
+    "content_type": 7,
+    "codename": "change_product"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete product",
+    "content_type": 7,
+    "codename": "delete_product"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view product",
+    "content_type": 7,
+    "codename": "view_product"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add Featured Product",
+    "content_type": 8,
+    "codename": "add_featuredproduct"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change Featured Product",
+    "content_type": 8,
+    "codename": "change_featuredproduct"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete Featured Product",
+    "content_type": 8,
+    "codename": "delete_featuredproduct"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view Featured Product",
+    "content_type": 8,
+    "codename": "view_featuredproduct"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can add search",
+    "content_type": 9,
+    "codename": "add_search"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can change search",
+    "content_type": 9,
+    "codename": "change_search"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can delete search",
+    "content_type": 9,
+    "codename": "delete_search"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can view search",
+    "content_type": 9,
+    "codename": "view_search"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 37,
+  "fields": {
+    "name": "Can add search result",
+    "content_type": 10,
+    "codename": "add_searchresult"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 38,
+  "fields": {
+    "name": "Can change search result",
+    "content_type": 10,
+    "codename": "change_searchresult"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 39,
+  "fields": {
+    "name": "Can delete search result",
+    "content_type": 10,
+    "codename": "delete_searchresult"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 40,
+  "fields": {
+    "name": "Can view search result",
+    "content_type": 10,
+    "codename": "view_searchresult"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 41,
+  "fields": {
+    "name": "Can add shop",
+    "content_type": 11,
+    "codename": "add_shop"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 42,
+  "fields": {
+    "name": "Can change shop",
+    "content_type": 11,
+    "codename": "change_shop"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 43,
+  "fields": {
+    "name": "Can delete shop",
+    "content_type": 11,
+    "codename": "delete_shop"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 44,
+  "fields": {
+    "name": "Can view shop",
+    "content_type": 11,
+    "codename": "view_shop"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 45,
+  "fields": {
+    "name": "Can add Featured Shop",
+    "content_type": 12,
+    "codename": "add_featuredshop"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 46,
+  "fields": {
+    "name": "Can change Featured Shop",
+    "content_type": 12,
+    "codename": "change_featuredshop"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 47,
+  "fields": {
+    "name": "Can delete Featured Shop",
+    "content_type": 12,
+    "codename": "delete_featuredshop"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 48,
+  "fields": {
+    "name": "Can view Featured Shop",
+    "content_type": 12,
+    "codename": "view_featuredshop"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 49,
+  "fields": {
+    "name": "Can add review",
+    "content_type": 13,
+    "codename": "add_review"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 50,
+  "fields": {
+    "name": "Can change review",
+    "content_type": 13,
+    "codename": "change_review"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 51,
+  "fields": {
+    "name": "Can delete review",
+    "content_type": 13,
+    "codename": "delete_review"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 52,
+  "fields": {
+    "name": "Can view review",
+    "content_type": 13,
+    "codename": "view_review"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "users",
+    "model": "customuser"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "products",
+    "model": "product"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "products",
+    "model": "featuredproduct"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 9,
+  "fields": {
+    "app_label": "search",
+    "model": "search"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 10,
+  "fields": {
+    "app_label": "search",
+    "model": "searchresult"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 11,
+  "fields": {
+    "app_label": "shops",
+    "model": "shop"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 12,
+  "fields": {
+    "app_label": "shops",
+    "model": "featuredshop"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 13,
+  "fields": {
+    "app_label": "shops",
+    "model": "review"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "k20i76ysslsgpxiehdqr60yd66v526qu",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hAGKBSX7j0DGYZBqoYmpV0Z765NutDtf-_9l4i4rTVunZc4ZXEWIE6_W0J6cNtBvmO7zZLmti5TkrsiD9rldc78vBzu30HFXr-1YyZCMIqsHoxFVN5pHwqOrHEMBHlIlDwpKMUlbZlB28ymhFysAS_eH_l0OIQ:1tHnEx:Xh-u2uTpxOOiTrFS5SVXHdwG20verPUMJt2buLxlo6A",
+    "expire_date": "2024-12-15T16:56:11.227Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "q93l6i3qwn9see3zvt96xnc7srp5mex2",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hAGKBSX7j0DGYZBqoYmpV0Z765NutDtf-_9l4i4rTVunZc4ZXEWIE6_W0J6cNtBvmO7zZLmti5TkrsiD9rldc78vBzu30HFXr-1YyZCMIqsHoxFVN5pHwqOrHEMBHlIlDwpKMUlbZlB28ymhFysAS_eH_l0OIQ:1tHkmF:XeiKFygr-vLzXcNaYE_UEV5KRFvg3P76FO7T_OhyCIQ",
+    "expire_date": "2024-12-15T14:18:23.503Z"
+  }
+},
+{
+  "model": "users.customuser",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$JdyS1pPXhsoRpc4ut8FALK$RZ8u5pzE6WkEDQeDQbfzj8I1O7P1LZaGh1uO05ZFlkU=",
+    "last_login": "2024-12-01T16:56:11.211Z",
+    "is_superuser": true,
+    "username": "shrek",
+    "first_name": "",
+    "last_name": "",
+    "email": "shrek@farfaraway.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2024-12-01T04:19:36Z",
+    "full_name": "Shrek",
+    "gender": "M",
+    "user_type": "premium",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "products.product",
+  "pk": 1,
+  "fields": {
+    "name": "Canon EOS 850D DSLR Camera (Body Only)",
+    "store": 1,
+    "price": "45000.00",
+    "stock": true,
+    "url": "https://www.startech.com.bd/canon-eos-850d-dslr-camera-body",
+    "rating": 0.0,
+    "image_src": "https://www.startech.com.bd/image/cache/catalog/dslr-camera/canon/eos-850d/eos-850d-01-500x500.webp",
+    "description": "Fastrack Active Bluetooth Calling Rugged Smart Watch\r\nThe Fastrack Active Bluetooth Calling Rugged Smart Watch features a 4.64 cm (1.83-inch) UltraVU HD display with vivid images and easy navigation via the functional crown. Users may make and take calls straight from their watches with the SingleSync BT Calling feature. They can even save their favorite contacts for easy access. With over 100 sports modes, AI Coach, and auto multisport detection, the wristwatch is the perfect partner for tracking various physical activities. The Fastrack Active Bluetooth Calling Rugged Smart Watch prioritizes health monitoring, offering a full health suite that includes auto stress monitoring, heart rate monitoring (HRM) around-the-clock, SpO2 tracking, and sleep monitoring with REM analysis. With the use of real-time data and insights, these features assist users in maintaining their overall wellness and health. The watch is both functional and stylish thanks to its integrated games, calendar, AI voice assistant, calculator, and other useful features. Users can customize their watch to fit their style with over 100 adjustable watch faces. In addition to providing music and camera control, the Fastrack Active Bluetooth Calling Rugged Smart Watch boasts a 7-day battery life under typical conditions and a 3-day battery life when Bluetooth calling is enabled. Its sturdy construction makes it appropriate for outdoor use, and its touchscreen interface guarantees seamless functioning. The Fastrack Active Bluetooth Calling Rugged Smart Watch is a dependable and fashionable option for individuals seeking to maintain an active lifestyle, thanks to its unique combination of fitness, health, and daily capabilities.",
+    "overview": "Model: Active\r\nDisplay: 4.64 CM UltraVU HD Display\r\nBattery Life: Up to 7 Days\r\nFunctional Crown Rugged\r\nAuto Multisport Recognition",
+    "last_updated": "2024-12-01T14:19:48.351Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 2,
+  "fields": {
+    "name": "Cisco Firepower 1140 Next-Generation 8 Port Enterprise Firewall",
+    "store": 1,
+    "price": "4300.00",
+    "stock": false,
+    "url": "https://www.startech.com.bd/cisco-firepower-1140-8-port-firewall",
+    "rating": 0.0,
+    "image_src": "https://www.startech.com.bd/image/cache/catalog/firewall/cisco/firepower-1040/firepower-1040-01-500x500.webp",
+    "description": "",
+    "overview": "",
+    "last_updated": "2024-12-01T13:09:01.277Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 3,
+  "fields": {
+    "name": "ESET Cyber Security Pro Internet Security for Mac",
+    "store": 1,
+    "price": null,
+    "stock": true,
+    "url": "https://www.startech.com.bd/eset-cyber-security-pro-internet-security-for-mac",
+    "rating": 0.0,
+    "image_src": "https://www.startech.com.bd/image/cache/catalog/eset/cyber-security/cyber-500x500.jpg",
+    "description": "\r\n    ",
+    "overview": null,
+    "last_updated": "2024-12-01T11:09:22.419Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 4,
+  "fields": {
+    "name": "Pantum P2506 Single Function Mono Laser Printer (22 PPM)",
+    "store": 1,
+    "price": "11500.00",
+    "stock": true,
+    "url": "https://www.startech.com.bd/pantum-p2506-mono-laser-printer",
+    "rating": 0.0,
+    "image_src": "https://www.startech.com.bd/image/cache/catalog/printer/pantum/p2506/p2506-01-500x500.jpg",
+    "description": "\r\n    ",
+    "overview": null,
+    "last_updated": "2024-12-01T11:22:27.404Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 5,
+  "fields": {
+    "name": "AHD/CVI/TVI 720P/1080P (2MP) Video Balun for CC Camera",
+    "store": 1,
+    "price": "250.00",
+    "stock": true,
+    "url": "https://www.startech.com.bd/ahd-cvi-tvi-720p-1080p-2mp-video-balun-for-cc-camera",
+    "rating": 0.0,
+    "image_src": "https://www.startech.com.bd/image/cache/catalog/cc-camera-accessories/non-brand/video-balun-for-cc-camera/video-balun-for-cc-camera-01-500x500.webp",
+    "description": "\r\n    ",
+    "overview": null,
+    "last_updated": "2024-12-01T11:23:48.153Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 6,
+  "fields": {
+    "name": "ViewSonic EP5542T 55\" 4K Multi-Touch Digital ePoster Kiosk",
+    "store": 1,
+    "price": "310000.00",
+    "stock": true,
+    "url": "https://www.startech.com.bd/viewsonic-ep5542t-55-inch-multi-touch-digital-eposter-kiosk",
+    "rating": 0.0,
+    "image_src": "https://www.startech.com.bd/image/cache/catalog/kiosk/viewsonic/ep5542t/ep5542t-01-500x500.webp",
+    "description": "\r\n    ",
+    "overview": null,
+    "last_updated": "2024-12-01T11:29:56.503Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 7,
+  "fields": {
+    "name": "Transcend JetRam 8GB DDR4 3200MHz U-DIMM Desktop RAM",
+    "store": 1,
+    "price": "2500.00",
+    "stock": true,
+    "url": "https://www.startech.com.bd/transcend-jetram-8gb-3200mhz-desktop-ram",
+    "rating": 0.0,
+    "image_src": "https://www.startech.com.bd/image/cache/catalog/ram/transcend/jetram/8gb-3200mhz-500x500.jpg",
+    "description": "\r\n    ",
+    "overview": null,
+    "last_updated": "2024-12-01T14:46:47.835Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 8,
+  "fields": {
+    "name": "Colorful Notebook 8GB DDR4 3200MHz SO-DIMM Laptop RAM",
+    "store": 1,
+    "price": "2350.00",
+    "stock": true,
+    "url": "https://www.startech.com.bd/colorful-notebook-8gb-ddr4-3200mhz-laptop-ram",
+    "rating": 0.0,
+    "image_src": "https://www.startech.com.bd/image/cache/catalog/ram/colorful/notebook-8gb-ddr4-3200mhz/notebook-8gb-ddr4-3200mhz-01-500x500.webp",
+    "description": "\r\n    ",
+    "overview": null,
+    "last_updated": "2024-12-01T16:00:24.363Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 9,
+  "fields": {
+    "name": "Lenovo IdeaPad 1 15AMN7 AMD Ryzen 3 7320U 8GB DDR5 RAM 512GB SSD 15.6\" FHD Laptop",
+    "store": 1,
+    "price": "50000.00",
+    "stock": true,
+    "url": "https://www.startech.com.bd/lenovo-ideapad-1-15amn7-amd-ryzen-3-7320u-fhd-laptop",
+    "rating": 0.0,
+    "image_src": "https://www.startech.com.bd/image/cache/catalog/laptop/lenovo/ideapad-1-15ada7/ideapad-1-15ada7-04-500x500.webp",
+    "description": "\r\n    ",
+    "overview": null,
+    "last_updated": "2024-12-01T16:55:23.175Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 10,
+  "fields": {
+    "name": "MSI PRO MP223 E2 21.45\" 100Hz Full HD Business Monitor",
+    "store": 1,
+    "price": "8999.00",
+    "stock": true,
+    "url": "https://www.startech.com.bd/msi-pro-mp223-e2-business-monitor",
+    "rating": 0.0,
+    "image_src": "https://www.startech.com.bd/image/cache/catalog/monitor/msi/pro-mp223-e2/pro-mp223-e2-01-500x500.webp",
+    "description": "\r\n    ",
+    "overview": null,
+    "last_updated": "2024-12-01T19:44:35.837Z"
+  }
+},
+{
+  "model": "products.featuredproduct",
+  "pk": 1,
+  "fields": {
+    "product": 1,
+    "image": "",
+    "featured_date": "2024-12-01T09:14:47.594Z",
+    "expiry_date": "2024-12-12T12:00:00Z",
+    "priority": 9
+  }
+},
+{
+  "model": "products.featuredproduct",
+  "pk": 2,
+  "fields": {
+    "product": 6,
+    "image": "featured_products/EasySMX-T39.png",
+    "featured_date": "2024-12-01T13:00:47.661Z",
+    "expiry_date": "2024-12-06T12:00:00Z",
+    "priority": 8
+  }
+},
+{
+  "model": "products.featuredproduct",
+  "pk": 3,
+  "fields": {
+    "product": 2,
+    "image": "",
+    "featured_date": "2024-12-01T13:01:46.564Z",
+    "expiry_date": "2024-12-20T12:00:00Z",
+    "priority": 9
+  }
+},
+{
+  "model": "search.search",
+  "pk": 1,
+  "fields": {
+    "query": "Intel 10th Gen",
+    "time": "2024-12-01T16:05:02.493Z",
+    "user": 1
+  }
+},
+{
+  "model": "search.search",
+  "pk": 2,
+  "fields": {
+    "query": "8gb ddr4",
+    "time": "2024-12-01T16:04:34.498Z",
+    "user": 1
+  }
+},
+{
+  "model": "search.search",
+  "pk": 3,
+  "fields": {
+    "query": "8gb ddr4 ram",
+    "time": "2024-12-01T16:04:04.754Z",
+    "user": 1
+  }
+},
+{
+  "model": "search.search",
+  "pk": 4,
+  "fields": {
+    "query": "8gb ddr5 ram corsair 3200",
+    "time": "2024-12-01T16:00:08.615Z",
+    "user": 1
+  }
+},
+{
+  "model": "search.search",
+  "pk": 5,
+  "fields": {
+    "query": "8gb ddr5 ram",
+    "time": "2024-12-01T16:57:11.862Z",
+    "user": 1
+  }
+},
+{
+  "model": "search.search",
+  "pk": 6,
+  "fields": {
+    "query": "8gb ddr5",
+    "time": "2024-12-01T16:04:01.208Z",
+    "user": 1
+  }
+},
+{
+  "model": "search.search",
+  "pk": 7,
+  "fields": {
+    "query": "8gb ddr5 ram corsai",
+    "time": "2024-12-01T14:41:25.329Z",
+    "user": 1
+  }
+},
+{
+  "model": "search.search",
+  "pk": 8,
+  "fields": {
+    "query": "8gb ddr",
+    "time": "2024-12-01T16:00:22.332Z",
+    "user": 1
+  }
+},
+{
+  "model": "search.search",
+  "pk": 9,
+  "fields": {
+    "query": "8gb ddr",
+    "time": "2024-12-01T14:53:05.670Z",
+    "user": null
+  }
+},
+{
+  "model": "search.search",
+  "pk": 10,
+  "fields": {
+    "query": "8gb ddr4 r",
+    "time": "2024-12-01T16:02:19.357Z",
+    "user": 1
+  }
+},
+{
+  "model": "search.search",
+  "pk": 11,
+  "fields": {
+    "query": "8gb ddr5 ram",
+    "time": "2024-12-01T16:55:07.403Z",
+    "user": null
+  }
+},
+{
+  "model": "search.search",
+  "pk": 12,
+  "fields": {
+    "query": "lexar 256",
+    "time": "2024-12-01T19:30:57.570Z",
+    "user": 1
+  }
+},
+{
+  "model": "search.search",
+  "pk": 13,
+  "fields": {
+    "query": "msi monitor",
+    "time": "2024-12-01T19:32:28.743Z",
+    "user": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 1,
+  "fields": {
+    "search": 3,
+    "title": "BORY 8GB DDR4 3200MHz SODIMM Laptop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/bory-8gb-ddr4-3200mhz-laptop-ram",
+    "price": "1900.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 2,
+  "fields": {
+    "search": 3,
+    "title": "Lexar 8GB DDR4 3200 Mhz UDIMM Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/lexar-8gb-ddr4-3200mhz-udimm-desktop-ram",
+    "price": "2400.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 3,
+  "fields": {
+    "search": 3,
+    "title": "G.Skill Ripjaws 8GB DDR4 3200MHz C22 Laptop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/g-skill-ripjaws-8gb-ddr4-3200mhz-c22-laptop-ram",
+    "price": "2600.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 4,
+  "fields": {
+    "search": 3,
+    "title": "Adata Premier 8GB DDR4 3200Mhz Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/adata-premier-8gb-ddr4-desktop-ram",
+    "price": "2400.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 5,
+  "fields": {
+    "search": 3,
+    "title": "G.SKILL Aegis 8GB DDR4 3200Mhz Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/g-skill-aegis-8gb-ddr4-3200mhz-desktop-ram",
+    "price": "2300.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 6,
+  "fields": {
+    "search": 3,
+    "title": "Lexar THOR 8GB DDR4 3200Mhz UDIMM Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/lexar-thor-8gb-ddr4-3200mhz-ram",
+    "price": "3050.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 7,
+  "fields": {
+    "search": 3,
+    "title": "XOC Frost RGB 8GB DDR4 3200MHz Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/xoc-frost-rgb-8gb-ddr4-3200mhz-desktop-ram",
+    "price": "3100.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 8,
+  "fields": {
+    "search": 3,
+    "title": "Colorful Battle-AX 8GB DDR4 3200MHz U-DIMM Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/colorful-battle-ax-8g-ddr4-3200mhz-ram",
+    "price": "2350.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 9,
+  "fields": {
+    "search": 3,
+    "title": "PNY XLR8 RGB 8GB DDR4 3600MHz Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/pny-xlr8-rgb-8gb-desktop-ram",
+    "price": "3999.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 10,
+  "fields": {
+    "search": 3,
+    "title": "G.SKILL Flare X 8GB DDR4 3200Mhz Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/g-skill-flare-x-8gb-ddr4-3200mhz-ram",
+    "price": "5200.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 11,
+  "fields": {
+    "search": 3,
+    "title": "Adata XPG SPECTRIX D35G RGB 8GB DDR4 3200MHz Gaming Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/adata-xpg-spectrix-d35g-rgb-8gb-ddr4-3200mhz-desktop-ram",
+    "price": "2900.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 12,
+  "fields": {
+    "search": 3,
+    "title": "Adata XPG SPECTRIX D35G RGB 8GB DDR4 3600MHz Gaming Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/adata-xpg-spectrix-d35g-rgb-8gb-ddr4-3600mhz-desktop-ram",
+    "price": "2700.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 13,
+  "fields": {
+    "search": 3,
+    "title": "HP 15-fd0204TU Core i5 13th Gen 8GB DDR4 RAM 512GB SSD 15.6\" FHD Laptop",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/hp-15-fd0204tu-core-i5-13th-gen-laptop",
+    "price": "79000.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 14,
+  "fields": {
+    "search": 3,
+    "title": "Dell Vostro 3888MT Core i5 8GB RAM 10th Gen Brand PC",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/dell-vostro-3888mt-core-i5-brand-pc",
+    "price": "56000.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 15,
+  "fields": {
+    "search": 3,
+    "title": "Lenovo ThinkCentre neo 50t Core i3 12th Gen 8GB RAM Brand PC",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/lenovo-thinkcentre-neo-50t-core-i3-brand-pc",
+    "price": "55000.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 16,
+  "fields": {
+    "search": 3,
+    "title": "Avita Liber V14 Core i5 11th Gen 14\" FHD Laptop Soft Lavender",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/avita-liber-v14-core-i5-11th-gen-laptop-soft-lavender",
+    "price": "45000.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 17,
+  "fields": {
+    "search": 3,
+    "title": "Avita Liber V14 Core i5 11th Gen 14\" FHD Laptop Aqua Blue",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/avita-liber-v14-core-i5-11th-gen-laptop-aqua-blue",
+    "price": "45000.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 18,
+  "fields": {
+    "search": 3,
+    "title": "Avita Liber V14 Core i5 11th Gen 14\" FHD Laptop Infinite Black",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/avita-liber-v14-core-i5-11th-gen-laptop-infinite-black",
+    "price": "45000.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 19,
+  "fields": {
+    "search": 3,
+    "title": "Avita Liber V14 Core i5 11th Gen 14\" FHD Laptop Star Silver",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/avita-liber-v14-core-i5-11th-gen-laptop-star-silver",
+    "price": "45000.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 20,
+  "fields": {
+    "search": 3,
+    "title": "Avita Liber V14 Core i5 11th Gen 14\" FHD Laptop Flowers on Yellow",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/avita-liber-v14-core-i5-11th-gen-laptop-flowers-on-yellow",
+    "price": "45000.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 21,
+  "fields": {
+    "search": 2,
+    "title": "Colorful Notebook 8GB DDR4 3200MHz SO-DIMM Laptop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/colorful-notebook-8gb-ddr4-3200mhz-laptop-ram",
+    "price": "2350.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 22,
+  "fields": {
+    "search": 2,
+    "title": "Transcend JetRam 8GB DDR4 3200MHz U-DIMM Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/transcend-jetram-8gb-3200mhz-desktop-ram",
+    "price": "2500.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 23,
+  "fields": {
+    "search": 5,
+    "title": "TEAM VULCAN RED 8GB DDR5 6000MHz Gaming Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/team-vulcan-red-8gb-ddr5-6000mhz-ram",
+    "price": "3500.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 24,
+  "fields": {
+    "search": 5,
+    "title": "Lenovo IdeaPad 1 15AMN7 AMD Ryzen 3 7320U 8GB DDR5 RAM 512GB SSD 15.6\" FHD Laptop",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/lenovo-ideapad-1-15amn7-amd-ryzen-3-7320u-fhd-laptop",
+    "price": "50000.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 25,
+  "fields": {
+    "search": 6,
+    "title": "Transcend JetRAM 8GB DDR5 4800Mhz SO-DIMM Laptop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/transcend-jetram-8gb-ddr5-4800mhz-laptop-ram",
+    "price": "3550.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 26,
+  "fields": {
+    "search": 6,
+    "title": "TEAM VULCAN Black 8GB DDR5 5200MHz Gaming Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/team-vulcan-black-8gb-ddr5-5200mhz-ram",
+    "price": "3499.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 27,
+  "fields": {
+    "search": 8,
+    "title": "Colorful Notebook 8GB DDR4 3200MHz SO-DIMM Laptop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/colorful-notebook-8gb-ddr4-3200mhz-laptop-ram",
+    "price": "2350.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 28,
+  "fields": {
+    "search": 8,
+    "title": "Transcend JetRam 8GB DDR4 3200MHz U-DIMM Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/transcend-jetram-8gb-3200mhz-desktop-ram",
+    "price": "2500.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 29,
+  "fields": {
+    "search": 9,
+    "title": "Colorful Notebook 8GB DDR4 3200MHz SO-DIMM Laptop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/colorful-notebook-8gb-ddr4-3200mhz-laptop-ram",
+    "price": "2350.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 30,
+  "fields": {
+    "search": 9,
+    "title": "Transcend JetRam 8GB DDR4 3200MHz U-DIMM Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/transcend-jetram-8gb-3200mhz-desktop-ram",
+    "price": "2500.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 31,
+  "fields": {
+    "search": 10,
+    "title": "XOC Frost RGB 8GB DDR4 3200MHz Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/xoc-frost-rgb-8gb-ddr4-3200mhz-desktop-ram",
+    "price": "3100.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 32,
+  "fields": {
+    "search": 10,
+    "title": "BORY 8GB DDR4 3200MHz SODIMM Laptop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/bory-8gb-ddr4-3200mhz-laptop-ram",
+    "price": "1900.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 33,
+  "fields": {
+    "search": 1,
+    "title": "Intel 10th Gen Core i3 10100F Processor",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/intel-10th-gen-core-i3-10100f-processor",
+    "price": "7200.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 34,
+  "fields": {
+    "search": 1,
+    "title": "Intel 10th Gen Core i3 10100 Processor",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/intel-core-i3-10100-processor",
+    "price": "10800.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 35,
+  "fields": {
+    "search": 11,
+    "title": "TEAM VULCAN RED 8GB DDR5 6000MHz Gaming Desktop RAM",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/team-vulcan-red-8gb-ddr5-6000mhz-ram",
+    "price": "3500.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 36,
+  "fields": {
+    "search": 11,
+    "title": "Lenovo IdeaPad 1 15AMN7 AMD Ryzen 3 7320U 8GB DDR5 RAM 512GB SSD 15.6\" FHD Laptop",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/lenovo-ideapad-1-15amn7-amd-ryzen-3-7320u-fhd-laptop",
+    "price": "50000.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 37,
+  "fields": {
+    "search": 12,
+    "title": "Lexar High-Performance 633x 256GB MicroSDXC UHS-I Memory Card with Adapter",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/lexar-high-performance-633x-256gb-memory-card",
+    "price": "2937.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 38,
+  "fields": {
+    "search": 12,
+    "title": "Lexar NM620 256GB M.2 NVMe SSD",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/lexar-nm620-256gb-nvme-ssd",
+    "price": "3800.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 39,
+  "fields": {
+    "search": 13,
+    "title": "MSI PRO MP223 E2 21.45\" 100Hz Full HD Business Monitor",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/msi-pro-mp223-e2-business-monitor",
+    "price": "8999.00",
+    "store": 1
+  }
+},
+{
+  "model": "search.searchresult",
+  "pk": 40,
+  "fields": {
+    "search": 13,
+    "title": "MSI PRO MP223 21.45\" Full HD Business Monitor",
+    "rating": 0.0,
+    "stock": true,
+    "url": "https://www.startech.com.bd/msi-pro-mp223-21-5-inch-fhd-monitor",
+    "price": "9800.00",
+    "store": 1
+  }
+},
+{
+  "model": "shops.shop",
+  "pk": 1,
+  "fields": {
+    "name": "Startech",
+    "slug": "startech",
+    "image": "shops/startech_fwKvLca.png",
+    "url": "https://www.startech.com.bd",
+    "category": "Tech",
+    "mod_rating": 4.0,
+    "mod_comment": "great",
+    "description": "no 1, sakib khan",
+    "organization": null,
+    "all_domains": "startech.com.bd",
+    "store_type": "both",
+    "payment_methods": "cod, bkash",
+    "have_app": false,
+    "address": "dhaka",
+    "opening_hours": "24 hours",
+    "contact_number": "+8801755513971",
+    "email": "st@mail.com",
+    "social_media": "https://www.facebook.com/startechbd"
+  }
+},
+{
+  "model": "shops.review",
+  "pk": 1,
+  "fields": {
+    "shop": 1,
+    "user": 1,
+    "rating": 5.0,
+    "comment": "great",
+    "created_at": "2024-12-01T14:25:48.807Z"
+  }
+},
+{
+  "model": "shops.featuredshop",
+  "pk": 1,
+  "fields": {
+    "shop": 1,
+    "featured_date": "2024-12-01T16:11:39.516Z",
+    "expiry_date": "2024-12-28T12:00:00Z",
+    "priority": 5
+  }
+}
+]

@@ -1,0 +1,37 @@
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-6">
+    {% for featured_shop in featured_shops %}
+        <a href="{% url 'shops:shop_detail' featured_shop.shop.slug %}" 
+           class="group block">
+            <div class="shop-card bg-white rounded-2xl shadow-md group-hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100">
+                <div class="relative h-44 overflow-hidden">
+                    <div class="absolute top-4 right-4 bg-violet-600 text-white px-3 py-1 rounded-full font-semibold text-sm shadow-lg z-10">
+                        Featured
+                    </div>
+                    <img 
+                        src="{{ featured_shop.shop.image.url }}" 
+                        alt="{{ featured_shop.shop.name }}" 
+                        class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                    >
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h2 class="text-2xl font-bold text-white group-hover:text-blue-100 transition-colors duration-300">
+                                {{ featured_shop.shop.name }}
+                            </h2>
+                            <div class="flex items-center mt-2 space-x-1">
+                                <div class="text-yellow-300">
+                                    {% with ''|center:featured_shop.shop.mod_rating as range %}
+                                    {% for _ in range %}
+                                        <span class="text-lg">★</span>
+                                    {% endfor %}
+                                    {% endwith %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+

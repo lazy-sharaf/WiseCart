@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'search/compact_search_form.html' %}
+<div class="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4 space-y-4 sm:space-y-6">
+    <!-- Search Header with Stats -->
+    <div class="text-center space-y-3 mb-6">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-800">
+            Search Results for "{{ search_term }}"
+        </h2>
+        {% if results %}
+            <div class="inline-block bg-blue-50 px-6 py-2.5 rounded-full text-base font-semibold text-blue-700">
+                Found {{ results|length }} result{{ results|length|pluralize }} from {{ store_count }} store{{ store_count|pluralize }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Error/No Results Messages -->
+    {% if not results %}
+        {% if error %}
+            <div class="bg-red-50 p-4 rounded-lg text-sm text-red-700 border border-red-200 shadow-sm">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    {{ error }}
+                </div>
+            </div>
+        {% else %}
+            <div class="bg-yellow-50 p-4 rounded-lg text-sm text-yellow-700 border border-yellow-200 shadow-sm">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                    </svg>
+                    No results found. Please check your search term and try again.
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {% if results %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {% for result in results %}
+                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+                    <div class="p-4">
+                        <!-- Store Badge and Rating -->
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <span class="px-3 py-1.5 bg-blue-600 text-white rounded-full text-sm font-semibold shadow-sm">
+                                {{ result.store.name }}
+                            </span>
+                            <div class="flex items-center text-sm bg-gray-50 px-3 py-1.5 rounded-full">
+                                <span class="text-gray-600">
+                                    <span class="font-medium">Mod</span>
+                                    <span class="text-yellow-600">({{ result.store.mod_rating|default:"N/A" }})</span>
+                                </span>
+                                <span class="mx-1.5 text-gray-400">|</span>
+                                <span class="text-gray-600">
+                                    <span class="font-medium">User</span>
+                                    <span class="text-yellow-600">({{ result.store.user_rating|default:"N/A" }})</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Product Title -->
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4 line-clamp-2">{{ result.title }}</h3>
+                        
+                        <!-- Product Details -->
+                        <div class="space-y-3 mb-4">
+                            <!-- Price -->
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500">Price</span>
+                                <span class="font-bold text-lg text-blue-600">
+                                    {% if result.price %}৳{{ result.price }}{% else %}N/A{% endif %}
+                                </span>
+                            </div>
+
+                            <!-- Stock Status -->
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500">Availability</span>
+                                <span class="px-2 py-1 rounded-full text-xs font-medium {% if result.stock %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
+                                    {% if result.stock %}In Stock{% else %}Out of Stock{% endif %}
+                                </span>
+                            </div>
+
+                            <!-- Rating - Always shown -->
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500">Rating</span>
+                                <div class="flex items-center">
+                                    <span class="font-medium text-yellow-700">{{ result.rating|default:"N/A" }}</span>
+                                    <svg class="w-4 h-4 ml-1 text-yellow-400" viewBox="0 0 24 24">
+                                        <path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex gap-2">
+                            <a href="{{ result.url }}" target="_blank" 
+                               class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-blue-600 text-sm font-medium text-white rounded-md hover:bg-blue-700 transition-colors duration-200">
+                                Visit Store
+                            </a>
+                            <a href="{% url 'products:product_detail' result.store.name result.url %}" 
+                               class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-gray-100 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-200 transition-colors duration-200">
+                                Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+{% include 'products/featured_products.html' %}
+
+{% endblock %}
