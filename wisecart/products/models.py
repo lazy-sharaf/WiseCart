@@ -7,7 +7,7 @@ class Product(models.Model):
     store = models.ForeignKey(Shop, on_delete=models.CASCADE, default=1)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     stock = models.BooleanField(default=True, null=True, blank=True)
-    url = models.URLField(max_length=200, unique=True)
+    url = models.CharField(max_length=500)
     rating = models.FloatField(null=True, blank=True)
     image_src = models.URLField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)

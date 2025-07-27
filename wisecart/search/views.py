@@ -3,12 +3,17 @@ from django.utils import timezone
 from datetime import timedelta
 from django.db.models import Count, Min
 from .models import SearchResult, Search
-from scraper.scraper.spiders.ryans import RyansSpider
 from scraper.scraper.spiders.startech import StartechSpider
+from scraper.scraper.spiders.potakait import PotakaitSpider
+from scraper.scraper.spiders.ucc import UCCSpider
+from scraper.scraper.spiders.techland import TechLandSpider
+from scraper.scraper.spiders.sumashtech import SumashTechSpider
+from scraper.scraper.spiders.riointernational import RioInternationalSpider
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.project import get_project_settings
 from crochet import setup, wait_for
 import logging
+from twisted.internet import defer
 
 logger = logging.getLogger(__name__)
 setup()
@@ -93,16 +98,19 @@ def results(request):
             # Delete old results for this search
             SearchResult.objects.filter(search=search_obj).delete()
 
-            # Run both spiders
-            deferred = runner.crawl(
-                StartechSpider, search_term=search_term, search_obj=search_obj
-            )
-            deferred.addCallback(
-                lambda _: runner.crawl(
-                    RyansSpider, search_term=search_term, search_obj=search_obj
-                )
-            )
-            return deferred
+            print(f"Search view: Starting spiders for search term: {search_term}")
+            # Run all spiders in parallel
+            deferreds = [
+                runner.crawl(StartechSpider, search_term=search_term, search_obj=search_obj),
+                runner.crawl(PotakaitSpider, search_term=search_term, search_obj=search_obj),
+                runner.crawl(UCCSpider, search_term=search_term, search_obj=search_obj),
+                runner.crawl(TechLandSpider, search_term=search_term, search_obj=search_obj),
+                runner.crawl(SumashTechSpider, search_term=search_term, search_obj=search_obj),
+                runner.crawl(RioInternationalSpider, search_term=search_term, search_obj=search_obj),
+            ]
+            print(f"Search view: Started {len(deferreds)} spiders including Rio International")
+            dlist = defer.DeferredList(deferreds, consumeErrors=True)
+            return dlist
 
         # Run spiders and wait for results
         run_spiders()

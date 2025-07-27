@@ -9,7 +9,7 @@ class ProductAdmin(admin.ModelAdmin):
     ordering = ('-last_updated',)
 
     def is_available(self, obj):
-        return obj.stock > 0
+        return obj.stock is not None and obj.stock > 0
     is_available.boolean = True
     is_available.short_description = 'Available'
 

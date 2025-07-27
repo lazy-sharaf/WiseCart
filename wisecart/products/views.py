@@ -7,8 +7,14 @@ from datetime import timedelta
 from .models import Product
 from shops.models import Shop
 from scraper.scraper.spiders.startech import StartechProductSpider
+from scraper.scraper.spiders.potakait import PotakaitProductSpider
+from scraper.scraper.spiders.ucc import UCCProductSpider
+from scraper.scraper.spiders.techland import TechLandProductSpider
+from scraper.scraper.spiders.sumashtech import SumashTechProductSpider
+from scraper.scraper.spiders.riointernational import RioInternationalProductSpider
 import time
 import logging
+from urllib.parse import unquote, quote
 
 logger = logging.getLogger(__name__)
 setup()  # Setup Crochet
@@ -19,15 +25,30 @@ RETRY_DELAY = 0.5  # seconds
 SPIDER_TIMEOUT = 30  # seconds
 
 
-@wait_for(timeout=SPIDER_TIMEOUT)
+@wait_for(timeout=30)
 def run_spider(product_url, store):
     """Run the appropriate spider based on store configuration."""
+    # Set up Scrapy settings to enable DjangoPipeline
     settings = get_project_settings()
-    settings.set("ITEM_PIPELINES", {"scraper.scraper.pipelines.DjangoPipeline": 300})
+    settings.set(
+        "ITEM_PIPELINES",
+        {"scraper.scraper.pipelines.DjangoPipeline": 300},
+    )
+    runner = CrawlerRunner(settings)
 
     logger.info(f"Starting spider for URL: {product_url}")
     if store.name == "Startech":
-        return CrawlerRunner(settings).crawl(StartechProductSpider, url=product_url)
+        return runner.crawl(StartechProductSpider, url=product_url)
+    elif store.name == "Potakait":
+        return runner.crawl(PotakaitProductSpider, url=product_url)
+    elif store.name == "UCC":
+        return runner.crawl(UCCProductSpider, url=product_url)
+    elif store.name == "TechLand":
+        return runner.crawl(TechLandProductSpider, url=product_url)
+    elif store.name == "Sumash Tech":
+        return runner.crawl(SumashTechProductSpider, url=product_url)
+    elif store.name == "Rio International":
+        return runner.crawl(RioInternationalProductSpider, url=product_url)
     else:
         raise ValueError(f"Unsupported store: {store.name}")
 
@@ -49,18 +70,20 @@ def product_detail(request, store_name, product_url):
         # Get the store
         store = Shop.objects.get(name__iexact=store_name)
         
-        # Construct full URL
-        full_url = product_url
-
+        # Decode the product_url
+        full_url = unquote(product_url) # Decode the URL passed from the UI
+        print(f"[DEBUG] Decoded product_url in view: {full_url}")
+        encoded_url = quote(full_url, safe=':/?&=%')
+        print(f"[DEBUG] Encoded product_url for DB lookup: {encoded_url}")
         # Try to get existing product first
-        product = Product.objects.filter(url=full_url).first()
+        product = Product.objects.filter(url=encoded_url).first()
         
         if product:
             # Check if product needs updating
             cache_threshold = timezone.now() - timedelta(hours=PRODUCT_CACHE_HOURS)
             if product.last_updated < cache_threshold:
                 try:
-                    run_spider(full_url)
+                    run_spider(full_url, store)
                     product.refresh_from_db()
                 except Exception as e:
                     logger.error(f"Error updating product: {str(e)}")

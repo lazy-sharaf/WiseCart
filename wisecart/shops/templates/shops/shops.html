@@ -8,38 +8,102 @@
 
 {% include 'shops/featured_shops.html' %}
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <h1 class="text-3xl font-bold text-gray-900 mb-8">All Shops</h1>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Page Header -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+            All Shops
+        </h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Discover amazing shops and find the best deals on your favorite products
+        </p>
+    </div>
     
-    <!-- Dropdown for selecting the number of items per page -->
-    <form method="GET" action="" class="mb-6">
-        <label for="items_per_page" class="text-gray-700 mr-2">Shops per page:</label>
-        <select name="items_per_page" id="items_per_page" onchange="this.form.submit()"
-                class="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-            <option value="10" {% if items_per_page == 10 %}selected{% endif %}>10</option>
-            <option value="20" {% if items_per_page == 20 %}selected{% endif %}>20</option>
-            <option value="50" {% if items_per_page == 50 %}selected{% endif %}>50</option>
-            <option value="all" {% if items_per_page == 'all' %}selected{% endif %}>All</option>
-        </select>
-    </form>
+    <!-- Controls Section -->
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-10 bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+        <div class="mb-4 sm:mb-0">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Browse Shops</h3>
+            <p class="text-gray-600">Choose how many shops to display per page</p>
+        </div>
+        
+        <!-- Dropdown for selecting the number of items per page -->
+        <form method="GET" action="" class="flex items-center space-x-3">
+            <label for="items_per_page" class="text-gray-700 font-medium">Shops per page:</label>
+            <select name="items_per_page" id="items_per_page" onchange="this.form.submit()"
+                    class="bg-white border-2 border-gray-200 rounded-xl px-4 py-2 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 transition-all duration-200 font-medium">
+                <option value="10" {% if items_per_page == 10 %}selected{% endif %}>10</option>
+                <option value="20" {% if items_per_page == 20 %}selected{% endif %}>20</option>
+                <option value="50" {% if items_per_page == 50 %}selected{% endif %}>50</option>
+                <option value="all" {% if items_per_page == 'all' %}selected{% endif %}>All</option>
+            </select>
+        </form>
+    </div>
 
     <!-- Shop Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {% for shop in page_obj %}
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                <img src="{{ shop.image.url }}" alt="{{ shop.name }}" 
-                     class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h2 class="text-xl font-semibold text-gray-900 mb-2">{{ shop.name }}</h2>
-                    <div class="flex items-center mb-2">
-                        <span class="text-yellow-400 mr-1">★</span>
-                        <span class="text-gray-700">{{ shop.mod_rating }}</span>
+            <div class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 transform hover:-translate-y-2 flex flex-col h-full">
+                <!-- Shop Image Container -->
+                <div class="relative h-56 overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+                    {% if shop.image %}
+                        <img src="{{ shop.image.url }}" alt="{{ shop.name }}" 
+                             class="w-full h-full object-contain p-6 transition-transform duration-500 group-hover:scale-110">
+                    {% else %}
+                        <div class="w-full h-full flex items-center justify-center">
+                            <svg class="w-20 h-20 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Rating Badge -->
+                    {% if shop.mod_rating %}
+                        <div class="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-orange-400 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                            {{ shop.mod_rating }}★
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Gradient Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                
+                <!-- Shop Information -->
+                <div class="p-6 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 mb-3">
+                        {{ shop.name }}
+                    </h2>
+                    
+                    <!-- Rating Stars -->
+                    {% if shop.mod_rating %}
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                {% with ''|center:shop.mod_rating as range %}
+                                {% for _ in range %}
+                                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                {% endfor %}
+                                {% endwith %}
+                            </div>
+                            <span class="text-sm text-gray-600 ml-2 font-medium">({{ shop.mod_rating }})</span>
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Description -->
+                    <p class="text-gray-600 leading-relaxed mb-6 flex-grow line-clamp-3">
+                        {{ shop.description|truncatewords:25 }}
+                    </p>
+                    
+                    <!-- View Details Button -->
+                    <div class="mt-auto pt-4 border-t border-gray-100">
+                        <a href="{% url 'shops:shop_detail' shop_slug=shop.slug %}"
+                           class="group/btn inline-flex items-center justify-center w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                            <span>View Details</span>
+                            <svg class="w-5 h-5 ml-2 transform group-hover/btn:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                            </svg>
+                        </a>
                     </div>
-                    <p class="text-gray-600 mb-4">{{ shop.description|truncatewords:33 }}</p>
-                    <a href="{% url 'shops:shop_detail' shop_slug=shop.slug %}"
-                       class="inline-block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-200">
-                        View Details
-                    </a>
                 </div>
             </div>
         {% endfor %}
@@ -47,33 +111,47 @@
 
     {% if items_per_page != 'all' %}
         <!-- Pagination controls -->
-        <div class="flex justify-center mt-8">
-            <div class="flex items-center space-x-2">
-                {% if page_obj.has_previous %}
-                    <a href="?page=1&items_per_page={{ items_per_page }}"
-                       class="px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200">
-                        &laquo; First
-                    </a>
-                    <a href="?page={{ page_obj.previous_page_number }}&items_per_page={{ items_per_page }}"
-                       class="px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200">
-                        Previous
-                    </a>
-                {% endif %}
+        <div class="flex justify-center mt-12">
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-2">
+                <div class="flex items-center space-x-1">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1&items_per_page={{ items_per_page }}"
+                           class="flex items-center px-4 py-2 rounded-xl bg-gray-50 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 font-medium">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                            </svg>
+                            First
+                        </a>
+                        <a href="?page={{ page_obj.previous_page_number }}&items_per_page={{ items_per_page }}"
+                           class="flex items-center px-4 py-2 rounded-xl bg-gray-50 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 font-medium">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            Previous
+                        </a>
+                    {% endif %}
 
-                <span class="px-3 py-2 text-gray-700">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-                </span>
+                    <div class="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </div>
 
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}&items_per_page={{ items_per_page }}"
-                       class="px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200">
-                        Next
-                    </a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}&items_per_page={{ items_per_page }}"
-                       class="px-3 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200">
-                        Last &raquo;
-                    </a>
-                {% endif %}
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}&items_per_page={{ items_per_page }}"
+                           class="flex items-center px-4 py-2 rounded-xl bg-gray-50 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 font-medium">
+                            Next
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}&items_per_page={{ items_per_page }}"
+                           class="flex items-center px-4 py-2 rounded-xl bg-gray-50 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 font-medium">
+                            Last
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7m-8-7l7 7-7-7"/>
+                            </svg>
+                        </a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     {% endif %}

@@ -22,7 +22,7 @@ class SearchResult(models.Model):
     title = models.CharField(max_length=255)
     rating = models.FloatField(null=True, blank=True)
     stock = models.BooleanField(default=True)
-    url = models.URLField()
+    url = models.CharField(max_length=500)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     store = models.ForeignKey(Shop, on_delete=models.CASCADE)
 

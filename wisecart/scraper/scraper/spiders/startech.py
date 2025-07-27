@@ -22,7 +22,8 @@ class StartechProductSpider(scrapy.Spider):
         print(response.url)
         
         # Extract data
-        name = response.css("div.product-short-info h1.product-name::text").get().strip()
+        name = response.css("div.product-short-info h1.product-name::text").get()
+        name = name.strip() if name else None
         store = Shop.objects.get(name="Startech")
         price = self.clean_price(
             response.css("div.product-short-info td.product-price::text").get()
@@ -31,12 +32,20 @@ class StartechProductSpider(scrapy.Spider):
             True
             if response.css("div.product-short-info td.product-status::text")
             .get()
+            and response.css("div.product-short-info td.product-status::text")
+            .get()
             .lower()
             == "in stock"
             else False
         )
         
-        
+        # Overview: join all text from the overview list using the provided selector
+        overview_list = response.css('#product > div > div.short-description > ul *::text').getall()
+        overview = '\n'.join([t.strip() for t in overview_list if t.strip()]) if overview_list else None
+        # Description: join all text from the description section using the provided selector
+        description_list = response.css('#description > div.full-description *::text').getall()
+        description = '\n'.join([t.strip() for t in description_list if t.strip()]) if description_list else None
+
         # Create item
         item = ProductItem(
             name=name,
@@ -46,8 +55,8 @@ class StartechProductSpider(scrapy.Spider):
             url=response.url,
             rating=0,
             image_src=response.css("img.main-img::attr(src)").get(),
-            description=response.css("section.description::text").get(),
-            overview=response.css("div.short-description ul::text").get()
+            description=description,
+            overview=overview
         )
         
         self.logger.info(f"Created item with data: {item}")

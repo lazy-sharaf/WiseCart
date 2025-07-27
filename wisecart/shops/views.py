@@ -38,7 +38,7 @@ def shop_detail(request, shop_slug):
             if 'delete_review' in request.POST:
                 if user_review:
                     user_review.delete()
-                    return redirect('shop_detail', shop_slug=shop.slug)
+                    return redirect('shops:shop_detail', shop_slug=shop.slug)
             else:
                 review_form = ReviewForm(request.POST, instance=user_review)
                 if review_form.is_valid():
@@ -46,7 +46,7 @@ def shop_detail(request, shop_slug):
                     review.shop = shop
                     review.user = request.user
                     review.save()
-                    return redirect('shop_detail', shop_slug=shop.slug)
+                    return redirect('shops:shop_detail', shop_slug=shop.slug)
         else:
             return redirect('login')
 

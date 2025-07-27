@@ -5,8 +5,11 @@
 <div class="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4 space-y-4 sm:space-y-6">
     <!-- Search Header with Stats -->
     <div class="text-center space-y-3 mb-6">
-        <h2 class="text-3xl sm:text-4xl font-bold text-gray-800">
-            Search Results for "{{ search_term }}"
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 text-center mb-2">
+            Search Results for
+            <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-lg ml-2 font-bold shadow-sm">
+                "{{ search_term }}"
+            </span>
         </h2>
         {% if results %}
             <div class="inline-block bg-blue-50 px-6 py-2.5 rounded-full text-base font-semibold text-blue-700">
@@ -39,69 +42,38 @@
     {% endif %}
 
     {% if results %}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {% for result in results %}
-                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
-                    <div class="p-4">
-                        <!-- Store Badge and Rating -->
-                        <div class="flex items-center justify-between gap-2 mb-4">
-                            <span class="px-3 py-1.5 bg-blue-600 text-white rounded-full text-sm font-semibold shadow-sm">
-                                {{ result.store.name }}
+                <div class="bg-white/90 rounded-xl shadow hover:shadow-lg transition-all duration-200 border border-gray-100 flex flex-col min-h-[240px] h-full">
+                    {% if result.image_src %}
+                        <div class="h-20 flex items-center justify-center bg-gray-50 rounded-t-xl">
+                            <img src="{{ result.image_src }}" alt="{{ result.title }}" class="h-14 object-contain" />
+                        </div>
+                    {% endif %}
+                    <div class="p-4 flex flex-col flex-1">
+                        <span class="inline-flex items-center gap-1 bg-blue-50 text-blue-700 font-semibold text-xs px-3 py-1 rounded-full shadow-sm mb-2">
+                            {% if result.store.image %}
+                                <img src="{{ result.store.image.url }}" alt="{{ result.store.name }}" class="w-5 h-5 rounded-full object-contain bg-white border border-gray-200 mr-1" />
+                            {% else %}
+                                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 20 20">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7V5a2 2 0 012-2h10a2 2 0 012 2v2M3 7h14M3 7v8a2 2 0 002 2h10a2 2 0 002-2V7" />
+                                </svg>
+                            {% endif %}
+                            {{ result.store.name }}
+                        </span>
+                        <h3 class="text-base font-medium text-gray-900 mb-1 line-clamp-2">{{ result.title }}</h3>
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-blue-600 font-bold text-lg">{% if result.price %}৳{{ result.price|floatformat:0 }}{% else %}N/A{% endif %}</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full font-semibold {% if result.stock %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
+                                {% if result.stock %}In Stock{% else %}Out of Stock{% endif %}
                             </span>
-                            <div class="flex items-center text-sm bg-gray-50 px-3 py-1.5 rounded-full">
-                                <span class="text-gray-600">
-                                    <span class="font-medium">Mod</span>
-                                    <span class="text-yellow-600">({{ result.store.mod_rating|default:"N/A" }})</span>
-                                </span>
-                                <span class="mx-1.5 text-gray-400">|</span>
-                                <span class="text-gray-600">
-                                    <span class="font-medium">User</span>
-                                    <span class="text-yellow-600">({{ result.store.user_rating|default:"N/A" }})</span>
-                                </span>
-                            </div>
                         </div>
-
-                        <!-- Product Title -->
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4 line-clamp-2">{{ result.title }}</h3>
-                        
-                        <!-- Product Details -->
-                        <div class="space-y-3 mb-4">
-                            <!-- Price -->
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-gray-500">Price</span>
-                                <span class="font-bold text-lg text-blue-600">
-                                    {% if result.price %}৳{{ result.price }}{% else %}N/A{% endif %}
-                                </span>
-                            </div>
-
-                            <!-- Stock Status -->
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-gray-500">Availability</span>
-                                <span class="px-2 py-1 rounded-full text-xs font-medium {% if result.stock %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
-                                    {% if result.stock %}In Stock{% else %}Out of Stock{% endif %}
-                                </span>
-                            </div>
-
-                            <!-- Rating - Always shown -->
-                            <div class="flex items-center justify-between">
-                                <span class="text-sm text-gray-500">Rating</span>
-                                <div class="flex items-center">
-                                    <span class="font-medium text-yellow-700">{{ result.rating|default:"N/A" }}</span>
-                                    <svg class="w-4 h-4 ml-1 text-yellow-400" viewBox="0 0 24 24">
-                                        <path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Action Buttons -->
-                        <div class="flex gap-2">
-                            <a href="{{ result.url }}" target="_blank" 
-                               class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-blue-600 text-sm font-medium text-white rounded-md hover:bg-blue-700 transition-colors duration-200">
+                        <div class="text-yellow-500 text-xs mb-2">Rating: {{ result.rating|default:'N/A' }} ★</div>
+                        <div class="mt-auto flex gap-2">
+                            <a href="{{ result.url }}" target="_blank" class="flex-1 inline-flex justify-center items-center px-3 py-1.5 bg-blue-600 text-white text-xs font-semibold rounded-full hover:bg-blue-700 transition-colors duration-200">
                                 Visit Store
                             </a>
-                            <a href="{% url 'products:product_detail' result.store.name result.url %}" 
-                               class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-gray-100 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-200 transition-colors duration-200">
+                            <a href="{% url 'products:product_detail' result.store.name result.url|urlencode %}" class="flex-1 inline-flex justify-center items-center px-3 py-1.5 text-xs font-medium text-blue-600 rounded-full hover:bg-blue-50 transition-colors duration-200">
                                 Details
                             </a>
                         </div>

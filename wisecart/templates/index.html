@@ -60,8 +60,8 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {% for shop in shops %}
-                <a href="{% url 'shops:shop_detail' shop.slug %}" class="group block">
-                    <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 transform hover:-translate-y-2">
+                <a href="{% url 'shops:shop_detail' shop.slug %}" class="group block h-full">
+                    <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 transform hover:-translate-y-2 flex flex-col min-h-[420px] h-full">
                         <!-- Shop Image -->
                         <div class="relative h-40 overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
                             {% if shop.image %}
@@ -77,7 +77,6 @@
                                     </svg>
                                 </div>
                             {% endif %}
-                            
                             <!-- Rating Badge -->
                             {% if shop.mod_rating %}
                                 <div class="absolute top-4 right-4 bg-yellow-400 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
@@ -85,13 +84,11 @@
                                 </div>
                             {% endif %}
                         </div>
-                        
                         <!-- Shop Info -->
-                        <div class="p-6">
+                        <div class="p-6 flex flex-col flex-1">
                             <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300 mb-3">
                                 {{ shop.name }}
                             </h3>
-                            
                             <!-- Rating Stars -->
                             {% if shop.mod_rating %}
                                 <div class="flex items-center mb-3">
@@ -107,12 +104,10 @@
                                     <span class="text-sm text-gray-600 ml-2 font-medium">({{ shop.mod_rating }})</span>
                                 </div>
                             {% endif %}
-                            
                             <!-- Description -->
                             {% if shop.description %}
-                                <p class="text-sm text-gray-600 line-clamp-3 leading-relaxed">{{ shop.description|truncatewords:15 }}</p>
+                                <p class="text-sm text-gray-600 line-clamp-3 leading-relaxed min-h-[54px] max-h-[54px] overflow-hidden">{{ shop.description|truncatewords:15 }}</p>
                             {% endif %}
-                            
                             <!-- View Details Button -->
                             <div class="mt-4 pt-4 border-t border-gray-100">
                                 <span class="inline-flex items-center text-blue-600 font-semibold text-sm group-hover:text-blue-700 transition-colors duration-300">
