@@ -23,29 +23,51 @@ class TechLandProductSpider(scrapy.Spider):
 
     def parse(self, response):
         print(f"TechLandProductSpider parse called, response status: {response.status}, url: {response.url}")
-        name = response.css('body > div.min-h-screen.bg-gray-100 > main > div.flex.flex-col.lg\\:flex-row.gap-4.sm\\:gap-6 > div.lg\\:w-3\\/4.order-1.lg\\:order-2 > div.bg-white.rounded-md.shadow-md.p-3.sm\\:p-4.md\\:p-6.mb-4.sm\\:mb-6 > div > div.lg\\:w-3\\/5 > h1::text').get()
-        name = name.strip() if name else None
+        
+        # Try multiple selectors for the product name
+        name = response.css('h1.text-xl.sm\\:text-2xl.md\\:text-3xl.font-bold.text-gray-800::text').get()
+        if not name:
+            name = response.css('h1::text').get()
+        if not name:
+            name = response.css('.product-title::text').get()
+        if not name:
+            # Fallback - try any h1 tag
+            name = response.css('h1::text').get()
+        
+        name = name.strip() if name else "TechLand Product"  # Fallback name if nothing found
         print(f"TechLandProductSpider: name={name}")
+        
         store = Shop.objects.get(name="TechLand")
         price = self.clean_price(
-            response.css('body > div.min-h-screen.bg-gray-100 > main > div.flex.flex-col.lg\\:flex-row.gap-4.sm\\:gap-6 > div.lg\\:w-3\\/4.order-1.lg\\:order-2 > div.bg-white.rounded-md.shadow-md.p-3.sm\\:p-4.md\\:p-6.mb-4.sm\\:mb-6 > div > div.lg\\:w-3\\/5 > div.mt-2.sm\\:mt-6.grid.grid-cols-1.sm\\:grid-cols-1.md\\:grid-cols-2.gap-3.sm\\:gap-4 > div:nth-child(1) > div.flex.items-center.flex-wrap > span.text-lg.sm\\:text-xl.lg\\:text-2xl.font-bold.text-\\[\\#1c4289\\]::text').get()
+            response.css('span.text-lg.sm\\:text-xl.lg\\:text-2xl.font-bold.text-\\[\\#1c4289\\]::text').get()
         )
         print(f"TechLandProductSpider: price={price}")
+        
         stock_section_html = response.css('div.pt-2.text-sm').get()
         print(f"TechLandProductSpider: stock_section_html={stock_section_html}")
-        stock_text = response.css('body > div.min-h-screen.bg-gray-100 > main > div.flex.flex-col.lg\\:flex-row.gap-4.sm\\:gap-6 > div.lg\\:w-3\\/4.order-1.lg\\:order-2 > div.bg-white.rounded-md.shadow-md.p-3.sm\\:p-4.md\\:p-6.mb-4.sm\\:mb-6 > div > div.lg\\:w-3\\/5 > div.mt-3.sm\\:mt-4.flex.flex-wrap.gap-1.sm\\:gap-2 > div:nth-child(1) span::text').get()
+        
+        stock_text = response.css('span.text-green-600::text').get()
+        if not stock_text:
+            stock_text = response.css('span:contains("Stock")::text').get()
         print(f"TechLandProductSpider: stock_text={stock_text}")
+        
         stock = stock_text and ('in stock' in stock_text.lower())
         print(f"TechLandProductSpider: stock={stock}")
+        
         image_src = response.css('#main-image::attr(src)').get()
+        if not image_src:
+            image_src = response.css('img[alt*="product"]::attr(src)').get()
         print(f"TechLandProductSpider: image_src={image_src}")
+        
         # Overview: extract all <li> text from the overview div
         overview_list = response.css('div.text-xs.sm\\:text-sm.text-gray-600.break-words li::text').getall()
         overview = '\n'.join([t.strip() for t in overview_list if t.strip()]) if overview_list else None
         print(f"TechLandProductSpider: overview={overview}")
+        
         description_list = response.css('#description-tab > div *::text').getall()
         description = '\n'.join([t.strip() for t in description_list if t.strip()]) if description_list else None
         print(f"TechLandProductSpider: description={description}")
+        
         item = ProductItem(
             name=name,
             store_id=store.id,
