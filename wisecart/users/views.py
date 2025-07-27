@@ -18,7 +18,7 @@ def registration(request):
         return redirect('users:profile')
         
     if request.method == "POST":
-        form = CustomUserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST, request.FILES)  # Add request.FILES
         if form.is_valid():
             user = form.save()
             # Log the user in after registration
@@ -55,7 +55,7 @@ def profile_view(request):
 @login_required
 def update_profile(request):
     if request.method == "POST":
-        form = UpdateProfileForm(request.POST, instance=request.user)
+        form = UpdateProfileForm(request.POST, request.FILES, instance=request.user)  # Add request.FILES
         if form.is_valid():
             form.save()
             messages.success(request, "Your profile has been updated successfully!")
@@ -66,6 +66,25 @@ def update_profile(request):
         form = UpdateProfileForm(instance=request.user)
 
     return render(request, "users/update_profile.html", {"form": form})
+
+@login_required
+def remove_profile_picture(request):
+    """Remove user's profile picture"""
+    if request.method == "POST":
+        user = request.user
+        if user.profile_picture:
+            # Delete the file from storage
+            try:
+                user.profile_picture.delete(save=False)
+                user.profile_picture = None
+                user.save()
+                messages.success(request, "Your profile picture has been removed successfully!")
+            except Exception as e:
+                messages.error(request, "Error removing profile picture. Please try again.")
+        else:
+            messages.info(request, "You don't have a profile picture to remove.")
+    
+    return redirect('users:profile')
 
 @login_required
 def settings_view(request):

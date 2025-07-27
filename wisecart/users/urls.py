@@ -13,6 +13,7 @@ urlpatterns = [
     # Profile URLs
     path("profile/", views.profile_view, name="profile"),
     path("profile/update/", views.update_profile, name="update_profile"),
+    path("profile/remove-picture/", views.remove_profile_picture, name="remove_profile_picture"),
     path("settings/", views.settings_view, name="settings"),
     
     # Password Reset URLs

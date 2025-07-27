@@ -15,18 +15,45 @@
         </div>
         {% endif %}
 
-        <form method="post" class="space-y-6">
+        <form method="post" enctype="multipart/form-data" class="space-y-6">
             {% csrf_token %}
+            
+            <!-- Profile Picture field -->
+            <div class="border-b pb-4">
+                <label class="block text-sm font-semibold text-gray-600 mb-4">
+                    Profile Picture
+                </label>
+                
+                <!-- Current Profile Picture Preview -->
+                <div class="flex items-center space-x-6">
+                    <div class="flex-shrink-0">
+                        <img src="{{ user.get_profile_picture_url }}" 
+                             alt="{{ user.full_name }}'s Profile Picture" 
+                             class="w-24 h-24 rounded-full object-cover border-2 border-gray-200 bg-gray-100 shadow-md"
+                             id="profile-preview"
+                             onerror="this.style.display='block'">
+                    </div>
+                    
+                    <div class="flex-grow">
+                        <div class="mt-1">
+                            {{ form.profile_picture }}
+                        </div>
+                        {% if form.profile_picture.help_text %}
+                            <p class="mt-2 text-sm text-gray-500">{{ form.profile_picture.help_text }}</p>
+                        {% endif %}
+                        {% if form.profile_picture.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.profile_picture.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
             
             <!-- Username field -->
             <div class="border-b pb-4">
                 <label for="username" class="block text-sm font-semibold text-gray-600 mb-2">
                     Username
                 </label>
-                <input type="text" name="username" id="username" required 
-                    value="{{ form.username.value|default:'' }}"
-                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Username">
+                {{ form.username }}
                 {% if form.username.errors %}
                     <p class="mt-1 text-sm text-red-600">{{ form.username.errors.0 }}</p>
                 {% endif %}
@@ -37,10 +64,7 @@
                 <label for="full_name" class="block text-sm font-semibold text-gray-600 mb-2">
                     Full Name
                 </label>
-                <input type="text" name="full_name" id="full_name" required 
-                    value="{{ form.full_name.value|default:'' }}"
-                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Full Name">
+                {{ form.full_name }}
                 {% if form.full_name.errors %}
                     <p class="mt-1 text-sm text-red-600">{{ form.full_name.errors.0 }}</p>
                 {% endif %}
@@ -50,30 +74,14 @@
             <div class="border-b pb-4">
                 <label class="block text-sm font-semibold text-gray-600 mb-2">Gender</label>
                 <div class="space-y-2">
-                    <div class="flex items-center">
-                        <input type="radio" name="gender" value="M" id="gender_m" 
-                            {% if form.gender.value == 'M' %}checked{% endif %}
-                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
-                        <label for="gender_m" class="ml-3 block text-sm text-gray-700">
-                            Male
-                        </label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="radio" name="gender" value="F" id="gender_f" 
-                            {% if form.gender.value == 'F' %}checked{% endif %}
-                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
-                        <label for="gender_f" class="ml-3 block text-sm text-gray-700">
-                            Female
-                        </label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="radio" name="gender" value="N" id="gender_n" 
-                            {% if not form.gender.value or form.gender.value == 'N' %}checked{% endif %}
-                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
-                        <label for="gender_n" class="ml-3 block text-sm text-gray-700">
-                            Not Prefer to Say
-                        </label>
-                    </div>
+                    {% for choice in form.gender %}
+                        <div class="flex items-center">
+                            {{ choice.tag }}
+                            <label for="{{ choice.id_for_label }}" class="ml-3 block text-sm text-gray-700">
+                                {{ choice.choice_label }}
+                            </label>
+                        </div>
+                    {% endfor %}
                 </div>
                 {% if form.gender.errors %}
                     <p class="mt-1 text-sm text-red-600">{{ form.gender.errors.0 }}</p>
@@ -91,15 +99,36 @@
             <!-- Action Buttons -->
             <div class="flex justify-end space-x-4 pt-4">
                 <a href="{% url 'users:profile' %}" 
-                    class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
+                    class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded transition-colors duration-200">
                     Cancel
                 </a>
                 <button type="submit" 
-                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors duration-200">
                     Save Changes
                 </button>
             </div>
         </form>
     </div>
 </div>
+
+<!-- JavaScript for profile picture preview -->
+<script>
+document.getElementById('id_profile_picture').addEventListener('change', function(e) {
+    if (e.target.files && e.target.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = function(event) {
+            document.getElementById('profile-preview').src = event.target.result;
+        }
+        
+        reader.readAsDataURL(e.target.files[0]);
+    }
+});
+
+// Handle image load errors (fallback to default avatar)
+document.getElementById('profile-preview').onerror = function() {
+    this.src = 'data:image/svg+xml;charset=UTF-8,%3csvg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"%3e%3ccircle cx="40" cy="40" r="40" fill="%23E5E7EB"/%3e%3ccircle cx="40" cy="30" r="12" fill="%236B7280"/%3e%3cellipse cx="40" cy="60" rx="18" ry="14" fill="%236B7280"/%3e%3c/svg%3e';
+}
+</script>
+
 {% endblock %} 
