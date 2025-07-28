@@ -31,7 +31,6 @@ class DjangoPipeline:
                 # Always save the product with a fully encoded URL
                 url = item.get('url') or item.get('url_src')
                 encoded_url = urllib.parse.quote(url, safe=':/?&=%') if url else None
-                print(f"[DEBUG] DjangoPipeline saving product with url: {encoded_url}")
                 # Use encoded_url when saving to the Product model
                 product, created = Product.objects.update_or_create(
                     url=encoded_url,
@@ -55,7 +54,6 @@ class DjangoPipeline:
                 logger.debug(f"DjangoPipeline skipped for spider: {spider.name}")
             return item
         except Exception as e:
-            print(f"DjangoPipeline error: {e}")
             traceback.print_exc()
             logger.error(f"Error saving product: {str(e)}")
             raise
@@ -68,7 +66,6 @@ class SearchResultPipeline:
             return item
 
         adapter = ItemAdapter(item)
-        print(f"SearchResultPipeline: received item dict: {dict(item)} from spider: {spider.name}")
         try:
             # Create the SearchResult object
             search_result = SearchResult(
@@ -81,7 +78,6 @@ class SearchResultPipeline:
                 store_id=adapter["store_id"],
             )
             search_result.save()
-            print(f"SearchResultPipeline: saved SearchResult: {search_result}")
         except Exception as e:
-            print(f"SearchResultPipeline: error saving SearchResult: {e}")
+            logger.error(f"SearchResultPipeline: error saving SearchResult: {e}")
         return item

@@ -35,6 +35,10 @@
                 <div class="hidden lg:flex lg:items-center lg:space-x-8">
                     <a href="{% url 'index' %}" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>
                     <a href="{% url 'shops:shops' %}" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">All Shops</a>
+                    <a href="{% url 'comparison:compare' %}" class="relative text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">
+                        Compare
+                        <span id="nav-compare-count" class="absolute -top-1 -right-1 bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" style="display: none;">0</span>
+                    </a>
                     <a href="#featured-products" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Deals</a>
                     <a href="{% url 'about' %}" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">About</a>
                 </div>
@@ -67,9 +71,13 @@
             <!-- Sidebar Content -->
             <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
                 <a href="{% url 'index' %}" class="block px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200">Home</a>
-                <a href="#" class="block px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200">Categories</a>
-                <a href="#" class="block px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200">Deals</a>
-                <a href="#" class="block px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200">About</a>
+                <a href="{% url 'shops:shops' %}" class="block px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200">All Shops</a>
+                <a href="{% url 'comparison:compare' %}" class="flex items-center justify-between px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                    Compare
+                    <span id="mobile-compare-count" class="bg-blue-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" style="display: none;">0</span>
+                </a>
+                <a href="#featured-products" class="block px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200">Deals</a>
+                <a href="{% url 'about' %}" class="block px-4 py-2.5 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200">About</a>
             </nav>
         </div>
     </div>
@@ -143,5 +151,36 @@
             </div>
         </div>
     </footer>
+    
+    <!-- Global Comparison Counter Script -->
+    <script>
+    // Update navigation comparison counters
+    function updateNavCompareCount() {
+        fetch('{% url "comparison:count" %}')
+            .then(response => response.json())
+            .then(data => {
+                const count = data.count;
+                const navCounter = document.getElementById('nav-compare-count');
+                const mobileCounter = document.getElementById('mobile-compare-count');
+                
+                if (navCounter) {
+                    navCounter.textContent = count;
+                    navCounter.style.display = count > 0 ? 'flex' : 'none';
+                }
+                
+                if (mobileCounter) {
+                    mobileCounter.textContent = count;
+                    mobileCounter.style.display = count > 0 ? 'flex' : 'none';
+                }
+            })
+            .catch(error => console.error('Error loading nav compare count:', error));
+    }
+    
+    // Update on page load
+    document.addEventListener('DOMContentLoaded', updateNavCompareCount);
+    
+    // Update every 30 seconds to keep in sync
+    setInterval(updateNavCompareCount, 30000);
+    </script>
 </body>
 </html>

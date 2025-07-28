@@ -72,18 +72,15 @@ def product_detail(request, store_name, product_url):
         
         # Decode the product_url
         full_url = unquote(product_url)  # Decode the URL passed from the UI
-        print(f"[DEBUG] Decoded product_url in view: {full_url}")
         
         # Try to get existing product first (using decoded URL)
         product = Product.objects.filter(url=full_url).first()
-        print(f"[DEBUG] Found existing product: {product is not None}")
         
         if product:
             # Check if product needs updating
             cache_threshold = timezone.now() - timedelta(hours=PRODUCT_CACHE_HOURS)
             if product.last_updated < cache_threshold:
                 try:
-                    print(f"[DEBUG] Updating product with URL: {full_url}")
                     run_spider(full_url, store)
                     product.refresh_from_db()
                 except Exception as e:
@@ -91,21 +88,17 @@ def product_detail(request, store_name, product_url):
                     # Continue with existing product data if update fails
         else:
             # Product not found - try scraping
-            print(f"[DEBUG] Product not found, starting scraping for URL: {full_url}")
             try:
                 run_spider(full_url, store)
                 
                 # Poll database for results (using consistent URL format)
                 for attempt in range(MAX_RETRIES):
-                    print(f"[DEBUG] Polling attempt {attempt + 1} for URL: {full_url}")
                     product = Product.objects.filter(url=full_url).first()
                     if product:
-                        print(f"[DEBUG] Found product after scraping: {product.name}")
                         break
                     time.sleep(RETRY_DELAY)
                 
                 if not product:
-                    print(f"[DEBUG] Product still not found after {MAX_RETRIES} attempts")
                     raise Http404("Product not found after scraping")
                     
             except Exception as e:

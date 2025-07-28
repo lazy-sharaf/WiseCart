@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "products",
     "search",
     "shops",
+    "comparison",
 ]
 
 MIDDLEWARE = [

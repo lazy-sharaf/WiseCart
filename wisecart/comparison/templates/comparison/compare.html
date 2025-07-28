@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+
+{% block title %}Product Comparison - WiseCart{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Header -->
+    <div class="text-center mb-8">
+        <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+            Product Comparison
+        </h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Compare selected products side by side to make the best choice
+        </p>
+    </div>
+
+    {% if compared_products %}
+        <!-- Comparison Actions -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="text-lg font-semibold text-gray-800">
+                Comparing {{ product_count }} product{{ product_count|pluralize }}
+            </div>
+            <a href="{% url 'comparison:clear' %}" 
+               class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200"
+               onclick="return confirm('Are you sure you want to clear all products from comparison?')">
+                Clear All
+            </a>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <!-- Product Images and Names -->
+                    <thead>
+                        <tr class="bg-gray-50">
+                            <td class="px-6 py-4 font-semibold text-gray-700 w-32">Product</td>
+                            {% for compared_product in compared_products %}
+                                <td class="px-4 py-6 text-center min-w-64">
+                                    <div class="flex flex-col items-center space-y-4">
+                                        {% if compared_product.product.image_src %}
+                                            <img src="{{ compared_product.product.image_src }}" 
+                                                 alt="{{ compared_product.product.name }}" 
+                                                 class="w-24 h-24 object-contain rounded-lg border border-gray-200">
+                                        {% else %}
+                                            <div class="w-24 h-24 bg-gray-100 rounded-lg flex items-center justify-center">
+                                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                                </svg>
+                                            </div>
+                                        {% endif %}
+                                        <h3 class="font-semibold text-sm text-gray-900 text-center line-clamp-2">
+                                            {{ compared_product.product.name }}
+                                        </h3>
+                                        <button onclick="removeFromCompare({{ compared_product.product.id }})"
+                                                class="text-red-600 hover:text-red-800 text-sm font-medium">
+                                            Remove
+                                        </button>
+                                    </div>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    
+                    <tbody class="divide-y divide-gray-200">
+                        <!-- Store -->
+                        <tr>
+                            <td class="px-6 py-4 font-semibold text-gray-700 bg-gray-50">Store</td>
+                            {% for compared_product in compared_products %}
+                                <td class="px-4 py-4 text-center">
+                                    <div class="flex items-center justify-center space-x-2">
+                                        {% if compared_product.product.store.image %}
+                                            <img src="{{ compared_product.product.store.image.url }}" 
+                                                 alt="{{ compared_product.product.store.name }}" 
+                                                 class="w-6 h-6 rounded-full object-contain">
+                                        {% endif %}
+                                        <span class="text-sm font-medium text-blue-600">
+                                            {{ compared_product.product.store.name }}
+                                        </span>
+                                    </div>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        
+                        <!-- Price -->
+                        <tr>
+                            <td class="px-6 py-4 font-semibold text-gray-700 bg-gray-50">Price</td>
+                            {% for compared_product in compared_products %}
+                                <td class="px-4 py-4 text-center">
+                                    <span class="text-2xl font-bold text-blue-600">
+                                        {% if compared_product.product.price %}
+                                            ৳{{ compared_product.product.price|floatformat:0 }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </span>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        
+                        <!-- Stock Status -->
+                        <tr>
+                            <td class="px-6 py-4 font-semibold text-gray-700 bg-gray-50">Availability</td>
+                            {% for compared_product in compared_products %}
+                                <td class="px-4 py-4 text-center">
+                                    <span class="inline-flex px-3 py-1 rounded-full text-sm font-semibold
+                                        {% if compared_product.product.stock %}
+                                            bg-green-100 text-green-800
+                                        {% else %}
+                                            bg-red-100 text-red-800
+                                        {% endif %}">
+                                        {% if compared_product.product.stock %}In Stock{% else %}Out of Stock{% endif %}
+                                    </span>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        
+                        <!-- Rating -->
+                        <tr>
+                            <td class="px-6 py-4 font-semibold text-gray-700 bg-gray-50">Rating</td>
+                            {% for compared_product in compared_products %}
+                                <td class="px-4 py-4 text-center">
+                                    <div class="flex items-center justify-center">
+                                        <span class="text-yellow-500 text-lg">
+                                            {{ compared_product.product.rating|default:'N/A' }}
+                                            {% if compared_product.product.rating %}★{% endif %}
+                                        </span>
+                                    </div>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        
+                        <!-- Overview -->
+                        <tr>
+                            <td class="px-6 py-4 font-semibold text-gray-700 bg-gray-50">Overview</td>
+                            {% for compared_product in compared_products %}
+                                <td class="px-4 py-4">
+                                    <div class="text-sm text-gray-600 max-h-40 overflow-y-auto text-left">
+                                        {% if compared_product.product.overview %}
+                                            {{ compared_product.product.overview|linebreaksbr }}
+                                        {% else %}
+                                            <span class="text-gray-400 italic">No overview available</span>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        
+                        <!-- Description -->
+                        <tr>
+                            <td class="px-6 py-4 font-semibold text-gray-700 bg-gray-50">Description</td>
+                            {% for compared_product in compared_products %}
+                                <td class="px-4 py-4">
+                                    <div class="text-sm text-gray-600 max-h-48 overflow-y-auto text-left">
+                                        {% if compared_product.product.description %}
+                                            {{ compared_product.product.description|linebreaksbr }}
+                                        {% else %}
+                                            <span class="text-gray-400 italic">No description available</span>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        
+                        <!-- Store Link & Product URL -->
+                        <tr>
+                            <td class="px-6 py-4 font-semibold text-gray-700 bg-gray-50">Store Links</td>
+                            {% for compared_product in compared_products %}
+                                <td class="px-4 py-4 text-center">
+                                    <div class="space-y-2">
+                                        <a href="{{ compared_product.product.url }}" 
+                                           target="_blank"
+                                           class="inline-flex items-center px-3 py-2 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M14 4h6m0 0v6m0-6L10 14"/>
+                                            </svg>
+                                            Visit Store
+                                        </a>
+                                        <div class="text-xs text-gray-500 truncate max-w-32" title="{{ compared_product.product.url }}">
+                                            {{ compared_product.product.url|truncatechars:30 }}
+                                        </div>
+                                    </div>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Back to Search -->
+        <div class="text-center mt-8">
+            <a href="{% url 'search:index' %}" 
+               class="inline-flex items-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Back to Search
+            </a>
+        </div>
+        
+    {% else %}
+        <!-- Empty State -->
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-12 animate-fade-in">
+            <div class="text-center">
+                <div class="mx-auto w-32 h-32 bg-gradient-to-br from-blue-50 to-purple-50 rounded-full flex items-center justify-center mb-6 animate-pulse">
+                    <svg class="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
+                </div>
+                
+                <h3 class="text-2xl font-bold text-gray-900 mb-3">No Products to Compare</h3>
+                <p class="text-lg text-gray-600 mb-8 max-w-md mx-auto">
+                    Start adding products from search results to compare prices, features, and specifications side by side.
+                </p>
+                
+                <div class="space-y-4">
+                    <a href="{% url 'search:index' %}" 
+                       class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 shadow-lg">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        Start Searching
+                    </a>
+                    
+                    <div class="text-sm text-gray-500 mt-4">
+                        <p class="mb-2">💡 <strong>Tip:</strong> Search for products and click the "Compare" button to add them here</p>
+                        <p>You can compare up to 4 products at once</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+function removeFromCompare(productId) {
+    fetch('{% url "comparison:remove" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+            'product_id': productId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload(); // Reload to update the comparison table
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while removing the product.');
+    });
+}
+</script>
+
+<style>
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.6s ease-out;
+}
+</style>
+{% endblock %} 

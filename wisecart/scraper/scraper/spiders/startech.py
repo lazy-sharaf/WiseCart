@@ -18,16 +18,19 @@ class StartechProductSpider(scrapy.Spider):
         yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-        self.logger.info(f"Scraped data: URL={response.url}")
-        print(response.url)
-        
         # Extract data
         name = response.css("div.product-short-info h1.product-name::text").get()
         name = name.strip() if name else None
         store = Shop.objects.get(name="Startech")
-        price = self.clean_price(
-            response.css("div.product-short-info td.product-price::text").get()
-        )
+        # Extract price - prioritize <ins> tag (current price), fallback to any text
+        price_current = response.css("div.product-short-info td.product-price ins::text").get()
+        if not price_current:
+            # Fallback to first available price text if no <ins> tag
+            price_current = response.css("div.product-short-info td.product-price *::text").get()
+        
+        self.logger.info(f"Price extraction - Raw text: {repr(price_current)}")
+        price = self.clean_price(price_current)
+        self.logger.info(f"Price extraction - Cleaned price: {price}")
         stock = (
             True
             if response.css("div.product-short-info td.product-status::text")
@@ -59,7 +62,6 @@ class StartechProductSpider(scrapy.Spider):
             overview=overview
         )
         
-        self.logger.info(f"Created item with data: {item}")
         yield item
 
     def clean_price(self, price_str):

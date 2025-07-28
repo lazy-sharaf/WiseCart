@@ -98,7 +98,6 @@ def results(request):
             # Delete old results for this search
             SearchResult.objects.filter(search=search_obj).delete()
 
-            print(f"Search view: Starting spiders for search term: {search_term}")
             # Run all spiders in parallel
             deferreds = [
                 runner.crawl(StartechSpider, search_term=search_term, search_obj=search_obj),
@@ -108,7 +107,6 @@ def results(request):
                 runner.crawl(SumashTechSpider, search_term=search_term, search_obj=search_obj),
                 runner.crawl(RioInternationalSpider, search_term=search_term, search_obj=search_obj),
             ]
-            print(f"Search view: Started {len(deferreds)} spiders including Rio International")
             dlist = defer.DeferredList(deferreds, consumeErrors=True)
             return dlist
 

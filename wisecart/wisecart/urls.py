@@ -33,6 +33,7 @@ urlpatterns = [
     path("shops/", include("shops.urls")),
     path("search/", include("search.urls")),
     path("products/", include("products.urls")),
+    path("compare/", include("comparison.urls")),
 ]
 
 if settings.DEBUG:

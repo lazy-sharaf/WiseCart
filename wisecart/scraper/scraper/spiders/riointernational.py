@@ -2,7 +2,6 @@ import scrapy
 import re
 from scraper.scraper.items import ProductItem, SearchResultItem
 from shops.models import Shop
-from search.models import Search
 
 
 class RioInternationalProductSpider(scrapy.Spider):
@@ -19,100 +18,90 @@ class RioInternationalProductSpider(scrapy.Spider):
         except Shop.DoesNotExist:
             store = Shop.objects.get(name="Rio International")
 
-        print(f"Rio International product spider: Processing URL: {response.url}")
-        print(f"Rio International product spider: Response status: {response.status}")
-
-        # Extract product details - try multiple selectors for title
-        title = response.css('h1::text').get()
+        # Extract product details
+        # Multiple fallback selectors for title
+        title = response.css('body > div.page-wrapper > main > main > div > div > div > div > div.product.product-single.row > div:nth-child(2) > div > h1::text').get()
+        if not title:
+            title = response.css('h1::text').get()
         if not title:
             title = response.css('.product-title::text').get()
         if not title:
-            title = response.css('[class*="title"]::text').get()
-        print(f"Rio International product spider: Title found: {title}")
+            title = response.css('.pd-title::text').get()
         
-        # Extract price - try multiple selectors
-        price_text = response.css('.product-price ins::text').get()
+        # Multiple fallback selectors for price
+        price_text = response.css('body > div.page-wrapper > main > main > div > div > div > div > div.product.product-single.row > div:nth-child(2) > div > div.pd-details-info-top > div.product-price > ins::text').get()
+        if not price_text:
+            price_text = response.css('div.product-price ins::text').get()
         if not price_text:
             price_text = response.css('ins.new-price::text').get()
         if not price_text:
-            price_text = response.css('[class*="price"]::text').get()
-        print(f"Rio International product spider: Price text found: {price_text}")
+            price_text = response.css('.price::text').get()
         
         # Clean price
         if price_text:
-            # Remove currency symbol and whitespace
+            # Remove currency symbols (৳, $, etc.) and extra spaces
             price_text = re.sub(r'[৳$₹€£]', '', price_text).strip()
-            print(f"Rio International product spider: Price text after removing currency: {price_text}")
             
             # Remove commas from the number
             price_text_no_commas = price_text.replace(',', '')
-            print(f"Rio International product spider: Price text after removing commas: {price_text_no_commas}")
             
             try:
                 # Convert directly to float
                 price = float(price_text_no_commas)
-                print(f"Rio International product spider: Final price: {price}")
             except ValueError:
                 # If direct conversion fails, try to extract just the numbers
                 price_matches = re.findall(r'\d+', price_text_no_commas)
                 if price_matches:
                     price = float(price_matches[0])
-                    print(f"Rio International product spider: Extracted price from numbers: {price}")
                 else:
                     price = 0
-                    print("Rio International product spider: Could not extract price, using 0")
         else:
             price = 0
-            print("Rio International product spider: No price text found, using 0")
 
-        # Extract main product image using the exact selector provided
+        # Multiple fallback selectors for main image
         image_src = response.css('#swiper-wrapper-9bb561610aeb82103 > div.swiper-slide.swiper-slide-active > div > img:nth-child(1)::attr(src)').get()
         if not image_src:
-            # Fallback: try a more generic swiper selector
-            image_src = response.css('[id*="swiper-wrapper"] > div.swiper-slide.swiper-slide-active > div > img:nth-child(1)::attr(src)').get()
+            image_src = response.css('#swiper-wrapper-10a66d980edfa4ccd > div.swiper-slide.swiper-slide-active > div > img:nth-child(1)::attr(src)').get()
         if not image_src:
-            # Fallback: try any active swiper slide
-            image_src = response.css('div.swiper-slide.swiper-slide-active img::attr(src)').get()
+            image_src = response.css('div.swiper-slide.swiper-slide-active > div > img::attr(src)').get()
         if not image_src:
-            # Final fallback: product media
-            image_src = response.css('figure.product-media img::attr(src)').get()
+            image_src = response.css('img.main-image::attr(src)').get()
+        if not image_src:
+            image_src = response.css('img::attr(src)').get()
         
-        # Make sure image URL is absolute
-        if image_src and not image_src.startswith('http'):
-            image_src = response.urljoin(image_src)
-            
-        print(f"Rio International product spider: Image src: {image_src}")
-
-        # Set description to None for Rio International
+        # Description set to None as per user request
         description = None
-        print(f"Rio International product spider: Description: None")
-
-        # Extract overview - try multiple selectors
-        overview = response.css('.product-short-desc *::text').getall()
-        if not overview:
-            overview = response.css('.product-summary *::text').getall()
-        if not overview:
-            overview = response.css('[class*="short"] *::text').getall()
-        overview = ' '.join(overview).strip() if overview else ""
-        print(f"Rio International product spider: Overview: {overview[:100] if overview else 'None'}")
         
-        # Set all Rio International products to IN STOCK by default
+        # Multiple fallback selectors for overview
+        overview = response.css('body > div.page-wrapper > main > main > div > div > div > div > div.product.product-single.row > div:nth-child(2) > div > div.pd-details-info-top > div.product-short-desc *::text').getall()
+        overview = self.clean_text_content(overview) if overview else ""
+        
+        if not overview:
+            overview = response.css('div.product-short-desc *::text').getall()
+            overview = self.clean_text_content(overview) if overview else ""
+        
+        # Stock set to IN STOCK by default as per user request
         stock = True
-        print(f"Rio International product spider: Stock set to IN STOCK (default)")
-
+        
         item = ProductItem(
             store_id=store.id,
             name=title.strip() if title else "",
             price=price,
-            stock=stock,  # Use the stock detection result directly
+            stock=stock,
             url=response.url,
             image_src=image_src,
             description=description,
-            overview=overview,
+            overview=overview.strip() if overview else "",
         )
 
-        print(f"Rio International product spider: Yielding product: {title}")
         yield item
+
+    def clean_text_content(self, text_list):
+        """Clean and join text content from CSS selector results"""
+        if not text_list:
+            return ""
+        cleaned_texts = [text.strip() for text in text_list if text.strip()]
+        return ' | '.join(cleaned_texts)
 
 
 class RioInternationalSpider(scrapy.Spider):
@@ -135,8 +124,7 @@ class RioInternationalSpider(scrapy.Spider):
             )
             return
         
-        search_url = f"https://riointernational.com.bd/search/product?keyword={'%20'.join(self.search_words)}"
-        print(f"Rio International spider: Processing URL: {search_url}")
+        search_url = f"https://riointernational.com.bd/search/product?keyword={'+'.join(self.search_words)}"
         yield scrapy.Request(url=search_url, callback=self.parse)
 
     def parse(self, response):
@@ -145,66 +133,53 @@ class RioInternationalSpider(scrapy.Spider):
         except Shop.DoesNotExist:
             store = Shop.objects.get(name="Rio International")
         
-        print(f"Rio International spider: Store found: {store.name} (ID: {store.id})")
-        print(f"Rio International spider: Search words: {self.search_words}")
-        print(f"Rio International spider: Response URL: {response.url}")
-        print(f"Rio International spider: Response status: {response.status}")
-
-        # Find product containers using correct selector from JS analysis
+        # Find product cards using the provided selector
         products = response.css('.product')
-        print(f"Rio International spider: Found {len(products)} products on search page")
         
-        # Debug: Try different selectors to see what's available
-        debug_selectors = [
-            'div.product',
-            '.product.style-2',
-            'div',
-            '[class*="product"]'
-        ]
-        
-        for selector in debug_selectors:
-            elements = response.css(selector)
-            print(f"Rio International spider: Selector '{selector}' found {len(elements)} elements")
-            if elements and selector == 'div':
-                break  # Don't print too many divs
-                
-        # If no products found, let's see the page content
-        if len(products) == 0:
-            page_text = response.css('body *::text').getall()
-            page_text_sample = ' '.join(page_text)[:500]
-            print(f"Rio International spider: Page content sample: {page_text_sample}")
+        # Debug: try multiple selectors if first one doesn't work
+        if not products:
+            selectors_to_try = [
+                '#product_wrapper > div.product-wrapper.category-product-all > div',
+                '.product-wrapper > div',
+                '.product-item',
+                '[class*="product"]'
+            ]
             
-            # Check if we can find product names in the text
-            if 'redmi' in page_text_sample.lower():
-                print("Rio International spider: Found 'redmi' in page text - products exist but selector is wrong")
+            for selector in selectors_to_try:
+                elements = response.css(selector)
+                if elements:
+                    break
+            
+            # Check if search term appears in page text (for debugging)
+            page_text = response.text.lower()
+            page_text_sample = page_text[:500] + '...' if len(page_text) > 500 else page_text
+            
+            if any(word in page_text for word in self.search_words):
+                pass  # Products exist but selector is wrong
             else:
-                print("Rio International spider: No 'redmi' found in page text - might be no results")
+                pass  # Might be no results
 
         product_count = 0
         for product in products:
             if product_count >= 2:
                 break
             
-            # Extract product details using correct selectors from JS analysis
+            # Extract product title using the provided selector
             title_element = product.css('h4.product-name a::text').get()
-            print(f"Rio International spider: Found product with title: {title_element}")
             
             if not title_element:
-                print("Rio International spider: No title found, skipping")
                 continue
                 
             if not self.title_contains_search_words(title_element.strip()):
-                print("Rio International spider: Title doesn't match search words, skipping")
                 continue
             
-            # Extract price using correct selector from JS analysis
+            # Extract price using the provided selector
             raw_price = product.css('.product-price ins.new-price::text').get()
-            print(f"Rio International spider: Raw price found: {raw_price}")
+            
             cleaned_price = self.clean_price(raw_price)
             
-            # Extract product URL using correct selector from JS analysis
+            # Extract product URL using the provided selector
             product_url = product.css('h4.product-name a::attr(href)').get()
-            print(f"Rio International spider: Product URL: {product_url}")
             
             item = SearchResultItem(
                 search_id=self.search_obj.id if self.search_obj else None,
@@ -217,18 +192,16 @@ class RioInternationalSpider(scrapy.Spider):
             )
             product_count += 1
             yield item
-            print(f"Rio International spider: Yielding product: {title_element.strip()}")
 
     def clean_price(self, price_text):
         if not price_text:
             return 0
         
-        print(f"Rio International spider: Cleaning price text: '{price_text}'")
-        
-        # Remove currency symbols (৳) and extra spaces
+        # Remove currency symbols (৳, $, etc.) and extra spaces
         price_text = re.sub(r'[৳$₹€£]', '', price_text).strip()
         
         # Handle different price formats
+        # First, remove commas from the text
         price_text_no_commas = price_text.replace(',', '')
         
         # Look for any number in the text
@@ -237,16 +210,11 @@ class RioInternationalSpider(scrapy.Spider):
         if number_matches:
             # Take the first number found
             price = float(number_matches[0])
-            print(f"Rio International spider: Extracted price: {price}")
             return price
         
-        print(f"Rio International spider: No numbers found in text: '{price_text}'")
         return 0
 
     def title_contains_search_words(self, title):
         title_lower = title.lower()
         matching_words = sum(1 for word in self.search_words if word in title_lower)
-        print(f"Rio International spider: Checking product '{title}' against search words {self.search_words}")
-        print(f"Rio International spider: Matching words: {matching_words}")
-        # Be lenient - require at least 1 matching word
         return matching_words >= 1 
