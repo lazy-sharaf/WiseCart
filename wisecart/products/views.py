@@ -1,10 +1,10 @@
 from crochet import setup, wait_for
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.project import get_project_settings
-from django.shortcuts import render, Http404
+from django.shortcuts import render, Http404, redirect, get_object_or_404
 from django.utils import timezone
 from datetime import timedelta
-from .models import Product
+from .models import Product, Bookmark
 from shops.models import Shop
 from scraper.scraper.spiders.startech import StartechProductSpider
 from scraper.scraper.spiders.potakait import PotakaitProductSpider
@@ -15,6 +15,10 @@ from scraper.scraper.spiders.riointernational import RioInternationalProductSpid
 import time
 import logging
 from urllib.parse import unquote, quote
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.contrib import messages
+from django.core.paginator import Paginator
 
 logger = logging.getLogger(__name__)
 setup()  # Setup Crochet
@@ -105,10 +109,145 @@ def product_detail(request, store_name, product_url):
                 logger.error(f"Error during scraping: {str(e)}")
                 raise Http404(f"Error fetching product: {str(e)}")
 
-        return render(request, 'products/product_detail.html', {"product": product})
+        # Check if user has bookmarked this product
+        is_bookmarked = False
+        if request.user.is_authenticated:
+            is_bookmarked = Bookmark.objects.filter(user=request.user, product=product).exists()
+
+        context = {
+            'product': product,
+            'is_bookmarked': is_bookmarked,
+        }
+        return render(request, 'products/product_detail.html', context)
 
     except Shop.DoesNotExist:
         raise Http404("Store not found")
     except Exception as e:
         logger.error(f"Error fetching product: {str(e)}")
         raise Http404(f"Error fetching product: {str(e)}")
+
+
+@login_required
+def add_bookmark(request, product_id):
+    """Add a product to user's bookmarks."""
+    if request.method == 'POST':
+        product = get_object_or_404(Product, id=product_id)
+        bookmark, created = Bookmark.objects.get_or_create(
+            user=request.user,
+            product=product
+        )
+        
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            # AJAX request
+            return JsonResponse({
+                'status': 'success',
+                'action': 'added' if created else 'already_exists',
+                'message': 'Product bookmarked!' if created else 'Product already in bookmarks'
+            })
+        else:
+            # Regular request
+            if created:
+                messages.success(request, f'"{product.name}" has been added to your bookmarks!')
+            else:
+                messages.info(request, f'"{product.name}" is already in your bookmarks.')
+            return redirect(request.META.get('HTTP_REFERER', 'wisecart:index'))
+    
+    return redirect('wisecart:index')
+
+
+@login_required
+def remove_bookmark(request, product_id):
+    """Remove a product from user's bookmarks."""
+    if request.method == 'POST':
+        product = get_object_or_404(Product, id=product_id)
+        bookmark = Bookmark.objects.filter(user=request.user, product=product)
+        
+        if bookmark.exists():
+            bookmark.delete()
+            removed = True
+            message = 'Product removed from bookmarks!'
+        else:
+            removed = False
+            message = 'Product was not in bookmarks.'
+        
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            # AJAX request
+            return JsonResponse({
+                'status': 'success',
+                'action': 'removed' if removed else 'not_found',
+                'message': message
+            })
+        else:
+            # Regular request
+            if removed:
+                messages.success(request, f'"{product.name}" has been removed from your bookmarks.')
+            else:
+                messages.warning(request, f'"{product.name}" was not in your bookmarks.')
+            return redirect(request.META.get('HTTP_REFERER', 'wisecart:index'))
+    
+    return redirect('wisecart:index')
+
+
+@login_required
+def toggle_bookmark(request, product_id):
+    """Toggle bookmark status for a product."""
+    if request.method == 'POST':
+        product = get_object_or_404(Product, id=product_id)
+        bookmark = Bookmark.objects.filter(user=request.user, product=product)
+        
+        if bookmark.exists():
+            bookmark.delete()
+            is_bookmarked = False
+            action = 'removed'
+            message = 'Removed from bookmarks'
+        else:
+            Bookmark.objects.create(user=request.user, product=product)
+            is_bookmarked = True
+            action = 'added'
+            message = 'Added to bookmarks'
+        
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            # AJAX request
+            return JsonResponse({
+                'status': 'success',
+                'action': action,
+                'is_bookmarked': is_bookmarked,
+                'message': message
+            })
+        else:
+            # Regular request
+            messages.success(request, f'"{product.name}" {message.lower()}!')
+            # If coming from bookmarks page, stay there, otherwise go to referring page
+            referer = request.META.get('HTTP_REFERER', '')
+            if 'bookmarks' in referer:
+                return redirect('products:bookmarks')
+            return redirect(request.META.get('HTTP_REFERER', 'wisecart:index'))
+    
+    return redirect('wisecart:index')
+
+
+@login_required
+def bookmarks_list(request):
+    """Display user's bookmarked products."""
+    bookmarks = Bookmark.objects.filter(user=request.user).select_related('product', 'product__store')
+    
+    # Pagination
+    items_per_page = request.GET.get('items_per_page', 12)
+    if items_per_page == 'all':
+        paginated_bookmarks = bookmarks
+    else:
+        try:
+            items_per_page = int(items_per_page)
+        except ValueError:
+            items_per_page = 12
+        
+        paginator = Paginator(bookmarks, items_per_page)
+        page_number = request.GET.get('page')
+        paginated_bookmarks = paginator.get_page(page_number)
+    
+    context = {
+        'bookmarks': paginated_bookmarks,
+        'items_per_page': items_per_page,
+        'total_bookmarks': bookmarks.count(),
+    }
+    return render(request, 'products/bookmarks.html', context)

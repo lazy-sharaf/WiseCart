@@ -6,6 +6,9 @@
 
 {% include 'search/compact_search_form.html' %}
 
+<!-- Hidden CSRF token for AJAX requests -->
+{% csrf_token %}
+
 <div class="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4 space-y-6 sm:space-y-8">
     <!-- Main Product Info and Shop Info Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
@@ -37,6 +40,28 @@
                     ৳{{ product.price }}
                 </div>
             </div>
+            
+            <!-- Action Buttons -->
+            {% if user.is_authenticated %}
+                <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
+                    <button id="bookmarkBtn" onclick="toggleBookmark({{ product.id }})" 
+                            class="bookmark-btn flex-1 inline-flex justify-center items-center px-4 py-2 font-medium rounded-lg transition-all duration-200 {% if is_bookmarked %}bg-red-50 text-red-600 border border-red-200 hover:bg-red-100{% else %}bg-gray-50 text-gray-600 border border-gray-200 hover:bg-gray-100{% endif %}">
+                        <svg class="w-5 h-5 mr-2" fill="{% if is_bookmarked %}currentColor{% else %}none{% endif %}" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                        <span class="bookmark-text">{% if is_bookmarked %}Remove from Bookmarks{% else %}Add to Bookmarks{% endif %}</span>
+                    </button>
+                </div>
+            {% else %}
+                <div class="flex flex-col pt-4 border-t border-gray-100">
+                    <a href="{% url 'users:login' %}" class="flex-1 inline-flex justify-center items-center px-4 py-2 bg-blue-50 text-blue-600 border border-blue-200 font-medium rounded-lg hover:bg-blue-100 transition-all duration-200">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                        Login to Bookmark
+                    </a>
+                </div>
+            {% endif %}
         </div>
         <!-- Right Column -->
         <div class="grid grid-rows-[auto_1fr] gap-6 sm:gap-8">
@@ -95,5 +120,74 @@
 </div>
 
 {% include 'products/featured_products.html' %}
+
+<!-- JavaScript for bookmark functionality -->
+<script>
+// Function to get CSRF token
+function getCSRFToken() {
+    const token = document.querySelector('[name=csrfmiddlewaretoken]');
+    return token ? token.value : '';
+}
+
+function toggleBookmark(productId) {
+    const bookmarkBtn = document.getElementById('bookmarkBtn');
+    const bookmarkText = bookmarkBtn.querySelector('.bookmark-text');
+    const bookmarkSvg = bookmarkBtn.querySelector('svg');
+    
+    const csrfToken = getCSRFToken();
+    if (!csrfToken) {
+        alert('Security token not found. Please refresh the page and try again.');
+        return;
+    }
+    
+    fetch(`/products/bookmark/toggle/${productId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken,
+            'X-Requested-With': 'XMLHttpRequest',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            if (data.is_bookmarked) {
+                // Update to bookmarked state
+                bookmarkBtn.className = 'bookmark-btn flex-1 inline-flex justify-center items-center px-4 py-2 font-medium rounded-lg transition-all duration-200 bg-red-50 text-red-600 border border-red-200 hover:bg-red-100';
+                bookmarkSvg.setAttribute('fill', 'currentColor');
+                bookmarkText.textContent = 'Remove from Bookmarks';
+            } else {
+                // Update to unbookmarked state
+                bookmarkBtn.className = 'bookmark-btn flex-1 inline-flex justify-center items-center px-4 py-2 font-medium rounded-lg transition-all duration-200 bg-gray-50 text-gray-600 border border-gray-200 hover:bg-gray-100';
+                bookmarkSvg.setAttribute('fill', 'none');
+                bookmarkText.textContent = 'Add to Bookmarks';
+            }
+            
+            // Show success message with animation
+            const message = document.createElement('div');
+            message.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+            message.textContent = data.message;
+            document.body.appendChild(message);
+            
+            // Animate in
+            setTimeout(() => {
+                message.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                message.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(message);
+                }, 300);
+            }, 3000);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to update bookmark. Please try again.');
+    });
+}
+</script>
 
 {% endblock %}

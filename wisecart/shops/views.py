@@ -32,6 +32,9 @@ def shop_detail(request, shop_slug):
     if request.user.is_authenticated:
         user_review = Review.objects.filter(shop=shop, user=request.user).first()
 
+    # Initialize form variable
+    review_form = None
+    
     # Handle form submissions (create, update, or delete reviews)
     if request.method == 'POST':
         if request.user.is_authenticated:
@@ -47,10 +50,20 @@ def shop_detail(request, shop_slug):
                     review.user = request.user
                     review.save()
                     return redirect('shops:shop_detail', shop_slug=shop.slug)
+                # If form is not valid, review_form will contain the POST data and errors
         else:
             return redirect('login')
-
-    review_form = ReviewForm(instance=user_review)
+    
+    # Only create form with review data if:
+    # 1. Not a POST request, AND
+    # 2. User explicitly wants to edit (has 'edit' in GET parameters) OR it's a failed POST
+    if review_form is None:  # This means we didn't handle a POST request
+        # Check if user wants to edit their existing review
+        if user_review and request.GET.get('edit') == 'true':
+            review_form = ReviewForm(instance=user_review)
+        else:
+            # Create a clean form (either for new review or after successful submission)
+            review_form = ReviewForm()
 
     # Pass the necessary data to the template context
     context = {
@@ -59,6 +72,7 @@ def shop_detail(request, shop_slug):
         'review_form': review_form,
         'user_review': user_review,
         'reviews_per_page': reviews_per_page,
+        'show_edit_form': request.GET.get('edit') == 'true',
     }
     return render(request, 'shops/shop_detail.html', context)
 

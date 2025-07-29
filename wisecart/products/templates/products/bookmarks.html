@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+
+{% block title %}My Bookmarks | wisecart{% endblock %}
+
+{% block content %}
+
+{% include 'search/compact_search_form.html' %}
+
+<!-- Hidden CSRF token for AJAX requests -->
+{% csrf_token %}
+
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Page Header -->
+    <div class="mb-8">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">My Bookmarks</h1>
+                <p class="text-gray-600">{{ total_bookmarks }} saved product{{ total_bookmarks|pluralize }}</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                {% if total_bookmarks > 0 %}
+                    <!-- Items per page selector -->
+                    <form method="GET" action="" class="inline-flex items-center">
+                        <label class="text-sm font-medium text-gray-700 mr-2" for="items_per_page">Show:</label>
+                        <select name="items_per_page" id="items_per_page" onchange="this.form.submit()" 
+                                class="border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="12" {% if items_per_page == 12 %}selected{% endif %}>12</option>
+                            <option value="24" {% if items_per_page == 24 %}selected{% endif %}>24</option>
+                            <option value="48" {% if items_per_page == 48 %}selected{% endif %}>48</option>
+                            <option value="all" {% if items_per_page == 'all' %}selected{% endif %}>All</option>
+                        </select>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% if total_bookmarks > 0 %}
+        <!-- Bookmarks Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+            {% for bookmark in bookmarks %}
+                <div class="bg-white rounded-xl shadow hover:shadow-lg transition-all duration-200 border border-gray-100 flex flex-col">
+                    <!-- Product Image -->
+                    {% if bookmark.product.image_src %}
+                        <div class="h-48 flex items-center justify-center bg-gray-50 rounded-t-xl p-4">
+                            <img src="{{ bookmark.product.image_src }}" alt="{{ bookmark.product.name }}" 
+                                 class="max-h-full max-w-full object-contain">
+                        </div>
+                    {% else %}
+                        <div class="h-48 flex items-center justify-center bg-gray-100 rounded-t-xl">
+                            <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
+                                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                    {% endif %}
+
+                    <!-- Product Details -->
+                    <div class="p-4 flex flex-col flex-1">
+                        <!-- Store Badge -->
+                        <span class="inline-flex items-center gap-1 bg-blue-50 text-blue-700 font-semibold text-xs px-2 py-1 rounded-full mb-3 w-fit">
+                            {% if bookmark.product.store.image %}
+                                <img src="{{ bookmark.product.store.image.url }}" alt="{{ bookmark.product.store.name }}" 
+                                     class="w-4 h-4 rounded-full object-contain bg-white border border-gray-200">
+                            {% else %}
+                                <svg class="w-3 h-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 20 20">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                          d="M3 7V5a2 2 0 012-2h10a2 2 0 012 2v2M3 7h14M3 7v8a2 2 0 002 2h10a2 2 0 002-2V7"/>
+                                </svg>
+                            {% endif %}
+                            {{ bookmark.product.store.name }}
+                        </span>
+
+                        <!-- Product Name -->
+                        <h3 class="text-base font-medium text-gray-900 mb-2 line-clamp-2 flex-1">
+                            {{ bookmark.product.name }}
+                        </h3>
+
+                        <!-- Price and Stock -->
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-blue-600 font-bold text-lg">
+                                {% if bookmark.product.price %}৳{{ bookmark.product.price|floatformat:0 }}{% else %}N/A{% endif %}
+                            </span>
+                            <span class="text-xs px-2 py-1 rounded-full {% if bookmark.product.stock %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}">
+                                {% if bookmark.product.stock %}In Stock{% else %}Out of Stock{% endif %}
+                            </span>
+                        </div>
+
+                        <!-- Rating -->
+                        {% if bookmark.product.rating %}
+                            <div class="flex items-center text-yellow-500 text-sm mb-3">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                                {{ bookmark.product.rating|floatformat:1 }}
+                            </div>
+                        {% endif %}
+
+                        <!-- Bookmark Date -->
+                        <div class="text-xs text-gray-500 mb-4">
+                            Bookmarked {{ bookmark.created_at|date:"M d, Y" }}
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex gap-2 mt-auto">
+                            <button onclick="toggleBookmark({{ bookmark.product.id }}, this)" 
+                                    class="flex-1 inline-flex justify-center items-center px-3 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors duration-200">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                                </svg>
+                                Remove
+                            </button>
+                            <a href="{% url 'products:product_detail' bookmark.product.store.name bookmark.product.url|urlencode %}" 
+                               class="flex-1 inline-flex justify-center items-center px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors duration-200">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if items_per_page != 'all' and bookmarks.has_other_pages %}
+            <div class="flex justify-center items-center space-x-2">
+                {% if bookmarks.has_previous %}
+                    <a href="?page={{ bookmarks.previous_page_number }}{% if items_per_page != 12 %}&items_per_page={{ items_per_page }}{% endif %}" 
+                       class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                        Previous
+                    </a>
+                {% endif %}
+
+                <span class="px-3 py-2 text-sm font-medium text-gray-700">
+                    Page {{ bookmarks.number }} of {{ bookmarks.paginator.num_pages }}
+                </span>
+
+                {% if bookmarks.has_next %}
+                    <a href="?page={{ bookmarks.next_page_number }}{% if items_per_page != 12 %}&items_per_page={{ items_per_page }}{% endif %}" 
+                       class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                        Next
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+
+    {% else %}
+        <!-- Empty State -->
+        <div class="text-center py-16">
+            <svg class="mx-auto h-24 w-24 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">No bookmarks yet</h3>
+            <p class="text-gray-600 mb-6">Start bookmarking products you want to buy later!</p>
+            <a href="{% url 'index' %}" 
+               class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                </svg>
+                Explore Products
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+<!-- JavaScript for bookmark functionality -->
+<script>
+// Function to get CSRF token
+function getCSRFToken() {
+    const token = document.querySelector('[name=csrfmiddlewaretoken]');
+    return token ? token.value : '';
+}
+
+function toggleBookmark(productId, button) {
+    const csrfToken = getCSRFToken();
+    if (!csrfToken) {
+        alert('Security token not found. Please refresh the page and try again.');
+        return;
+    }
+    
+    fetch(`/products/bookmark/toggle/${productId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken,
+            'X-Requested-With': 'XMLHttpRequest',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            // Remove the product card from the page
+            const productCard = button.closest('.bg-white');
+            productCard.style.opacity = '0.5';
+            productCard.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                productCard.remove();
+                // Update the page counter
+                const countElement = document.querySelector('p.text-gray-600');
+                const countText = countElement.textContent;
+                const currentCount = parseInt(countText.match(/\d+/)[0]);
+                const newCount = currentCount - 1;
+                countElement.textContent = `${newCount} saved product${newCount !== 1 ? 's' : ''}`;
+                
+                // If no bookmarks left, show empty state without reload
+                if (newCount === 0) {
+                    showEmptyState();
+                }
+            }, 300);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to remove bookmark. Please try again.');
+    });
+}
+
+// Function to show empty state without page reload
+function showEmptyState() {
+    // Hide the bookmarks grid and pagination
+    const bookmarksGrid = document.querySelector('.grid.grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-3.xl\\:grid-cols-4');
+    const pagination = document.querySelector('.flex.justify-center.items-center.space-x-2');
+    const itemsPerPageForm = document.querySelector('form[method="GET"]');
+    
+    if (bookmarksGrid) bookmarksGrid.style.display = 'none';
+    if (pagination) pagination.style.display = 'none';
+    if (itemsPerPageForm) itemsPerPageForm.parentElement.style.display = 'none';
+    
+    // Create and show empty state
+    const emptyStateHTML = `
+        <div class="text-center py-16">
+            <svg class="mx-auto h-24 w-24 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" 
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">No bookmarks yet</h3>
+            <p class="text-gray-600 mb-6">Start bookmarking products you want to buy later!</p>
+            <a href="/" 
+               class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                </svg>
+                Explore Products
+            </a>
+        </div>
+    `;
+    
+    // Insert empty state after the header
+    const pageHeader = document.querySelector('.mb-8');
+    pageHeader.insertAdjacentHTML('afterend', emptyStateHTML);
+}
+</script>
+
+{% endblock %} 

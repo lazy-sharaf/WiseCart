@@ -74,83 +74,122 @@
                         <div class="mt-2">
                             <form method="post" class="inline">
                                 {% csrf_token %}
-                                <button type="submit" name="delete_review" class="text-red-500 hover:text-red-700">Delete</button>
+                                <button type="submit" name="delete_review" class="text-red-500 hover:text-red-700" onclick="return confirm('Are you sure you want to delete your review?')">Delete</button>
                             </form>
-                            <a href="#edit-review" class="ml-4 text-blue-500 hover:text-blue-700">Edit</a>
+                            <a href="?edit=true{% if reviews_per_page != 10 %}&reviews_per_page={{ reviews_per_page }}{% endif %}" class="ml-4 text-blue-500 hover:text-blue-700">Edit</a>
                         </div>
                     {% endif %}
                 </div>
             {% endfor %}
         </div>
         <!-- Review Form -->
-        {% if user.is_authenticated and not user_review %}
-            <div class="mt-8">
-                <h2 class="text-xl font-bold mb-4">Add a Review</h2>
-                <form method="post" class="space-y-4">
-                    {% csrf_token %}
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Rating</label>
-                        <div class="flex flex-row-reverse justify-end gap-1">
-                            {% for i in "54321" %}
-                                <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}"
-                                       class="hidden peer"
-                                       {% if review_form.rating.value|stringformat:"s" == i %}checked{% endif %}
-                                       required>
-                                <label for="star{{ i }}" class="cursor-pointer text-2xl peer-checked:text-yellow-400 peer-hover:text-yellow-300 transition-colors">
-                                    &#9733;
-                                </label>
-                            {% endfor %}
+        {% if user.is_authenticated %}
+            {% if not user_review %}
+                <!-- Add Review Form for users who haven't reviewed yet -->
+                <div class="mt-8">
+                    <h2 class="text-xl font-bold mb-4">Add a Review</h2>
+                    <form method="post" class="space-y-4">
+                        {% csrf_token %}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Rating</label>
+                            <div class="flex flex-row-reverse justify-end gap-1">
+                                {% for i in "54321" %}
+                                    <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}"
+                                           class="hidden peer"
+                                           {% if review_form.rating.value|stringformat:"s" == i %}checked{% endif %}
+                                           required>
+                                    <label for="star{{ i }}" class="cursor-pointer text-2xl peer-checked:text-yellow-400 peer-hover:text-yellow-300 transition-colors">
+                                        &#9733;
+                                    </label>
+                                {% endfor %}
+                            </div>
+                            {% if review_form.rating.errors %}
+                                <p class="text-red-500 text-xs mt-1">{{ review_form.rating.errors.0 }}</p>
+                            {% endif %}
                         </div>
-                        {% if review_form.rating.errors %}
-                            <p class="text-red-500 text-xs mt-1">{{ review_form.rating.errors.0 }}</p>
-                        {% endif %}
-                    </div>
-                    <div>
-                        <label for="id_comment" class="block text-sm font-medium text-gray-700 mb-1">Comment</label>
-                        <textarea name="comment" id="id_comment"
-                                  class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                  required>{{ review_form.comment.value|default_if_none:'' }}</textarea>
-                        {% if review_form.comment.errors %}
-                            <p class="text-red-500 text-xs mt-1">{{ review_form.comment.errors.0 }}</p>
-                        {% endif %}
-                    </div>
-                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Submit Review</button>
-                </form>
-            </div>
-        {% elif user_review %}
-            <div class="mt-8" id="edit-review">
-                <h2 class="text-xl font-bold mb-4">Edit Your Review</h2>
-                <form method="post" class="space-y-4">
-                    {% csrf_token %}
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Rating</label>
-                        <div class="flex flex-row-reverse justify-end gap-1">
-                            {% for i in "54321" %}
-                                <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}"
-                                       class="hidden peer"
-                                       {% if review_form.rating.value|stringformat:"s" == i %}checked{% endif %}
-                                       required>
-                                <label for="star{{ i }}" class="cursor-pointer text-2xl peer-checked:text-yellow-400 peer-hover:text-yellow-300 transition-colors">
-                                    &#9733;
-                                </label>
-                            {% endfor %}
+                        <div>
+                            <label for="id_comment" class="block text-sm font-medium text-gray-700 mb-1">Comment</label>
+                            <textarea name="comment" id="id_comment"
+                                      class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                      required>{{ review_form.comment.value|default_if_none:'' }}</textarea>
+                            {% if review_form.comment.errors %}
+                                <p class="text-red-500 text-xs mt-1">{{ review_form.comment.errors.0 }}</p>
+                            {% endif %}
                         </div>
-                        {% if review_form.rating.errors %}
-                            <p class="text-red-500 text-xs mt-1">{{ review_form.rating.errors.0 }}</p>
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Submit Review</button>
+                    </form>
+                </div>
+            {% else %}
+                <!-- User's existing review display -->
+                <div class="mt-8">
+                    <h2 class="text-xl font-bold mb-4">Your Review</h2>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 mr-2">
+                                {% for i in "12345" %}
+                                    {% if i|add:0 <= user_review.rating %}
+                                        &#9733;
+                                    {% else %}
+                                        &#9734;
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <span class="text-sm text-gray-600">{{ user_review.created_at|date:"M d, Y" }}</span>
+                        </div>
+                        <p class="text-gray-800 mb-3">{{ user_review.comment }}</p>
+                        {% if not show_edit_form %}
+                            <div class="flex space-x-2">
+                                <a href="?edit=true{% if reviews_per_page != 10 %}&reviews_per_page={{ reviews_per_page }}{% endif %}" class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition">Edit Review</a>
+                                <form method="post" class="inline">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="delete_review" value="true">
+                                    <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700 transition" onclick="return confirm('Are you sure you want to delete your review?')">Delete Review</button>
+                                </form>
+                            </div>
                         {% endif %}
                     </div>
-                    <div>
-                        <label for="id_comment" class="block text-sm font-medium text-gray-700 mb-1">Comment</label>
-                        <textarea name="comment" id="id_comment"
-                                  class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                  required>{{ review_form.comment.value|default_if_none:'' }}</textarea>
-                        {% if review_form.comment.errors %}
-                            <p class="text-red-500 text-xs mt-1">{{ review_form.comment.errors.0 }}</p>
-                        {% endif %}
+                </div>
+
+                <!-- Edit Review Form (shown only when user clicks edit) -->
+                {% if show_edit_form %}
+                    <div class="mt-6" id="edit-review">
+                        <h3 class="text-lg font-bold mb-4">Edit Your Review</h3>
+                        <form method="post" class="space-y-4">
+                            {% csrf_token %}
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Rating</label>
+                                <div class="flex flex-row-reverse justify-end gap-1">
+                                    {% for i in "54321" %}
+                                        <input type="radio" id="edit_star{{ i }}" name="rating" value="{{ i }}"
+                                               class="hidden peer"
+                                               {% if review_form.rating.value|stringformat:"s" == i %}checked{% endif %}
+                                               required>
+                                        <label for="edit_star{{ i }}" class="cursor-pointer text-2xl peer-checked:text-yellow-400 peer-hover:text-yellow-300 transition-colors">
+                                            &#9733;
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% if review_form.rating.errors %}
+                                    <p class="text-red-500 text-xs mt-1">{{ review_form.rating.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <label for="edit_comment" class="block text-sm font-medium text-gray-700 mb-1">Comment</label>
+                                <textarea name="comment" id="edit_comment"
+                                          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                          required>{{ review_form.comment.value|default_if_none:'' }}</textarea>
+                                {% if review_form.comment.errors %}
+                                    <p class="text-red-500 text-xs mt-1">{{ review_form.comment.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="flex space-x-2">
+                                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Update Review</button>
+                                <a href="?{% if reviews_per_page != 10 %}reviews_per_page={{ reviews_per_page }}{% endif %}" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition">Cancel</a>
+                            </div>
+                        </form>
                     </div>
-                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Update Review</button>
-                </form>
-            </div>
+                {% endif %}
+            {% endif %}
         {% else %}
             <p class="mt-8">
                 <a href="{% url 'users:login' %}" class="text-blue-500 hover:text-blue-700">Log in</a> to add a review.

@@ -1,5 +1,6 @@
 from django.db import models
 from shops.models import Shop
+from django.conf import settings
 
 
 class Product(models.Model):
@@ -32,3 +33,18 @@ class FeaturedProduct(models.Model):
 
     def __str__(self):
         return f"Featured Product: {self.product.name}"
+
+
+class Bookmark(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='bookmarks')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='bookmarks')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'product')
+        ordering = ['-created_at']
+        verbose_name = "Bookmark"
+        verbose_name_plural = "Bookmarks"
+
+    def __str__(self):
+        return f"{self.user.username} bookmarked {self.product.name}"
