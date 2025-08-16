@@ -29,17 +29,17 @@
             <form method="post" class="space-y-6">
                 {% csrf_token %}
                 
-                <!-- Username field -->
+                <!-- Username or Email field -->
                 <div>
                     <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
                         <svg class="w-4 h-4 inline mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                         </svg>
-                        Username
+                        Username or Email
                     </label>
                     <input type="text" name="username" id="username" required 
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
-                        placeholder="Enter your username">
+                        placeholder="Enter your username or email">
                 </div>
 
                 <!-- Password field -->
@@ -90,6 +90,9 @@
                     <a href="{% url 'users:registration' %}" class="font-medium text-orange-600 hover:text-orange-500 transition-colors">
                         Create one here
                     </a>
+                </p>
+                <p class="text-xs text-gray-500 mt-2">
+                    You can sign in with your username or email address
                 </p>
             </div>
         </div>

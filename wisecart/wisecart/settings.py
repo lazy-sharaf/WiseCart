@@ -113,6 +113,82 @@ LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'users:profile'
 LOGOUT_REDIRECT_URL = 'users:login'
 
+# Custom authentication backends
+AUTHENTICATION_BACKENDS = [
+    'users.backends.EmailOrUsernameModelBackend',
+    'django.contrib.auth.backends.ModelBackend',  # Fallback to default backend
+]
+
 # Email settings
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # For development - prints emails to console
-DEFAULT_FROM_EMAIL = 'noreply@wisecart.com'
+# Choose one of the following email backends based on your preference:
+
+# Option 1: Gmail SMTP (requires app password)
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'your-email@gmail.com'  # Replace with your Gmail address
+# EMAIL_HOST_PASSWORD = 'your-app-password'  # Replace with your Gmail app password
+# DEFAULT_FROM_EMAIL = 'your-email@gmail.com'  # Replace with your Gmail address
+
+# Option 2: Outlook/Hotmail SMTP
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp-mail.outlook.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'your-email@outlook.com'  # Replace with your Outlook address
+# EMAIL_HOST_PASSWORD = 'your-password'  # Replace with your Outlook password
+# DEFAULT_FROM_EMAIL = 'your-email@outlook.com'  # Replace with your Outlook address
+
+# Option 3: Yahoo SMTP
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.mail.yahoo.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'your-email@yahoo.com'  # Replace with your Yahoo address
+# EMAIL_HOST_PASSWORD = 'your-app-password'  # Replace with your Yahoo app password
+# DEFAULT_FROM_EMAIL = 'your-email@yahoo.com'  # Replace with your Yahoo address
+
+# Option 4: Custom SMTP Server
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'your-smtp-server.com'  # Replace with your SMTP server
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'your-email@your-domain.com'  # Replace with your email
+# EMAIL_HOST_PASSWORD = 'your-password'  # Replace with your password
+# DEFAULT_FROM_EMAIL = 'your-email@your-domain.com'  # Replace with your email
+
+# Option 5: SendGrid (recommended for production)
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'apikey'  # This should always be 'apikey'
+# EMAIL_HOST_PASSWORD = 'your-sendgrid-api-key'  # Replace with your SendGrid API key
+# DEFAULT_FROM_EMAIL = 'noreply@yourdomain.com'  # Replace with your verified sender
+
+# Option 6: Mailgun (recommended for production)
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.mailgun.org'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'your-mailgun-username'  # Replace with your Mailgun username
+# EMAIL_HOST_PASSWORD = 'your-mailgun-password'  # Replace with your Mailgun password
+# DEFAULT_FROM_EMAIL = 'noreply@yourdomain.com'  # Replace with your verified sender
+
+# For development/testing (currently active)
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# DEFAULT_FROM_EMAIL = 'noreply@wisecart.com'
+
+# Gmail SMTP Configuration (Active)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'mahbuburrahmansoraf@gmail.com'
+EMAIL_HOST_PASSWORD = 'lsou dmdu piku zhzp'
+DEFAULT_FROM_EMAIL = 'mahbuburrahmansoraf@gmail.com'
+
+# Email configuration
+EMAIL_USE_TLS = True
+EMAIL_TIMEOUT = 20  # Timeout in seconds for email operations
