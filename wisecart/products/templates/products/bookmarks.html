@@ -207,6 +207,11 @@ function toggleBookmark(productId, button) {
                 if (newCount === 0) {
                     showEmptyState();
                 }
+                
+                // Update navbar bookmark count
+                if (typeof window.updateBookmarkCount === 'function') {
+                    window.updateBookmarkCount();
+                }
             }, 300);
         }
     })

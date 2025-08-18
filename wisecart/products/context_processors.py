@@ -1,4 +1,4 @@
-from .models import FeaturedProduct
+from .models import FeaturedProduct, Bookmark
 from django.utils import timezone
 
 def featured_products(request):
@@ -11,4 +11,16 @@ def featured_products(request):
     
     return {
         'featured_products': featured_products
+    }
+
+def bookmark_count(request):
+    """
+    Context processor to make bookmark count available globally
+    """
+    bookmark_count = 0
+    if request.user.is_authenticated:
+        bookmark_count = Bookmark.objects.filter(user=request.user).count()
+    
+    return {
+        'bookmark_count': bookmark_count
     } 

@@ -59,11 +59,16 @@
                         <span id="nav-compare-count" class="absolute -top-1 -right-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center transform scale-0 transition-transform duration-200 shadow-lg" style="display: none;">0</span>
                     </a>
                     {% if user.is_authenticated %}
-                        <a href="{% url 'products:bookmarks' %}" class="group flex items-center px-4 py-2 rounded-xl text-gray-600 hover:text-red-600 text-sm font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50 hover:shadow-md">
+                        <a href="{% url 'products:bookmarks' %}" class="group relative flex items-center px-4 py-2 rounded-xl text-gray-600 hover:text-red-600 text-sm font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50 hover:shadow-md">
                             <svg class="w-4 h-4 mr-2 text-gray-500 group-hover:text-red-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                             </svg>
                             Bookmarks
+                            {% if bookmark_count > 0 %}
+                                <span id="nav-bookmark-count" class="absolute -top-1 -right-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg">{{ bookmark_count }}</span>
+                            {% else %}
+                                <span id="nav-bookmark-count" class="absolute -top-1 -right-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold shadow-lg" style="display: none;">0</span>
+                            {% endif %}
                         </a>
                     {% endif %}
                     <a href="#featured-products" class="group flex items-center px-4 py-2 rounded-xl text-gray-600 hover:text-yellow-600 text-sm font-medium transition-all duration-300 hover:bg-gradient-to-r hover:from-yellow-50 hover:to-orange-50 hover:shadow-md">
@@ -176,19 +181,28 @@
 
                 <!-- Bookmarks (only for authenticated users) -->
                 {% if user.is_authenticated %}
-                    <a href="{% url 'products:bookmarks' %}" class="group flex items-center px-4 py-4 text-gray-700 hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-lg border border-transparent hover:border-red-200">
-                        <div class="w-10 h-10 bg-gradient-to-br from-red-100 to-pink-100 rounded-xl flex items-center justify-center mr-4 group-hover:from-red-200 group-hover:to-pink-200 transition-all duration-300">
-                            <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    <a href="{% url 'products:bookmarks' %}" class="group flex items-center justify-between px-4 py-4 text-gray-700 hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-lg border border-transparent hover:border-red-200">
+                        <div class="flex items-center flex-1">
+                            <div class="w-10 h-10 bg-gradient-to-br from-red-100 to-pink-100 rounded-xl flex items-center justify-center mr-4 group-hover:from-red-200 group-hover:to-pink-200 transition-all duration-300">
+                                <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <span class="font-semibold text-gray-800">My Bookmarks</span>
+                                <p class="text-xs text-gray-500 mt-0.5">Saved products</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            {% if bookmark_count > 0 %}
+                                <span id="mobile-bookmark-count" class="bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold shadow-lg">{{ bookmark_count }}</span>
+                            {% else %}
+                                <span id="mobile-bookmark-count" class="bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold shadow-lg" style="display: none;">0</span>
+                            {% endif %}
+                            <svg class="w-4 h-4 text-gray-400 group-hover:text-red-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
                         </div>
-                        <div class="flex-1">
-                            <span class="font-semibold text-gray-800">My Bookmarks</span>
-                            <p class="text-xs text-gray-500 mt-0.5">Saved products</p>
-                        </div>
-                        <svg class="w-4 h-4 text-gray-400 group-hover:text-red-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
                     </a>
                 {% endif %}
 
@@ -356,11 +370,40 @@
             .catch(error => console.error('Error loading nav compare count:', error));
     }
     
+    // Update navigation bookmark counters
+    function updateNavBookmarkCount() {
+        fetch('{% url "products:bookmark_count" %}')
+            .then(response => response.json())
+            .then(data => {
+                const count = data.count;
+                const navCounter = document.getElementById('nav-bookmark-count');
+                const mobileCounter = document.getElementById('mobile-bookmark-count');
+                
+                if (navCounter) {
+                    navCounter.textContent = count;
+                    navCounter.style.display = count > 0 ? 'flex' : 'none';
+                }
+                
+                if (mobileCounter) {
+                    mobileCounter.textContent = count;
+                    mobileCounter.style.display = count > 0 ? 'flex' : 'none';
+                }
+            })
+            .catch(error => console.error('Error loading nav bookmark count:', error));
+    }
+    
     // Update on page load
-    document.addEventListener('DOMContentLoaded', updateNavCompareCount);
+    document.addEventListener('DOMContentLoaded', function() {
+        updateNavCompareCount();
+        updateNavBookmarkCount();
+    });
     
     // Update every 30 seconds to keep in sync
     setInterval(updateNavCompareCount, 30000);
+    setInterval(updateNavBookmarkCount, 30000);
+    
+    // Global function to update bookmark count (can be called from other pages)
+    window.updateBookmarkCount = updateNavBookmarkCount;
     </script>
 </body>
 </html>
