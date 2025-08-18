@@ -183,6 +183,46 @@ def add_to_compare(request):
 
 
 @require_POST
+def add_featured_to_compare(request):
+    """Add a featured product to comparison via AJAX"""
+    try:
+        data = json.loads(request.body)
+        product_id = data.get('product_id')
+        
+        if not product_id:
+            return JsonResponse({'success': False, 'message': 'Product ID is required'})
+        
+        product = get_object_or_404(Product, id=product_id)
+        comparison_session = get_or_create_comparison_session(request)
+        
+        # Check limit before adding
+        current_count = ComparedProduct.objects.filter(comparison_session=comparison_session).count()
+        if current_count >= 4:
+            return JsonResponse({'success': False, 'message': 'You can only compare up to 4 products'})
+        
+        # Check if already in comparison
+        if ComparedProduct.objects.filter(comparison_session=comparison_session, product=product).exists():
+            return JsonResponse({'success': False, 'message': 'Product already in comparison'})
+        
+        # Add to comparison (no scraping needed since featured products have complete details)
+        ComparedProduct.objects.create(comparison_session=comparison_session, product=product)
+        
+        # Get updated count
+        new_count = ComparedProduct.objects.filter(comparison_session=comparison_session).count()
+        
+        return JsonResponse({
+            'success': True, 
+            'message': f'{product.name} added to comparison successfully',
+            'count': new_count,
+            'scraped': True  # Featured products always have complete details
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in add_featured_to_compare: {str(e)}")
+        return JsonResponse({'success': False, 'message': 'An error occurred while adding the product to comparison'})
+
+
+@require_POST
 def remove_from_compare(request):
     """Remove a product from comparison via AJAX"""
     try:
