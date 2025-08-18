@@ -21,10 +21,18 @@ def registration(request):
         form = CustomUserCreationForm(request.POST, request.FILES)  # Add request.FILES
         if form.is_valid():
             user = form.save()
-            # Log the user in after registration
-            login(request, user)
-            messages.success(request, "Account created successfully! Welcome to wisecart!")
-            return redirect('users:profile')
+            # Authenticate the user to get the proper backend
+            authenticated_user = authenticate(request, username=user.username, password=form.cleaned_data['password1'])
+            if authenticated_user:
+                login(request, authenticated_user)
+                messages.success(request, "Account created successfully! Welcome to wisecart!")
+                return redirect('users:profile')
+            else:
+                # Fallback: manually set backend and login
+                user.backend = 'users.backends.EmailOrUsernameModelBackend'
+                login(request, user)
+                messages.success(request, "Account created successfully! Welcome to wisecart!")
+                return redirect('users:profile')
     else:
         form = CustomUserCreationForm()
     return render(request, "users/registration.html", {"form": form})

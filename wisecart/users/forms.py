@@ -28,13 +28,17 @@ class CustomUserCreationForm(UserCreationForm):
         """Validate profile picture file"""
         profile_picture = self.cleaned_data.get('profile_picture')
         if profile_picture:
-            # Check file size (5MB limit)
-            if profile_picture.size > 5 * 1024 * 1024:
-                raise ValidationError("Image file too large ( > 5MB )")
-            
-            # Check file type
-            if not profile_picture.content_type.startswith('image/'):
-                raise ValidationError("File is not an image")
+            # Check if this is a new file upload (has content_type) or existing file
+            if hasattr(profile_picture, 'content_type'):
+                # This is a new file upload
+                # Check file size (5MB limit)
+                if profile_picture.size > 5 * 1024 * 1024:
+                    raise ValidationError("Image file too large ( > 5MB )")
+                
+                # Check file type
+                if not profile_picture.content_type.startswith('image/'):
+                    raise ValidationError("File is not an image")
+            # If it's an existing file (ImageFieldFile), no validation needed
                 
         return profile_picture
 
@@ -74,12 +78,16 @@ class UpdateProfileForm(forms.ModelForm):
         """Validate profile picture file"""
         profile_picture = self.cleaned_data.get('profile_picture')
         if profile_picture:
-            # Check file size (5MB limit)
-            if profile_picture.size > 5 * 1024 * 1024:
-                raise ValidationError("Image file too large ( > 5MB )")
-            
-            # Check file type
-            if not profile_picture.content_type.startswith('image/'):
-                raise ValidationError("File is not an image")
+            # Check if this is a new file upload (has content_type) or existing file
+            if hasattr(profile_picture, 'content_type'):
+                # This is a new file upload
+                # Check file size (5MB limit)
+                if profile_picture.size > 5 * 1024 * 1024:
+                    raise ValidationError("Image file too large ( > 5MB )")
+                
+                # Check file type
+                if not profile_picture.content_type.startswith('image/'):
+                    raise ValidationError("File is not an image")
+            # If it's an existing file (ImageFieldFile), no validation needed
                 
         return profile_picture
