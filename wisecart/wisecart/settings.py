@@ -49,6 +49,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "products.context_processors.featured_products",
+                "products.context_processors.bookmark_count",
                 "shops.context_processors.featured_shops",
             ],
         },

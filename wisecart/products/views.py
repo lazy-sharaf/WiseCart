@@ -251,3 +251,13 @@ def bookmarks_list(request):
         'total_bookmarks': bookmarks.count(),
     }
     return render(request, 'products/bookmarks.html', context)
+
+
+def bookmark_count_view(request):
+    """Return bookmark count for the current user."""
+    if request.user.is_authenticated:
+        count = Bookmark.objects.filter(user=request.user).count()
+    else:
+        count = 0
+    
+    return JsonResponse({'count': count})
